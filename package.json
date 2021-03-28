@@ -1,0 +1,26 @@
+{
+  "name": "post-share",
+  "version": "1.0.0",
+  "description": "Post and Share stuff.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FxGs/post-share.git"
+  },
+  "author": "Abhishek Mohanta <avimcw@protonmail.ch> ()",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FxGs/post-share/issues"
+  },
+  "homepage": "https://github.com/FxGs/post-share#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2"
+  }
+}
