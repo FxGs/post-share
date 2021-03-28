@@ -1,0 +1,8 @@
+<% layout('layout/boilerplate') -%>
+<h1 class="title">showing posts</h1>
+<% for(let post of posts) { %>
+    <ul>
+        <li><%=post.author%></li>
+    </ul>
+<% }%>
+
