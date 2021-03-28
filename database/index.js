@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const seeds = require('../database/seeds');
-const posts = require('../models/post');
+const Post = require('../models/post');
 
-mongoose.connect('mongodb://localhost:27017/test', {
+mongoose.connect('mongodb://localhost:27017/posts', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -18,7 +18,7 @@ db.once('open', function() {
 
 const postDB = async() => {
     for(let i=0; i<2; ++i) {
-        const post = new posts({
+        const post = new Post({
             author: `${seeds[i].author}`
         });
         await post.save();

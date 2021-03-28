@@ -1,0 +1,10 @@
+<% layout('layout/boilerplate') -%>
+<h1 class="title">create a new post</h1>
+
+<form action="/posts" method="POST">
+    <label for="author">Author</label>
+    <input type="text" id="author" name="post[author]">
+    <label for="title">Title</label>
+    <input type="text" id="title" name="post[title]">
+    <button>ADD</button>
+</form>
