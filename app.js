@@ -24,6 +24,7 @@ app.set('view engine', 'ejs');
 app.set("views", path.join("__dirname","../views"));
 app.engine("ejs", ejsMate);
 
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -50,6 +51,10 @@ app.get("/posts/:id", async (req, res) => {
   const post = await Post.findById(req.params.id);
   res.render("posts/showpost", { post });
 });
+
+app.get("/contacts", (req, res) => {
+  res.send("under construction");
+})
 
 app.get('*', (req, res) => {
   res.send("not found");
