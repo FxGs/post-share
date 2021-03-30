@@ -1,0 +1,52 @@
+      <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">CREATE A NEW POST</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <form action="/posts" method="POST">
+              <div class="field">
+                <label for="author" class="label">Author</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="author"
+                    name="post[author]"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label for="title" class="label">Title</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="title"
+                    name="post[title]"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label for="body" class="label">Body</label>
+                <div class="control">
+                  <textarea
+                    class="textarea"
+                    rows="5"
+                    id="body"
+                    name="post[body]"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button is-primary is-fullwidth">ADD</button>
+                </div>
+              </div>
+            </form>
+          </section>
+          <footer class="modal-card-foot"></footer>
+        </div>
+      </div>
