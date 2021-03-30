@@ -7,11 +7,17 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
     />
   </head>
-  <body class="has-navbar-fixed-top">
+  <body
+    class="has-navbar-fixed-top is-flex is-flex-direction-column"
+    style="height: 100vh"
+  >
     <%-include('../partials/navbar')%>
     <section>
-      <main class="container"><%- body -%></main>
+      <main class="container" style="margin-top: 3rem"><%- body -%></main>
+      <%-include('../partials/newmodal')%>
     </section>
+    <%-include('../partials/footer')%>
   </body>
   <script src="/scripts/navbar.js"></script>
+  <script src="/scripts/modal.js"></script>
 </html>
