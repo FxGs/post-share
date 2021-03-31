@@ -27,7 +27,7 @@
             <p class="subtitle is-6"><%=post.author%></p>
           </div>
         </div>
-        
+
         <div class="content">
           <a href="/posts/<%=post.id%>">open</a>
           <br />
@@ -35,8 +35,20 @@
         </div>
       </div>
       <footer class="card-footer">
-        <a href="#" class="card-footer-item"><i class="far fa-heart" id="like" style="display: block;"></i><i class="fas fa-heart" id="dislike" style="display: none;"></i>Like</a>
-        <a href="#" class="card-footer-item"><i class="fas fa-comments"></i>Comments</a>
+        <a href="#" class="card-footer-item"
+          ><span class="icon"
+            ><i class="far fa-heart" id="like" style="display: block"></i
+            ><i
+              class="fas fa-heart"
+              id="dislike"
+              style="display: none"
+            ></i></span
+          ><span>Like</span></a
+        >
+        <a href="#" class="card-footer-item"
+          ><span class="icon"><i class="fas fa-comments"></i></span
+          ><span>Comments</span></a
+        >
       </footer>
     </div>
     <% }%>
