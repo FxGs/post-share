@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const seeds = require('../database/seeds');
 const Post = require('../models/post');
-
-mongoose.connect('mongodb://localhost:27017/posts', {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true
+const {MONGOURI}=require('../keys');
+mongoose.connect(MONGOURI, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;

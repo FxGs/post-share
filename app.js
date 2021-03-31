@@ -5,8 +5,10 @@ const ejsMate = require('ejs-mate');
 const port = 3000;
 const mongoose = require("mongoose");
 const Post = require("./models/post");
+const {MONGOURI}=require('./keys');
 
-mongoose.connect("mongodb://localhost:27017/posts", {
+
+mongoose.connect(MONGOURI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -36,14 +38,10 @@ app.get("/posts", async (req, res) => {
   res.render("posts/show", {posts});
 });
 
-app.get("/posts/new", (req, res) => {
-  res.render("posts/new");
-});
-
 app.post("/posts", async (req, res) => {
   const post = new Post(req.body.post);
   await post.save();
-  console.log(post);
+  // console.log(post);
   res.redirect(`/posts/${post.id}`);
 });
 
@@ -53,7 +51,7 @@ app.get("/posts/:id", async (req, res) => {
 });
 
 app.get("/contacts", (req, res) => {
-  res.send("under construction");
+  res.render("posts/contacts");
 })
 
 app.get('*', (req, res) => {
