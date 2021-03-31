@@ -1,0 +1,37 @@
+<% layout('layout/boilerplate') -%>
+<div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <h1 class="title">Edit Post</h1>
+      <form action="/posts/<%=post.id%>?_method=PUT" method="POST">
+        <div class="field">
+          <label for="author" class="label">Author</label>
+          <div class="control">
+            <input class="input" type="text" id="author" name="post[author]" value="<%=post.author%>" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="title" class="label">Title</label>
+          <div class="control">
+            <input class="input" type="text" id="title" name="post[title]" value="<%=post.title%>"/>
+          </div>
+        </div>
+        <div class="field">
+          <label for="body" class="label">body</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              rows="5"
+              id="body"
+              name="post[body]"
+            ><%=post.body%></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button class="button is-primary">Edit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
