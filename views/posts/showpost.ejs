@@ -23,7 +23,9 @@
           <div class="media-content">
             <p class="title is-4"><%=post.author%></p>
             <p class="subtitle is-6"><%=post.title%></p>
+
           </div>
+
         </div>
 
         <div class="content">
@@ -33,6 +35,15 @@
           <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
         </div>
       </div>
+      <footer class="card-footer">
+          <a class="card-footer-item" href="/posts/<%=post.id%>/edit" id="btn-edit-modal"><span class="icon">
+            <i class="fas fa-pen-square"></i>
+          </span>
+          <span>Edit</span></a>
+          <form class="card-footer-item" action="/posts/<%=post.id%>?_method=DELETE" method="POST">
+            <button class="button is-danger"><i class="fas fa-trash-alt"></i>delete</button>
+          </form>
+      </footer>
     </div>
   </div>
 </div>

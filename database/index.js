@@ -17,7 +17,7 @@ db.once('open', function() {
 });
 
 const postDB = async() => {
-    for(let i=0; i<3; ++i) {
+    for(let i=0; i<2; ++i) {
         const post = new Post({
             author: `${seeds[i].author}`
         });
