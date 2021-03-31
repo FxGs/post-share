@@ -1,6 +1,6 @@
 <% layout('layout/boilerplate') -%>
-<div class="columns is-mobile">
-  <div class="column is-half is-offset-one-quarter">
+<div class="columns is-mobile is-centered">
+  <div class="column is-three-quarters-mobile is-half-tablet">
     <h1 class="title">showing posts</h1>
     <% for(let post of posts) { %>
     <div class="card mb-5">
@@ -23,8 +23,8 @@
             </figure>
           </div>
           <div class="media-content">
-            <p class="title is-4"><%=post.author%></p>
-            <p class="subtitle is-6"><%=post.title%></p>
+            <p class="title is-4"><%=post.title%></p>
+            <p class="subtitle is-6"><%=post.author%></p>
           </div>
         </div>
 
@@ -34,6 +34,10 @@
           <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
         </div>
       </div>
+      <footer class="card-footer">
+        <a href="#" class="card-footer-item"><i class="far fa-heart" id="like" style="display: block;"></i><i class="fas fa-heart" id="dislike" style="display: none;"></i>Like</a>
+        <a href="#" class="card-footer-item"><i class="fas fa-comments"></i>Comments</a>
+      </footer>
     </div>
     <% }%>
   </div>
