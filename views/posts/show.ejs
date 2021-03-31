@@ -26,8 +26,18 @@
             <p class="title is-4"><%=post.author%></p>
             <p class="subtitle is-6"><%=post.title%></p>
           </div>
+          <div class="media-right">
+            <p class="buttons">
+              <button class="button is-small" >
+                <span class="icon">
+                  <i class="fas fa-pen-square"></i>
+                </span>
+                <span>Edit</span>
+              </button>
+            </p>
+          </div>
         </div>
-
+        
         <div class="content">
           <a href="/posts/<%=post.id%>">open</a>
           <br />
@@ -37,4 +47,11 @@
     </div>
     <% }%>
   </div>
+  <script>
+    function func1() {
+      <div class="box">
+        I'm in a box.
+      </div>
+    }
+    </script>
 </div>
