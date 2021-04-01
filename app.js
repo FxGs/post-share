@@ -72,6 +72,10 @@ app.get("/contacts", (req, res) => {
   res.render("posts/contacts");
 })
 
+app.get("/status", (req, res) => {
+  res.render("status");
+})
+
 app.get('*', (req, res) => {
   res.send("not found");
 });
