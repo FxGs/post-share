@@ -1,6 +1,6 @@
 <% layout('layout/boilerplate') -%>
-<div class="columns is-mobile">
-  <div class="column is-half is-offset-one-quarter">
+<div class="columns is-mobile is-centered">
+  <div class="column is-three-quarters-mobile is-half-tablet">
     <div class="card">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -23,9 +23,7 @@
           <div class="media-content">
             <p class="title is-4"><%=post.author%></p>
             <p class="subtitle is-6"><%=post.title%></p>
-
           </div>
-
         </div>
 
         <div class="content">
@@ -36,15 +34,26 @@
         </div>
       </div>
       <footer class="card-footer">
-          <a class="card-footer-item" href="/posts/<%=post.id%>/edit" id="btn-edit-modal"><span class="icon">
-            <i class="fas fa-pen-square"></i>
-          </span>
-          <span>Edit</span></a>
-          <form class="card-footer-item" action="/posts/<%=post.id%>?_method=DELETE" method="POST">
-            <button class="button is-danger"><i class="fas fa-trash-alt"></i>delete</button>
-          </form>
+        <a
+          class="card-footer-item"
+          href="/posts/<%=post.id%>/edit"
+          id="btn-edit-modal"
+          ><button class="button">
+            <span class="icon">
+              <i class="fas fa-pen-square"></i>
+            </span>
+            <span>Edit</span>
+          </button></a
+        >
+        <a class="card-footer-item" href="#">
+          <form action="/posts/<%=post.id%>?_method=DELETE" method="POST">
+            <button class="button">
+              <span class="icon"><i class="fas fa-trash-alt"></i></span
+              ><span>Delete</span>
+            </button>
+          </form></a
+        >
       </footer>
     </div>
   </div>
 </div>
-

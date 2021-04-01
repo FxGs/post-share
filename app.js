@@ -47,7 +47,6 @@ app.post("/posts", async (req, res) => {
   res.redirect(`/posts/${post.id}`);
 });
 
-
 app.get("/posts/:id", async (req, res) => {
   const post = await Post.findById(req.params.id);
   res.render("posts/showpost", { post });
@@ -57,6 +56,7 @@ app.get("/posts/:id/edit", async (req, res) =>{
   const post = await Post.findById(req.params.id);
   res.render("posts/edit", { post });
 });
+
 app.put("/posts/:id", async (req, res) =>{
   const post = await Post.findByIdAndUpdate(req.params.id, {...req.body.post});
   await post.save();
