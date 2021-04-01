@@ -1,74 +1,129 @@
-<% layout('layout/boilerplate') -%>
-<div class="columns is-mobile is-centered">
-  <div class="column is-three-quarters-mobile is-half-tablet">
-    <div class="box">
-      <h1 class="title">Edit Post</h1>
-      <form action="/posts/<%=post.id%>?_method=PUT" method="POST">
-        <div class="field">
-          <label for="author" class="label">Author</label>
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              id="author"
-              name="post[author]"
-              value="<%=post.author%>"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <label for="title" class="label">Title</label>
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              id="title"
-              name="post[title]"
-              value="<%=post.title%>"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <div id="file-js-example" class="file has-name is-fullwidth">
-            <label class="file-label">
-              <input class="file-input" type="file" name="image" multiple />
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label"> Add new images... </span>
-              </span>
-              <span class="file-name"> </span>
-            </label>
-          </div>
-        </div>
-        <div class="field">
-          <label for="body" class="label">body</label>
-          <div class="control">
-            <textarea class="textarea" rows="5" id="body" name="post[body]">
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://kit.fontawesome.com/59ef493f57.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>new post</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+  </head>
+  <body
+    class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
+    style="height: 100vh"
+  >
+    <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
+    <section>
+      <main class="container" style="margin-top: 3rem">
+        <div class="columns is-mobile is-centered">
+          <div class="column is-three-quarters-mobile is-half-tablet">
+            <div class="box">
+              <h1 class="title">Edit Post</h1>
+              <form
+                action="/posts/<%=post.id%>?_method=PUT"
+                method="POST"
+                enctype="multipart/form-data"
+              >
+                <div class="field">
+                  <label for="author" class="label">Author</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="author"
+                      name="post[author]"
+                      value="<%=post.author%>"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="title" class="label">Title</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="title"
+                      name="post[title]"
+                      value="<%=post.title%>"
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <div id="file-edit" class="file has-name is-fullwidth">
+                    <label class="file-label">
+                      <input
+                        class="file-input"
+                        type="file"
+                        name="image"
+                        multiple
+                      />
+                      <span class="file-cta">
+                        <span class="file-icon">
+                          <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label"> Add new images... </span>
+                      </span>
+                      <span class="file-name"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="field">
+                  <label for="body" class="label">body</label>
+                  <div class="control">
+                    <textarea
+                      class="textarea"
+                      rows="5"
+                      id="body"
+                      name="post[body]"
+                    >
 <%=post.body%></textarea
-            >
+                    >
+                  </div>
+                </div>
+                <% post.image.forEach(function(img, i) { %>
+                <div class="field is-grouped">
+                  <div class="control">
+                    <figure class="image is-96x96">
+                      <img src="<%=img.url%>" alt="" />
+                    </figure>
+                  </div>
+                  <div class="control">
+                    <input
+                      type="checkbox"
+                      id="image-<%=i%>"
+                      name="deleteImages[]"
+                      value="<%=img.filename%>"
+                    />
+                    <label for="image-<%=i%>">Delete</label>
+                  </div>
+                </div>
+                <% }) %>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-primary is-fullwidth">Edit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div class="field is-grouped">
-          <% post.image.forEach(function(img, i) { %>
-          <div class="control">
-            <figure class="image is-96x96">
-              <img src="<%=img.url%>" alt="" />
-            </figure>
-          </div>
-          <div class="control">
-            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>" />
-            <label for="image-<%=i%>">Delete</label>
-          </div>
-          <% }) %>
-        </div>
-        <div class="field">
-          <div class="control">
-            <button class="button is-primary is-fullwidth">Edit</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </main>
+    </section>
+    <%-include('../partials/footer')%>
+  </body>
+  <script src="/scripts/navbar.js"></script>
+  <script src="/scripts/modal.js"></script>
+  <script>
+    const fileInput2 = document.querySelector("#file-edit input[type=file]");
+    fileInput2.onchange = () => {
+      if (fileInput2.files.length > 0) {
+        const fileName2 = document.querySelector("#file-edit .file-name");
+        fileName2.textContent = fileInput2.files[0].name;
+      }
+    };
+  </script>
+  <script src="/scripts/form-validation.js"></script>
+</html>

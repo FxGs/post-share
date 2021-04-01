@@ -6,7 +6,7 @@ const Post = require("../models/post");
 const multer = require("multer");
 
 //cloudinary storage requirement
-const { storage } = require("../cloudinary");
+const { storage, cloudinary } = require("../cloudinary");
 
 //specifying the destination of images uploaded
 const upload = multer({ storage });
@@ -36,11 +36,26 @@ router.get("/:id/edit", async (req, res) => {
   res.render("posts/edit", { post });
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.array("image"), async (req, res) => {
   const post = await Post.findByIdAndUpdate(req.params.id, {
     ...req.body.post,
   });
+  const imgs = req.files.map((f) => ({
+    url: f.path,
+    filename: f.filename,
+  }));
+  post.image.push(...imgs);
   await post.save();
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+    await post.updateOne({
+      $pull: {
+        image: { filename: { $in: req.body.deleteImages } },
+      },
+    });
+  }
   res.redirect(`/posts/${post.id}`);
 });
 
