@@ -29,12 +29,39 @@
           </div>
         </div>
         <div class="field">
+          <div id="file-js-example" class="file has-name is-fullwidth">
+            <label class="file-label">
+              <input class="file-input" type="file" name="image" multiple />
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label"> Add new images... </span>
+              </span>
+              <span class="file-name"> </span>
+            </label>
+          </div>
+        </div>
+        <div class="field">
           <label for="body" class="label">body</label>
           <div class="control">
             <textarea class="textarea" rows="5" id="body" name="post[body]">
 <%=post.body%></textarea
             >
           </div>
+        </div>
+        <div class="field is-grouped">
+          <% post.image.forEach(function(img, i) { %>
+          <div class="control">
+            <figure class="image is-96x96">
+              <img src="<%=img.url%>" alt="" />
+            </figure>
+          </div>
+          <div class="control">
+            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>" />
+            <label for="image-<%=i%>">Delete</label>
+          </div>
+          <% }) %>
         </div>
         <div class="field">
           <div class="control">
