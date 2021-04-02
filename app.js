@@ -1,5 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+
 const app = express();
 const path = require('path');
 const ejsMate = require('ejs-mate');
@@ -7,6 +9,8 @@ const port = 3000;
 const mongoose = require("mongoose");
 const Post = require("./models/post");
 const {MONGOURI}=require('./keys');
+const user = require("./routers/user");
+const postroutes = require("./routers/postrouter");
 
 
 mongoose.connect(MONGOURI, {
@@ -31,47 +35,27 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+app.use("/user",user);
+
 app.get('/', (req, res) => {
   res.render("home");
 });
 
-app.get("/posts", async (req, res) => {
-  const posts = await Post.find({});
-  res.render("posts/show", {posts});
+
+app.get('/', (req, res) => {
+  res.render("home");
 });
 
-app.post("/posts", async (req, res) => {
-  const post = new Post(req.body.post);
-  await post.save();
-  // console.log(post);
-  res.redirect(`/posts/${post.id}`);
-});
+app.use("/posts", postroutes);
 
-app.get("/posts/:id", async (req, res) => {
-  const post = await Post.findById(req.params.id);
-  res.render("posts/showpost", { post });
-});
-
-app.get("/posts/:id/edit", async (req, res) =>{
-  const post = await Post.findById(req.params.id);
-  res.render("posts/edit", { post });
-});
-
-app.put("/posts/:id", async (req, res) =>{
-  const post = await Post.findByIdAndUpdate(req.params.id, {...req.body.post});
-  await post.save();
-  // console.log(post);
-  res.redirect(`/posts/${post.id}`);
-});
-app.delete("/posts/:id", async(req, res) =>{
-  await Post.findByIdAndDelete(req.params.id);
-  // console.log(req.params.id);
-  res.redirect("/posts");
-})
 app.get("/contacts", (req, res) => {
   res.render("posts/contacts");
-})
+});
 
+app.get("/signup",(req,res)=> {
+  res.render("users/signup");
+});
 app.get("/status", (req, res) => {
   res.render("status");
 })
@@ -79,6 +63,7 @@ app.get("/status", (req, res) => {
 app.get('*', (req, res) => {
   res.send("not found");
 });
+
 
 app.listen(port, () => {
   console.log('Connected.');
