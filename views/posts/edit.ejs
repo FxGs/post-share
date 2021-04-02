@@ -79,8 +79,14 @@
                       id="body"
                       name="post[body]"
                     >
-<%=post.body%></textarea
-                    >
+<%=post.body%></textarea>
+          </div>
+        </div>
+        <div class="field is-grouped is-grouped-right">
+          <div class="control">
+            <button id="" type="submit" class="button is-primary">save changes</button>
+            <button class="button is-light" href="/posts/<%=post.id%>">cancel</button>
+                    
                   </div>
                 </div>
                 <% post.image.forEach(function(img, i) { %>
