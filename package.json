@@ -18,9 +18,13 @@
   },
   "homepage": "https://github.com/FxGs/post-share#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.2",
     "nodemon": "^2.0.7"

@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
@@ -7,6 +8,7 @@ const port = 3000;
 const mongoose = require("mongoose");
 const Post = require("./models/post");
 const {MONGOURI}=require('./keys');
+const user = require("./routers/user");
 
 
 mongoose.connect(MONGOURI, {
@@ -31,6 +33,9 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+
+app.use("/user",user);
+
 app.get('/', (req, res) => {
   res.render("home");
 });
@@ -67,14 +72,18 @@ app.delete("/posts/:id", async(req, res) =>{
   await Post.findByIdAndDelete(req.params.id);
   // console.log(req.params.id);
   res.redirect("/posts");
-})
+});
 app.get("/contacts", (req, res) => {
   res.render("posts/contacts");
-})
+});
 
+app.get("/signup",(req,res)=> {
+  res.render("users/signup");
+});
 app.get('*', (req, res) => {
   res.send("not found");
 });
+
 
 app.listen(port, () => {
   console.log('Connected.');
