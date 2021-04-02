@@ -8,7 +8,7 @@
           <button class="delete" aria-label="close"></button>
         </header>
         <section class="modal-card-body">
-          <form action="/posts" method="POST">
+          <form action="/posts" method="POST"  >
             <div class="field">
               <label for="author" class="label">Author</label>
               <div class="control has-icons-right">
@@ -18,39 +18,54 @@
                   id="author"
                   name="post[author]"
                 />
-                <span class="icon is-small is-right is-hidden">
-                  <i class="fas fa-check"></i>
+                <span class="icon is-small is-right" >
+                  <i class="fas fa-check" id="authorSuccessIcon" style="display: none;"></i>
                 </span>
-                <span class="icon is-small is-right is-hidden">
-                  <i class="fas fa-exclamation-triangle"></i>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" id="authorErrorIcon" style="display: none;"></i>
                 </span>
+                <p id="author_error" class="help is-error" style="display: none;">Author cannot be blank!</p>
               </div>
             </div>
             <div class="field">
               <label for="title" class="label">Title</label>
-              <div class="control">
+              <div class="control has-icons-right">
                 <input
                   class="input"
                   type="text"
                   id="title"
                   name="post[title]"
                 />
+                <span class="icon is-small is-right" >
+                  <i class="fas fa-check" id="titleSuccessIcon" style="display: none;"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" id="titleErrorIcon" style="display: none;"></i>
+                </span>
+                <p id="title_error" class="help is-error" style="display: none;">Title cannot be blank!</p>
               </div>
             </div>
             <div class="field">
               <label for="body" class="label">Body</label>
-              <div class="control">
+              <div class="control has-icons-right">
                 <textarea
                   class="textarea"
                   rows="5"
                   id="body"
                   name="post[body]"
                 ></textarea>
+                <span class="icon is-small is-right" >
+                  <i class="fas fa-check" id="bodySuccessIcon" style="display: none;"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-exclamation-triangle" id="bodyErrorIcon" style="display: none;"></i>
+                </span>
+                <p id="body_error" class="help is-error" style="display: none;">Body cannot be blank!</p>
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <button class="button is-primary is-fullwidth">ADD</button>
+                <button class="button is-primary is-fullwidth" id="newpost" type="submit" disabled="true">ADD</button>
               </div>
             </div>
           </form>
