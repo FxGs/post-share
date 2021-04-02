@@ -22,6 +22,11 @@ router.post("/", upload.array("image"), async (req, res) => {
     url: f.path,
     filename: f.filename,
   }));
+  // if (post.image.length == 0) {
+  //   post.image[0] = {
+  //     url: "https://bulma.io/images/placeholders/1280x960.png",
+  //   };
+  // }
   await post.save();
   res.redirect(`/posts/${post.id}`);
 });

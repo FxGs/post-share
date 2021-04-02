@@ -1,35 +1,80 @@
 <% layout('layout/boilerplate') -%>
 <div class="columns is-mobile is-centered">
   <div class="column is-three-quarters-mobile is-half-tablet">
-    <div class="card">
-      <div class="card-image">
-        <figure class="image is-4by3">
-          <img
-            src="<%=post.image[0].url%>"
-            alt="Placeholder image"
-          />
-        </figure>
-      </div>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img
-                src="<%=post.image[0].url%>"
-                alt="Placeholder image"
-              />
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="title is-4"><%=post.title%></p>
-            <p class="subtitle is-6">@<%=post.author%></p>
+    <div class="card mb-5" style="max-width: 80%">
+      <header class="card-header pt-1 mb-1 mx-1" style="box-shadow: none">
+        <div class="card-header-title">
+          <div class="media">
+            <div class="media-left" style="margin-right: 0">
+              <figure class="image is-48x48">
+                <img
+                  class="is-rounded"
+                  src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+                  alt=""
+                />
+              </figure>
+            </div>
+            <div class="media-content">
+              <p
+                class="title"
+                style="font-size: 15px; font-family: 'Open Sans', sans-serif"
+              >
+                @<%=post.author%>
+              </p>
+            </div>
           </div>
         </div>
 
+        <div class="card-header-icon">
+          <div class="dropdown">
+            <a href="#" class="dropdown-icon">
+              <span class="icon" style="color: black"
+                ><i class="fas fa-ellipsis-v"></i
+              ></span>
+            </a>
+          </div>
+        </div>
+      </header>
+      <%if(post.image.length == 0){%>
+      <div class="card-image" style="display: none"></div>
+      <%}else{%>
+      <div class="card-image" style="max-height: 100%">
+        <figure class="image is-3by3">
+          <img src="<%=post.image[0].url%>" alt="Placeholder image" />
+        </figure>
+      </div>
+      <%}%>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
+              <%=post.title%>
+            </p>
+            <p class="subtitle is-6">@<%=post.body%></p>
+          </div>
+        </div>
         <div class="content">
-          <%=post.body%> <a>@bulmaio</a>. <a href="#">#css</a>
-          <a href="#">#responsive</a>
-          <br />
+          <div class="media">
+            <div class="media-left">
+              <a href="#" class=""
+                ><span
+                  class="icon"
+                  style="font-size: 1.5em; margin-right: 0.25em"
+                  ><i class="far fa-heart" id="like" style="display: block"></i
+                  ><i
+                    class="fas fa-heart"
+                    id="dislike"
+                    style="display: none"
+                  ></i></span
+              ></a>
+              <a href="posts/<%=post.id%>" class=""
+                ><span class="icon" id="comments" style="font-size: 1.5em"
+                  ><i class="fas fa-comments"></i></span
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="content">
           <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
         </div>
       </div>
@@ -53,6 +98,19 @@
             </button>
           </form></a
         >
+        <div class="card-footer-item">
+          <form action="#">
+            <div class="control">
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="2"
+                placeholder="comment.."
+              ></textarea>
+            </div>
+          </form>
+        </div>
       </footer>
     </div>
   </div>
