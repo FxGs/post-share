@@ -11,18 +11,21 @@
     "type": "git",
     "url": "git+https://github.com/FxGs/post-share.git"
   },
-  "author": "Abhishek Mohanta <avimcw@protonmail.ch> ()",
+  "author": "Abhishek,Deba,Nage,Somen",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/FxGs/post-share/issues"
   },
   "homepage": "https://github.com/FxGs/post-share#readme",
   "dependencies": {
+    "cloudinary": "^1.25.1",
     "ejs": "^3.1.6",
     "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.2",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.7"
   }
 }
