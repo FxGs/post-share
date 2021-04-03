@@ -10,6 +10,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/stylesheets/boiler.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
@@ -19,7 +26,9 @@
     <section>
       <main class="container" style="margin-top: 3rem">
         <div class="columns is-mobile is-centered">
-          <div class="column is-three-quarters-mobile is-half-tablet">
+          <div
+            class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
+          >
             <div class="box">
               <h1 class="title">Edit Post</h1>
               <form
@@ -79,21 +88,20 @@
                       id="body"
                       name="post[body]"
                     >
-<%=post.body%></textarea>
-          </div>
-        </div>
-        <div class="field is-grouped is-grouped-right">
-          <div class="control">
-            <button id="" type="submit" class="button is-primary">save changes</button>
-            <button class="button is-light" href="/posts/<%=post.id%>">cancel</button>
-                    
+<%=post.body%></textarea
+                    >
                   </div>
                 </div>
+
                 <% post.image.forEach(function(img, i) { %>
                 <div class="field is-grouped">
                   <div class="control">
                     <figure class="image is-96x96">
-                      <img src="<%=img.url%>" alt="" />
+                      <img
+                        src="<%=img.url%>"
+                        alt=""
+                        style="width: 96px; height: 96px"
+                      />
                     </figure>
                   </div>
                   <div class="control">
@@ -107,9 +115,14 @@
                   </div>
                 </div>
                 <% }) %>
-                <div class="field">
+                <div class="field is-grouped is-grouped-right">
                   <div class="control">
-                    <button class="button is-primary is-fullwidth">Edit</button>
+                    <button id="" type="submit" class="button is-primary">
+                      save changes
+                    </button>
+                    <button class="button is-light" href="/posts/<%=post.id%>">
+                      cancel
+                    </button>
                   </div>
                 </div>
               </form>

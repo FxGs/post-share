@@ -1,0 +1,39 @@
+label {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: medium !important;
+}
+
+input {
+  font-family: "Amiri", serif !important;
+  font-weight: 400 !important;
+}
+
+button {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: medium !important;
+}
+
+#dropdown-menu4 {
+  background-color: hsl(0, 0%, 21%);
+}
+
+#dropdown-menu4 .dropdown-content {
+  background-color: hsl(0, 0%, 21%);
+}
+
+#dropdown-menu4 .dropdown-item {
+  background-color: hsl(0, 0%, 21%);
+  color: #fff;
+}
+
+#dropdown-menu4 .dropdown-item .button {
+  background-color: hsl(0, 0%, 21%);
+  color: #fff;
+  outline: none;
+}
+
+#dropdown-menu4 .dropdown-item button:hover {
+  background-color: hsl(0, 7%, 18%);
+  color: #fff;
+}
+
