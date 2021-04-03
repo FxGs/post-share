@@ -1,37 +1,63 @@
 <% layout('layout/boilerplate') -%>
 <div class="columns is-mobile is-centered">
-  <div class="column is-three-quarters-mobile is-half-tablet">
-    <div class="card mb-5" style="max-width: 80%">
-      <header class="card-header pt-1 mb-1 mx-1" style="box-shadow: none">
+  <div
+    class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
+    style="padding: 0"
+  >
+    <div class="card mb-5">
+      <header class="card-header" style="box-shadow: none">
         <div class="card-header-title">
-          <div class="media">
-            <div class="media-left" style="margin-right: 0">
-              <figure class="image is-48x48">
-                <img
-                  class="is-rounded"
-                  src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                  alt=""
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <p
-                class="title"
-                style="font-size: 15px; font-family: 'Open Sans', sans-serif"
-              >
-                @<%=post.author%>
-              </p>
-            </div>
-          </div>
+          <figure class="image is-48x48 mr-2">
+            <img
+              class="is-rounded"
+              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+              alt=""
+            />
+          </figure>
+          <p
+            class="title"
+            style="font-size: 15px; font-family: 'Open Sans', sans-serif"
+          >
+            @<%=post.author%>
+          </p>
         </div>
-
         <div class="card-header-icon">
-          <div class="dropdown">
-            <a href="#" class="dropdown-icon">
-              <span class="icon" style="color: black"
-                ><i class="fas fa-ellipsis-v"></i
-              ></span>
-            </a>
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button
+                class="button"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu4"
+                style="border: none"
+              >
+                <span class="icon is-small">
+                  <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <a href="/posts/<%=post.id%>/edit" class="dropdown-item">
+                  <button class="button" style="border: none;">
+                    <span class="icon">
+                      <i class="fas fa-pen-square"></i>
+                    </span>
+                    <span>Edit</span>
+                  </button>
+                </a>
+                <a href="#" class="dropdown-item">
+                  <form
+                    action="/posts/<%=post.id%>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button class="button" style="border: none">
+                      <span class="icon"><i class="fas fa-trash-alt"></i></span
+                      ><span>Delete</span>
+                    </button>
+                  </form></a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </header>
@@ -50,7 +76,7 @@
             <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
               <%=post.title%>
             </p>
-            <p class="subtitle is-6">@<%=post.body%></p>
+            <p class="subtitle is-6"><%=post.body%></p>
           </div>
         </div>
         <div class="content">
@@ -59,17 +85,13 @@
               <a href="#" class=""
                 ><span
                   class="icon"
-                  style="font-size: 1.5em; margin-right: 0.25em"
+                  style="font-size: 1.5em; margin-right: 0.25em; color: black"
                   ><i class="far fa-heart" id="like" style="display: block"></i
                   ><i
                     class="fas fa-heart"
                     id="dislike"
                     style="display: none"
                   ></i></span
-              ></a>
-              <a href="posts/<%=post.id%>" class=""
-                ><span class="icon" id="comments" style="font-size: 1.5em"
-                  ><i class="fas fa-comments"></i></span
               ></a>
             </div>
           </div>
@@ -78,33 +100,12 @@
           <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
         </div>
       </div>
-      <footer class="card-footer">
-        <a
-          class="card-footer-item"
-          href="/posts/<%=post.id%>/edit"
-          id="btn-edit-modal"
-          ><button class="button">
-            <span class="icon">
-              <i class="fas fa-pen-square"></i>
-            </span>
-            <span>Edit</span>
-          </button></a
-        >
-        <a class="card-footer-item" href="#">
-          <form action="/posts/<%=post.id%>?_method=DELETE" method="POST">
-            <button class="button">
-              <span class="icon"><i class="fas fa-trash-alt"></i></span
-              ><span>Delete</span>
-            </button>
-          </form></a
-        >
-        <div class="card-footer-item">
+      <footer class="card-footer" style="border-top: none">
+        <div class="field px-3 pb-3" style="width: 100%">
           <form action="#">
             <div class="control">
               <textarea
-                name=""
-                id=""
-                cols="30"
+                class="textarea is-focused"
                 rows="2"
                 placeholder="comment.."
               ></textarea>

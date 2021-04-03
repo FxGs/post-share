@@ -1,28 +1,32 @@
 <% layout('layout/boilerplate') -%>
 <div class="columns is-mobile is-centered">
-  <div class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop" style="padding: 0;">
+  <div
+    class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
+    style="padding: 0"
+  >
     <% for(let post of posts) { %>
     <div class="card mb-5">
-      <header class="card-header pt-1 mb-1 mx-1" style="box-shadow: none">
-        <div class="media">
-          <div class="media-left" style="margin-right: 0">
-            <figure class="image is-48x48">
-              <img
-                class="is-rounded"
-                src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                alt=""
-              />
-            </figure>
-          </div>
-          <div class="media-content">
-            <p class="card-header-title" style="font-size: 15px; font-family: 'Open Sans', sans-serif;">@<%=post.author%></p>
-          </div>
+      <header class="card-header" style="box-shadow: none">
+        <div class="card-header-title">
+          <figure class="image is-48x48 mr-2">
+            <img
+              class="is-rounded"
+              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+              alt=""
+            />
+          </figure>
+          <p
+            class="title"
+            style="font-size: 15px; font-family: 'Open Sans', sans-serif"
+          >
+            @<%=post.author%>
+          </p>
         </div>
       </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
       <%}else{%>
-      <div class="card-image" style="max-height: 100%;">
+      <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
           <img src="<%=post.image[0].url%>" alt="" />
         </figure>
@@ -31,8 +35,15 @@
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4" style="font-family: 'Open Sans', sans-serif;"><%=post.title%></p>
-            <p class="subtitle is-6" style="font-family: 'Open Sans', sans-serif;"><%=post.body%></p>
+            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
+              <%=post.title%>
+            </p>
+            <p
+              class="subtitle is-6"
+              style="font-family: 'Open Sans', sans-serif"
+            >
+              <%=post.body%>
+            </p>
           </div>
         </div>
         <div class="content">
@@ -41,16 +52,19 @@
               <a href="#" class=""
                 ><span
                   class="icon"
-                  style="font-size: 1.5em; margin-right: 0.25em; color: black;"
-                  ><i class="far fa-heart" id="like" style="display: block;"></i
+                  style="font-size: 1.5em; margin-right: 0.25em; color: black"
+                  ><i class="far fa-heart" id="like" style="display: block"></i
                   ><i
                     class="fas fa-heart"
                     id="dislike"
-                    style="display: none;"
+                    style="display: none"
                   ></i></span
               ></a>
               <a href="posts/<%=post.id%>" class=""
-                ><span class="icon" id="comments" style="font-size: 1.5em; color: black;"
+                ><span
+                  class="icon"
+                  id="comments"
+                  style="font-size: 1.5em; color: black"
                   ><i class="fas fa-comments"></i></span
               ></a>
             </div>
