@@ -23,13 +23,12 @@
   >
     <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
     <section>
-      <main class="container" style="margin-top: 3rem"><%- body -%></main>
+      <main class="container" style="margin-top: 3rem"><%- include("../partials/flash") %><%- body -%></main>
     </section>
     <%-include('../partials/footer')%>
   </body>
   <script src="/scripts/navbar.js"></script>
   <script src="/scripts/modal.js"></script>
-  <script></script>
   <script src="/scripts/form-validation.js"></script>
   <script src="/scripts/signup-validation.js"></script>
 </html>

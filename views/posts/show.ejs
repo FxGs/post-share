@@ -15,12 +15,7 @@
               alt=""
             />
           </figure>
-          <p
-            class="title"
-            style="font-size: 15px; font-family: 'Open Sans', sans-serif"
-          >
-            @<%=post.author%>
-          </p>
+          <p class="title">@<%=post.author%></p>
         </div>
       </header>
       <%if(post.image.length == 0){%>
@@ -35,15 +30,8 @@
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
-              <%=post.title%>
-            </p>
-            <p
-              class="subtitle is-6"
-              style="font-family: 'Open Sans', sans-serif"
-            >
-              <%=post.body%>
-            </p>
+            <p class="title is-4"><%=post.title%></p>
+            <p class="subtitle is-6"><%=post.body%></p>
           </div>
         </div>
         <div class="content">
@@ -71,7 +59,7 @@
           </div>
         </div>
         <div class="content">
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          <p><%=post.postedat%></p>
         </div>
       </div>
     </div>

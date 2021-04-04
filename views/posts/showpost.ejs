@@ -38,7 +38,7 @@
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
                 <a href="/posts/<%=post.id%>/edit" class="dropdown-item">
-                  <button class="button" style="border: none;">
+                  <button class="button" style="border: none">
                     <span class="icon">
                       <i class="fas fa-pen-square"></i>
                     </span>
@@ -97,18 +97,21 @@
           </div>
         </div>
         <div class="content">
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          
         </div>
       </div>
       <footer class="card-footer" style="border-top: none">
-        <div class="field px-3 pb-3" style="width: 100%">
+        <div class="field pl-3 pb-3 pr-6" style="width: 100%">
           <form action="#">
-            <div class="control">
+            <div class="control" style="display: flex">
               <textarea
-                class="textarea is-focused"
-                rows="2"
+                class="textarea is-focused mr-3"
+                rows="1"
                 placeholder="comment.."
               ></textarea>
+              <span class="icon mt-2" style="font-size: 1.5rem; float: right"
+                ><i class="far fa-comment"></i
+              ></span>
             </div>
           </form>
         </div>

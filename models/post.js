@@ -6,12 +6,19 @@ const ImageSchema = new Schema({
   filename: String
 });
 
+ImageSchema.virtual("thumbnail").get(function () {
+  return this.url.replace("/upload", "/upload/g_faces,r_max");
+});
+
 const PostSchema = new Schema({
   author: String,
   title: String,
   image: [ImageSchema],
   body: String,
-  date: Date
+  postedat: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model("Post", PostSchema);
