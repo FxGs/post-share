@@ -1,96 +1,69 @@
-const author = document.getElementById("author");
-const title = document.getElementById("title");
-const body = document.getElementById("body");
-
-const newpostBtn = document.getElementById("newpost");
-
-var authorValidated = false;
-var bodyValidated = false;
-var titleValidated = false; 
-
-document.addEventListener('change', event => {
-    if (event.target.matches('#author')) {
-        validateauthor(event.target.value);
-    } else if (event.target.matches('#title')) {
-        validatetitle(event.target.value);
-    } else if (event.target.matches('#body')) {
-        validatebody(event.target.value);}
-}, false);
-
-function validateauthor(value){
-    
-    if(String(value) === ""){
-        author.classList.remove("is-success");
-        author.classList.add("is-danger");
-        document.getElementById("authorSuccessIcon").style.display="none";
-        document.getElementById("authorErrorIcon").style.display="block";
-        document.getElementById("author_error").style.display="block";
-        authorValidated= false;
-    }
-    else{
-        author.classList.remove("is-danger");
-        author.classList.add("is-success");
-        document.getElementById("authorErrorIcon").style.display="none";
-        document.getElementById("authorSuccessIcon").style.display="block";
-        document.getElementById("author_error").style.display="none";
-        authorValidated= true;
-        
+$(document).ready(function () {
+  var authorValidated = false;
+  var bodyValidated = false;
+  var titleValidated = false;
+  $(".new-area").change(function () {
+    if ($(".new-area").val() === "") {
+      $(".new-area").removeClass("is-success");
+      $(".new-area").addClass("is-danger");
+      $("#bodySuccessIcon").css("display", "none");
+      $("#bodyErrorIcon").css("display", "block");
+      $("#body_error").css("display", "block");
+      bodyValidated = false;
+    } else {
+      $(".new-area").removeClass("is-danger");
+      $(".new-area").addClass("is-success");
+      $("#bodyErrorIcon").css("display", "none");
+      $("#bodySuccessIcon").css("display", "block");
+      $("#body_error").css("display", "none");
+      bodyValidated = true;
     }
     checkSubmit();
-}
-
-function validatetitle(value){
-    
-    if(String(value) === ""){
-        title.classList.remove("is-success");
-        title.classList.add("is-danger");
-        document.getElementById("titleSuccessIcon").style.display="none";
-        document.getElementById("titleErrorIcon").style.display="block";
-        document.getElementById("title_error").style.display="block";
-        titleValidated= false;
-    }
-    else{
-        title.classList.remove("is-danger");
-        title.classList.add("is-success");
-        document.getElementById("titleErrorIcon").style.display="none";
-        document.getElementById("titleSuccessIcon").style.display="block";
-        document.getElementById("title_error").style.display="none";
-        titleValidated= true;
-        
+  });
+  $("#title").change(function () {
+    if ($("#title").val() === "") {
+      $("#title").removeClass("is-success");
+      $("#title").addClass("is-danger");
+      $("#titleSuccessIcon").css("display", "none");
+      $("#titleErrorIcon").css("display", "block");
+      $("#title_error").css("display", "block");
+      titleValidated = false;
+    } else {
+      $("#title").removeClass("is-danger");
+      $("#title").addClass("is-success");
+      $("#titleErrorIcon").css("display", "none");
+      $("#titleSuccessIcon").css("display", "block");
+      $("#title_error").css("display", "none");
+      titleValidated = true;
     }
     checkSubmit();
-}
-
-
-function validatebody(value){
-    
-    if(String(value) === ""){
-        body.classList.remove("is-success");
-        body.classList.add("is-danger");
-        document.getElementById("bodySuccessIcon").style.display="none";
-        document.getElementById("bodyErrorIcon").style.display="block";
-        document.getElementById("body_error").style.display="block";
-        bodyValidated= false;
-    }
-    else{
-        body.classList.remove("is-danger");
-        body.classList.add("is-success");
-        document.getElementById("bodyErrorIcon").style.display="none";
-        document.getElementById("bodySuccessIcon").style.display="block";
-        document.getElementById("body_error").style.display="none";
-        bodyValidated= true;
-        
+  });
+  $("#author").change(function () {
+    if ($("#author").val() === "") {
+      $("#author").removeClass("is-success");
+      $("#author").addClass("is-danger");
+      $("#authorSuccessIcon").css("display", "none");
+      $("#authorErrorIcon").css("display", "block");
+      $("#author_error").css("display", "block");
+      authorValidated = false;
+    } else {
+      $("#author").removeClass("is-danger");
+      $("#author").addClass("is-success");
+      $("#authorErrorIcon").css("display", "none");
+      $("#authorSuccessIcon").css("display", "block");
+      $("#author_error").css("display", "none");
+      authorValidated = true;
     }
     checkSubmit();
-}
+  });
+  function checkSubmit() {
+    if (authorValidated && titleValidated && bodyValidated) {
+      console.log(authorValidated + " " + titleValidated + " " + bodyValidated);
+      $("#newpost").attr("disabled", false);
+      // $("#newpost").removeAttr("disabled");
+    } else {
+      $("#newpost").attr("disabled", true);
+    }
+  }
+});
 
-function checkSubmit(){
-    if(authorValidated && titleValidated && bodyValidated){
-        newpostBtn.disabled=false;
-        newpostBtn.removeAttribute('disabled');
-    }
-    else{
-        newpostBtn.disabled=true;
-        newpostBtn.setAttribute('disabled','true');
-    }
-}

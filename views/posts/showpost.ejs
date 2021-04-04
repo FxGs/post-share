@@ -63,11 +63,23 @@
       </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
-      <%}else{%>
+      <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
-          <img src="<%=post.image[0].url%>" alt="Placeholder image" />
+          <img src="<%=post.image[0].url%>" alt="" />
         </figure>
+      </div>
+      <%}else{%>
+      <div class="container is-clipped">
+        <div id="slider">
+          <%for(var i = 0; i < post.image.length; i++){%>
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image is-3by3">
+              <img src="<%=post.image[i].url%>" alt="" />
+            </figure>
+          </div>
+          <%}%>
+        </div>
       </div>
       <%}%>
       <div class="card-content">
@@ -96,20 +108,22 @@
             </div>
           </div>
         </div>
-        <div class="content">
-          
-        </div>
+        <div class="content"></div>
       </div>
       <footer class="card-footer" style="border-top: none">
-        <div class="field pl-3 pb-3 pr-6" style="width: 100%">
+        <div class="field pl-3 pb-3 pr-3" style="width: 100%">
           <form action="#">
+            <label class="label" for="comment">Add a comment..</label>
             <div class="control" style="display: flex">
-              <textarea
-                class="textarea is-focused mr-3"
-                rows="1"
+              <input
+                class="input mr-2"
+                type="text"
+                name=""
+                id="comment"
                 placeholder="comment.."
-              ></textarea>
-              <span class="icon mt-2" style="font-size: 1.5rem; float: right"
+                autofocus
+              />
+              <span class="icon mt-2" style="font-size: 1.8rem; float: right"
                 ><i class="far fa-comment"></i
               ></span>
             </div>
@@ -117,5 +131,6 @@
         </div>
       </footer>
     </div>
+    <div class="card"></div>
   </div>
 </div>

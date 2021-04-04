@@ -5,30 +5,90 @@
       src="https://kit.fontawesome.com/59ef493f57.js"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/scripts/emojionearea.min.js"></script>
     <title>new post</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css"
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
     style="height: 100vh"
   >
+    <div class="pageloader is-dark"><span class="title">Loading...</span></div>
     <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
     <section>
-      <main class="container" style="margin-top: 3rem"><%- include("../partials/flash") %><%- body -%></main>
+      <main class="container" style="margin-top: 3rem">
+        <%- include("../partials/flash") %><%- body -%>
+      </main>
     </section>
     <%-include('../partials/footer')%>
+    <script>
+      if ($(".pageloader").length) {
+        $(".pageloader").toggleClass("is-active");
+        $(window).on("load", function () {
+          var pageloadtime = setTimeout(function () {
+            $(".pageloader").toggleClass("is-active");
+            clearTimeout(pageloadtime);
+          }, 1000);
+        });
+      }
+    </script>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script src="/scripts/form-validation.js"></script>
+    <script src="/scripts/signup-validation.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".new-area").emojioneArea({
+          pickerPosition: "bottom",
+          filtersPosition: "bottom",
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $("#comment").emojioneArea({
+          events: {
+            ready: function () {
+              this.setFocus();
+            },
+          },
+          pickerPosition: "top",
+          filtersPosition: "bottom",
+          spellcheck: true,
+        });
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
+    <script>
+      // Initialize all elements with carousel class.
+      bulmaCarousel.attach("#slider", [
+        { changePoint: 480, slidesToShow: 1, slidesToScroll: 1 },
+        { changePoint: 640, slidesToShow: 1, slidesToScroll: 1 },
+        { changePoint: 768, slidesToShow: 1, slidesToScroll: 1 },
+      ]);
+    </script>
   </body>
-  <script src="/scripts/navbar.js"></script>
-  <script src="/scripts/modal.js"></script>
-  <script src="/scripts/form-validation.js"></script>
-  <script src="/scripts/signup-validation.js"></script>
 </html>

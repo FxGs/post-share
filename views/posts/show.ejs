@@ -20,11 +20,23 @@
       </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
-      <%}else{%>
+      <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
           <img src="<%=post.image[0].url%>" alt="" />
         </figure>
+      </div>
+      <%}else{%>
+      <div class="container is-clipped">
+        <div id="slider">
+          <%for(var i = 0; i < post.image.length; i++){%>
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image is-3by3">
+              <img src="<%=post.image[i].url%>" alt="" />
+            </figure>
+          </div>
+          <%}%>
+        </div>
       </div>
       <%}%>
       <div class="card-content">
