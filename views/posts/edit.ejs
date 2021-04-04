@@ -2,6 +2,11 @@
 <html>
   <head>
     <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://kit.fontawesome.com/59ef493f57.js"
       crossorigin="anonymous"
     ></script>
@@ -32,32 +37,48 @@
             <div class="box">
               <h1 class="title">Edit Post</h1>
               <form
-                action="/posts/<%=post.id%>?_method=PUT"
-                method="POST"
-                enctype="multipart/form-data"
+              action="/posts/<%=post.id%>?_method=PUT"
+              method="POST"
+              enctype="multipart/form-data"
               >
                 <div class="field">
                   <label for="author" class="label">Author</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <input
-                      class="input"
+                      class="input is-success edit-author"
                       type="text"
                       id="author"
                       name="post[author]"
                       value="<%=post.author%>"
+                      required
                     />
+                    <span class="icon is-small is-right" >
+                      <i class="fas fa-check" id="editauthorSuccessIcon" style="display: block;"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-exclamation-triangle" id="editauthorErrorIcon" style="display: none;"></i>
+                    </span>
+                    <p id="editauthor_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">Just tell your name</p>
                   </div>
                 </div>
                 <div class="field">
                   <label for="title" class="label">Title</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <input
-                      class="input"
+                      class="input is-success edit-title"
                       type="text"
                       id="title"
                       name="post[title]"
                       value="<%=post.title%>"
+                      required
                     />
+                    <span class="icon is-small is-right" >
+                      <i class="fas fa-check" id="edittitleSuccessIcon" style="display: block;"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i class="fas fa-exclamation-triangle" id="edittitleErrorIcon" style="display: none;"></i>
+                    </span>
+                    <p id="edittitle_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">Give a nice title to your post</p>
                   </div>
                 </div>
                 <div class="field">
@@ -81,15 +102,22 @@
                 </div>
                 <div class="field">
                   <label for="body" class="label">body</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <textarea
-                      class="textarea"
+                      class="textarea is-success edit-area"
                       rows="5"
                       id="body"
                       name="post[body]"
-                    >
-<%=post.body%></textarea
-                    >
+                      required
+                    ><%=post.body%>
+                  </textarea>
+                  <span class="icon is-small is-right" >
+                    <i class="fas fa-check" id="editbodySuccessIcon" style="display: block;"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-exclamation-triangle" id="editbodyErrorIcon" style="display: none;"></i>
+                  </span>
+                  <p id="editbody_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">a post without body is nonsense</p>
                   </div>
                 </div>
 
@@ -117,7 +145,7 @@
                 <% }) %>
                 <div class="field is-grouped is-grouped-right">
                   <div class="control">
-                    <button id="" type="submit" class="button is-primary">
+                    <button id="Edit-Btn" type="submit" class="button is-primary">
                       save changes
                     </button>
                     <button class="button is-light" href="/posts/<%=post.id%>">
@@ -145,4 +173,5 @@
     };
   </script>
   <script src="/scripts/form-validation.js"></script>
+  <script src="/scripts/edit-validation.js"></script>
 </html>
