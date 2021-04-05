@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
-
 const app = express();
 const path = require("path");
 const ejsMate = require("ejs-mate");
@@ -11,6 +10,9 @@ const Post = require("./models/post");
 const { MONGOURI } = require("./keys");
 const user = require("./routers/user");
 const postroutes = require("./routers/postrouter");
+const ExpressError = require("./utils/ExpressError");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 mongoose.connect(MONGOURI, {
   useNewUrlParser: true,
@@ -35,6 +37,25 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+const sessionConfig = {
+  secret: "thisshouldbeabettersecret!",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -54,8 +75,14 @@ app.get("/status", (req, res) => {
   res.render("status");
 });
 
-app.get("*", (req, res) => {
-  res.send("not found");
+app.get("*", (req, res, next) => {
+  next(new ExpressError("Page not Found", 404));
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "Something went wrong!!";
+  res.status(statusCode).render("error1", { err });
 });
 
 app.listen(port, () => {

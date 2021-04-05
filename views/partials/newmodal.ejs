@@ -1,4 +1,4 @@
-<div class="modal" style="padding-top: 20vh">
+<div class="modal" style="padding-top: 10vh" id="new-modal">
   <div class="columns is-mobile is-centered">
     <div class="column is-full-mobile is-three-quarters-tablet">
       <div class="modal-background"></div>
@@ -17,15 +17,32 @@
                   type="text"
                   id="author"
                   name="post[author]"
-                  required
                 />
-                <span class="icon is-small is-right" >
-                  <i class="fas fa-check" id="authorSuccessIcon" style="display: none;"></i>
+                <span class="icon is-small is-right">
+                  <i
+                    class="fas fa-check"
+                    id="authorSuccessIcon"
+                    style="display: none"
+                  ></i>
                 </span>
                 <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" id="authorErrorIcon" style="display: none;"></i>
+                  <i
+                    class="fas fa-exclamation-triangle"
+                    id="authorErrorIcon"
+                    style="display: none"
+                  ></i>
                 </span>
-                <p id="author_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">Just tell your name</p>
+                <p
+                  id="author_error"
+                  class="help is-error"
+                  style="
+                    display: none;
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: medium;
+                  "
+                >
+                  Just tell your name
+                </p>
               </div>
             </div>
             <div class="field">
@@ -36,52 +53,107 @@
                   type="text"
                   id="title"
                   name="post[title]"
+                  placeholder="𝓉𝒾𝓉𝓁𝑒.."
                 />
-                <span class="icon is-small is-right" >
-                  <i class="fas fa-check" id="titleSuccessIcon" style="display: none;"></i>
+                <span class="icon is-small is-right">
+                  <i
+                    class="fas fa-check"
+                    id="titleSuccessIcon"
+                    style="display: none"
+                  ></i>
                 </span>
                 <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" id="titleErrorIcon" style="display: none;"></i>
+                  <i
+                    class="fas fa-exclamation-triangle"
+                    id="titleErrorIcon"
+                    style="display: none"
+                  ></i>
                 </span>
-                <p id="title_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">Give a nice title to your post</p>
+                <p
+                  id="title_error"
+                  class="help is-error"
+                  style="
+                    display: none;
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: medium;
+                  "
+                >
+                  Give a nice title to your post
+                </p>
               </div>
             </div>
             <div class="field">
               <div id="file-js-example" class="file has-name is-fullwidth">
                 <label class="file-label">
-                  <input class="file-input" type="file" name="image" multiple/>
+                  <input
+                    class="file-input"
+                    type="file"
+                    name="image"
+                    placeholder="𝒸𝒽𝑜𝑜𝓈𝑒 𝒾𝓂𝒶𝑔𝑒(𝓈).."
+                    multiple
+                  />
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-label"> Choose a file… </span>
+                    <span class="file-label"> 𝒷𝓇𝑜𝓌𝓈𝑒 </span>
                   </span>
-                  <span class="file-name">
+                  <span
+                    class="file-name"
+                    style="font-weight: 100; color: lightgray"
+                  >
+                    𝒸𝒽𝑜𝑜𝓈𝑒 𝒾𝓂𝒶𝑔𝑒(𝓈)..
                   </span>
                 </label>
               </div>
             </div>
-            <div class="field">
+            <div class="field" id="new-body">
               <label for="body" class="label">Body</label>
               <div class="control has-icons-right">
                 <textarea
-                  class="textarea"
+                  class="textarea new-area"
                   rows="5"
                   id="body"
                   name="post[body]"
+                  placeholder="𝒶 𝓃𝒾𝒸𝑒 𝓅𝑜𝓈𝓉 𝓃𝑒𝑒𝒹𝓈 𝒶 𝓃𝒾𝒸𝑒 𝒹𝑒𝓈𝒸𝓇𝒾𝓅𝓉𝒾𝑜𝓃.."
                 ></textarea>
-                <span class="icon is-small is-right" >
-                  <i class="fas fa-check" id="bodySuccessIcon" style="display: none;"></i>
+                <span class="icon is-small is-right">
+                  <i
+                    class="fas fa-check"
+                    id="bodySuccessIcon"
+                    style="display: none"
+                  ></i>
                 </span>
                 <span class="icon is-small is-right">
-                  <i class="fas fa-exclamation-triangle" id="bodyErrorIcon" style="display: none;"></i>
+                  <i
+                    class="fas fa-exclamation-triangle"
+                    id="bodyErrorIcon"
+                    style="display: none"
+                  ></i>
                 </span>
-                <p id="body_error" class="help is-error" style="display: none; font-family: 'Courier New', Courier, monospace; font-size: medium;">a post without body is nonsense</p>
+                <p
+                  id="body_error"
+                  class="help is-error"
+                  style="
+                    display: none;
+                    font-family: 'Courier New', Courier, monospace;
+                    font-size: medium;
+                  "
+                >
+                  a post without body is nonsense
+                </p>
               </div>
             </div>
             <div class="field">
               <div class="control">
-                <button class="button is-primary is-fullwidth" id="newpost" type="submit" disabled="true">ADD</button>
+                <button
+                  class="button is-primary is-fullwidth"
+                  id="newpost"
+                  type="submit"
+                  disabled="true"
+                >
+                  ADD
+                </button>
               </div>
             </div>
           </form>
