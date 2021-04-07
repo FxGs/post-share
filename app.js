@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 
 const app = express();
@@ -11,6 +10,8 @@ const Post = require("./models/post");
 const { MONGOURI } = require("./keys");
 const user = require("./routers/user");
 const postroutes = require("./routers/postrouter");
+const cookieParser = require('cookie-parser');
+const {requireAuth, checkUser} = require('./middleware/auth');
 
 mongoose.connect(MONGOURI, {
   useNewUrlParser: true,
@@ -35,12 +36,18 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+app.use(express.json());
+app.use(cookieParser());
+
+app.get("*",checkUser);
+
 app.get("/", (req, res) => {
   res.render("home");
 });
 
 app.use("/user", user);
-app.use("/posts", postroutes);
+app.use("/posts", requireAuth, postroutes);
+
 
 app.get("/contacts", (req, res) => {
   res.render("posts/contacts");
@@ -48,6 +55,10 @@ app.get("/contacts", (req, res) => {
 
 app.get("/signup", (req, res) => {
   res.render("users/signup");
+});
+
+app.get("/login", (req,res) => {
+  res.render("users/login");
 });
 
 app.get("/status", (req, res) => {
@@ -59,5 +70,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("Connected.");
+  console.log(`Connected on port ${port}`);
 });
