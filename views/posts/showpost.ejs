@@ -1,4 +1,5 @@
 <% layout('layout/boilerplate') -%>
+<!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
 <div class="columns is-mobile is-centered">
   <div
     class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
@@ -18,7 +19,7 @@
             class="title"
             style="font-size: 15px; font-family: 'Open Sans', sans-serif"
           >
-            @<%=post.author%>
+            @<%=post.author.username%>
           </p>
         </div>
         <div class="card-header-icon">
@@ -70,11 +71,11 @@
         </figure>
       </div>
       <%}else{%>
-      <div class="container is-clipped">
-        <div id="slider">
+      <div class="container is-clipped" id="carousel">
+        <div id="slider" class="slider">
           <%for(var i = 0; i < post.image.length; i++){%>
           <div class="card-image" style="max-height: 100%">
-            <figure class="image is-3by3">
+            <figure class="image is-1by1">
               <img src="<%=post.image[i].url%>" alt="" />
             </figure>
           </div>
@@ -112,25 +113,153 @@
       </div>
       <footer class="card-footer" style="border-top: none">
         <div class="field pl-3 pb-3 pr-3" style="width: 100%">
-          <form action="#">
+          <form
+            action="/posts/<%=post.id%>/comments"
+            method="POST"
+          >
             <label class="label" for="comment">Add a comment..</label>
             <div class="control" style="display: flex">
               <input
                 class="input mr-2"
                 type="text"
-                name=""
+                name="comment[body]"
                 id="comment"
                 placeholder="comment.."
                 autofocus
               />
-              <span class="icon mt-2" style="font-size: 1.8rem; float: right"
-                ><i class="far fa-comment"></i
-              ></span>
+              <button class="button is-primary" type="submit">
+                <span class="icon mt-2" style="font-size: 1.8rem; float: right"
+                  ><i class="far fa-comment"></i
+                ></span>
+              </button>
             </div>
           </form>
         </div>
       </footer>
     </div>
-    <div class="card"></div>
+    <%if(cmnts.length > 0){%>
+    <div class="card mb-5" id="comment-card">
+      <%for(var i = 0; i < cmnts.length; i++){%> <%if(cmnts[i].parentId ==
+      null){%>
+      <div class="comment parent ml-1" id="<%=cmnts[i].id%>">
+        <a href="#comment-1" class="comment-border-link">
+          <span class="sr-only">Jump to comment-1</span>
+        </a>
+        <div class="comment-heading">
+          <div class="comment-info" style="display: flex; flex-direction: row">
+            <figure class="image is-24x24 mr-2">
+              <img
+                class="is-rounded"
+                src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+                alt=""
+              />
+            </figure>
+            <a href="#" class="comment-author">someguy14</a>
+          </div>
+        </div>
+        <div class="comment-body">
+          <p class="title parent"><%=cmnts[i].body%></p>
+          <form
+            action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
+            method="POST"
+          >
+            <label class="label" for="comment">Add a comment..</label>
+            <div class="control" style="display: flex">
+              <input
+                class="input mr-2"
+                type="text"
+                name="comment[body]"
+                id="comment"
+                placeholder="comment.."
+                autofocus
+              />
+              <button class="button is-primary" type="submit">
+                <span class="icon mt-2" style="font-size: 1.8rem; float: right"
+                  ><i class="far fa-comment"></i
+                ></span>
+              </button>
+            </div>
+          </form>
+          <form
+            action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>?_method=DELETE"
+            method="POST"
+          >
+            <button class="button is-danger">Delete</button>
+          </form>
+          <a href="#" class="loadreplies" id="load-<%=cmnts[i].id%>">Load more replies</a>
+          <!-- <button type="button">Reply</button>
+          <button type="button">Flag</button> -->
+        </div>
+
+        <%loadChildComments(cmnts[i].id);%>
+        
+        <%function loadChildComments(pId){%>
+        <div class="replies" style="display: block;" id="child-<%=cmnts[i].id%>">
+        <%for (var k = 0; k < cmnts.length; k++) {%> <%if (cmnts[k].parentId ==
+        pId) {%>
+        
+          <div class="comment">
+            <a href="#comment-1" class="comment-border-link">
+              <span class="sr-only">Jump to comment-1</span>
+            </a>
+            <div class="comment-heading">
+              <div
+                class="comment-info"
+                style="display: flex; flex-direction: row"
+              >
+                <figure class="image is-24x24 mr-2">
+                  <img
+                    class="is-rounded"
+                    src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+                    alt=""
+                  />
+                </figure>
+                <a href="#" class="comment-author">someguy14</a>
+              </div>
+            </div>
+            <div class="comment-body">
+              <p class="title"><%=cmnts[k].body%></p>
+              <form
+                action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
+                method="POST"
+              >
+                <label class="label" for="comment">Add a comment..</label>
+                <div class="control" style="display: flex">
+                  <input
+                    class="input mr-2"
+                    type="text"
+                    name="comment[body]"
+                    id="comment"
+                    placeholder="comment.."
+                    autofocus
+                  />
+                  <button class="button is-primary" type="submit">
+                    <span
+                      class="icon mt-2"
+                      style="font-size: 1.8rem; float: right"
+                      ><i class="far fa-comment"></i
+                    ></span>
+                  </button>
+                </div>
+              </form>
+              <form
+                action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>?_method=DELETE"
+                method="POST"
+              >
+                <button class="button is-danger">Delete</button>
+              </form>
+            </div>
+
+            <%loadChildComments(cmnts[k].id);%>
+          </div>
+
+        <%}%> <%}%>
+        </div> 
+        <%return true;%> <%}%>
+        
+      </div>
+      <%}%> <%}%>
+    </div>
+    <%}%>
   </div>
 </div>
