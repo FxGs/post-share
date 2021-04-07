@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const app = express();
 const path = require("path");
@@ -10,6 +9,8 @@ const Post = require("./models/post");
 const { MONGOURI } = require("./keys");
 const user = require("./routers/user");
 const postroutes = require("./routers/postrouter");
+const cookieParser = require('cookie-parser');
+const {requireAuth, checkUser} = require('./middleware/auth');
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -37,6 +38,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+app.use(express.json());
+app.use(cookieParser());
+
+app.get("*",checkUser);
 const sessionConfig = {
   secret: "thisshouldbeabettersecret!",
   resave: false,
@@ -61,7 +66,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", user);
-app.use("/posts", postroutes);
+app.use("/posts", requireAuth, postroutes);
+
 
 app.get("/contacts", (req, res) => {
   res.render("posts/contacts");
@@ -69,6 +75,10 @@ app.get("/contacts", (req, res) => {
 
 app.get("/signup", (req, res) => {
   res.render("users/signup");
+});
+
+app.get("/login", (req,res) => {
+  res.render("users/login");
 });
 
 app.get("/status", (req, res) => {
@@ -86,5 +96,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log("Connected.");
+  console.log(`Connected on port ${port}`);
 });

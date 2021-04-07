@@ -1,8 +1,4 @@
-<nav
-  class="navbar is-fixed-top is-dark has-text-white mb-3"
-  role="navigation"
-  aria-label="main navigation"
->
+<nav class="navbar is-fixed-top is-dark has-text-white mb-3" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
@@ -14,13 +10,7 @@
         𝓹𝓢
       </a>
 
-      <a
-        role="button"
-        class="navbar-burger"
-        aria-label="menu"
-        aria-expanded="false"
-        data-target="navbarBasicExample"
-      >
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -38,24 +28,25 @@
       </div>
 
       <div class="navbar-end">
-        <a class="navbar-item" href="/signup">
-          <span class="icon">
-            <i class="fas fa-user-plus"></i>
-          </span>
-          <span>SignUp</span>
-        </a>
-        <a class="navbar-item" href="#">
-          <span class="icon">
-            <i class="fas fa-sign-in-alt"></i>
-          </span>
-          <span>LogIn</span>
-        </a>
-        <a class="navbar-item" href="#">
-          <span class="icon">
-            <i class="fas fa-user"></i>
-          </span>
-          <span>User</span>
-        </a>
+        <div class="navbar-item">
+          <% if(user) { %>
+            <p class="navbar-item has-text-white">
+              Welcome, <%= user.username %>
+            </p>
+            <div class ="buttons">
+              <a class="button is-warning" href="/user/logout">
+              <strong>Log Out</strong>
+              </a>
+            </div>
+            <% } else { %>
+            <div class="buttons">
+              <a class="button is-primary" href="/signup">
+                <strong>Sign up</strong>
+              </a>
+              <a class="button is-light" href="/login"> Log in </a>
+            </div>
+            <% } %>
+        </div>
       </div>
     </div>
   </div>
