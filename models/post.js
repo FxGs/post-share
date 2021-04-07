@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const User = require('./user');
 const ImageSchema = new Schema({
   url: String,
   filename: String
@@ -11,7 +11,10 @@ ImageSchema.virtual("thumbnail").get(function () {
 });
 
 const PostSchema = new Schema({
-  author: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  },
   title: String,
   image: [ImageSchema],
   body: String,

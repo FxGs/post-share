@@ -1,6 +1,7 @@
 const express = require("express");
 var router = express.Router();
 const Post = require("../models/post");
+const {requireAuth, checkUser} = require("../middleware/auth");
 const CatchAsync = require("../utils/CatchAsync");
 
 //multer for multiple image
@@ -13,7 +14,7 @@ const { storage, cloudinary } = require("../cloudinary");
 const upload = multer({ storage });
 
 router.get(
-  "/",
+  "/", requireAuth,
   CatchAsync(async (req, res) => {
     const posts = await Post.find({});
     res.render("posts/show", { posts });
@@ -21,10 +22,11 @@ router.get(
 );
 
 router.post(
-  "/",
+  "/", requireAuth, checkUser,
   upload.array("image"),
   CatchAsync(async (req, res) => {
     const post = new Post(req.body.post);
+    post.author = res.locals.user.id;
     post.image = req.files.map((f) => ({
       url: f.path,
       filename: f.filename,
@@ -37,7 +39,7 @@ router.post(
 );
 
 router.get(
-  "/:id",
+  "/:id", requireAuth,
   CatchAsync(async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -49,7 +51,7 @@ router.get(
 );
 
 router.get(
-  "/:id/edit",
+  "/:id/edit", requireAuth,
   CatchAsync(async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post) {
@@ -89,7 +91,7 @@ router.put(
 );
 
 router.delete(
-  "/:id",
+  "/:id", requireAuth,
   CatchAsync(async (req, res) => {
     await Post.findByIdAndDelete(req.params.id);
     req.flash("success", "Your post is deleted!!");

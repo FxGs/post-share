@@ -29,11 +29,11 @@ function validateEmail(value) {
         emailValidated = true;
         
     } else {
-        emailIcon.classList.add('fa-exclamation-triangle');
         emailIcon.classList.remove('fa-check');
+        emailIcon.classList.add('fa-exclamation-triangle');
 
-        emailInput.classList.add('is-danger');
         emailInput.classList.remove('is-success');
+        emailInput.classList.add('is-danger');
 
         emailMessage.style = 'display:block';
         emailValidated = false;
@@ -85,15 +85,22 @@ function checkConfirm(value) {
 function validateUserName(value) {
     const regexString = /^(?=[a-zA-Z0-9._]{3,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
+    const usernameIcon = document.getElementById('username-icon');
     if (regexString.test(String(value))) {
         usernameInput.classList.remove('is-danger');
         usernameInput.classList.add('is-success');
+
+        usernameIcon.classList.remove('fa-exclamation-triangle');
+        usernameIcon.classList.add('fa-check');
 
         usernameMessage.style = 'display:none;';
         usernameValidated = true;
     } else {
         usernameInput.classList.remove('is-success');
         usernameInput.classList.add('is-danger');
+
+        usernameIcon.classList.add('fa-exclamation-triangle');
+        usernameIcon.classList.remove('fa-check');
 
         usernameMessage.style = 'display:block;';
         usernameValidated = false;
