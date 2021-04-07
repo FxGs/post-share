@@ -28,4 +28,20 @@ fileInput.onchange = () => {
     const fileName = document.querySelector("#file-js-example .file-name");
     fileName.textContent = fileInput.files[0].name;
   }
+<<<<<<< HEAD
 };
+=======
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  (document.querySelectorAll(".notification .delete") || []).forEach(
+    ($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener("click", () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    }
+  );
+});
+>>>>>>> 5235d6b12cfada343b0662a13c9c7453fed14fb2

@@ -38,7 +38,7 @@
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
                 <a href="/posts/<%=post.id%>/edit" class="dropdown-item">
-                  <button class="button" style="border: none;">
+                  <button class="button" style="border: none">
                     <span class="icon">
                       <i class="fas fa-pen-square"></i>
                     </span>
@@ -63,11 +63,23 @@
       </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
-      <%}else{%>
+      <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
-          <img src="<%=post.image[0].url%>" alt="Placeholder image" />
+          <img src="<%=post.image[0].url%>" alt="" />
         </figure>
+      </div>
+      <%}else{%>
+      <div class="container is-clipped">
+        <div id="slider">
+          <%for(var i = 0; i < post.image.length; i++){%>
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image is-3by3">
+              <img src="<%=post.image[i].url%>" alt="" />
+            </figure>
+          </div>
+          <%}%>
+        </div>
       </div>
       <%}%>
       <div class="card-content">
@@ -96,23 +108,29 @@
             </div>
           </div>
         </div>
-        <div class="content">
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-        </div>
+        <div class="content"></div>
       </div>
       <footer class="card-footer" style="border-top: none">
-        <div class="field px-3 pb-3" style="width: 100%">
+        <div class="field pl-3 pb-3 pr-3" style="width: 100%">
           <form action="#">
-            <div class="control">
-              <textarea
-                class="textarea is-focused"
-                rows="2"
+            <label class="label" for="comment">Add a comment..</label>
+            <div class="control" style="display: flex">
+              <input
+                class="input mr-2"
+                type="text"
+                name=""
+                id="comment"
                 placeholder="comment.."
-              ></textarea>
+                autofocus
+              />
+              <span class="icon mt-2" style="font-size: 1.8rem; float: right"
+                ><i class="far fa-comment"></i
+              ></span>
             </div>
           </form>
         </div>
       </footer>
     </div>
+    <div class="card"></div>
   </div>
 </div>

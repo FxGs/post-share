@@ -2,34 +2,50 @@
 <html>
   <head>
     <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script
       src="https://kit.fontawesome.com/59ef493f57.js"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/scripts/emojionearea.min.js"></script>
     <title>new post</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
     />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
       rel="stylesheet"
     />
-
+    <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
     style="height: 100vh"
   >
+    <div class="pageloader is-dark"><span class="title">Loading...</span></div>
     <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
     <section>
       <main class="container" style="margin-top: 3rem">
         <div class="columns is-mobile is-centered">
           <div
-            class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
+            class="column is-full-mobile is-three-quarters-tablet is-half-desktop"
           >
-            <div class="box">
+            <div class="box" id="edit-box">
               <h1 class="title">Edit Post</h1>
               <form
                 action="/posts/<%=post.id%>?_method=PUT"
@@ -38,26 +54,78 @@
               >
                 <div class="field">
                   <label for="author" class="label">Author</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <input
-                      class="input"
+                      class="input is-success edit-author"
                       type="text"
                       id="author"
                       name="post[author]"
                       value="<%=post.author%>"
+                      required
                     />
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-check"
+                        id="editauthorSuccessIcon"
+                        style="display: block"
+                      ></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-exclamation-triangle"
+                        id="editauthorErrorIcon"
+                        style="display: none"
+                      ></i>
+                    </span>
+                    <p
+                      id="editauthor_error"
+                      class="help is-error"
+                      style="
+                        display: none;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: medium;
+                      "
+                    >
+                      Just tell your name
+                    </p>
                   </div>
                 </div>
                 <div class="field">
                   <label for="title" class="label">Title</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <input
-                      class="input"
+                      class="input is-success edit-title"
                       type="text"
                       id="title"
                       name="post[title]"
                       value="<%=post.title%>"
+                      required
                     />
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-check"
+                        id="edittitleSuccessIcon"
+                        style="display: block"
+                      ></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-exclamation-triangle"
+                        id="edittitleErrorIcon"
+                        style="display: none"
+                      ></i>
+                    </span>
+                    <p
+                      id="edittitle_error"
+                      class="help is-error"
+                      style="
+                        display: none;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: medium;
+                      "
+                    >
+                      Give a nice title to your post
+                    </p>
                   </div>
                 </div>
                 <div class="field">
@@ -81,15 +149,42 @@
                 </div>
                 <div class="field">
                   <label for="body" class="label">body</label>
-                  <div class="control">
+                  <div class="control has-icons-right">
                     <textarea
-                      class="textarea"
+                      class="textarea is-success edit-area"
                       rows="5"
-                      id="body"
+                      id="body edit-body"
                       name="post[body]"
+                      required
                     >
-<%=post.body%></textarea
+<%=post.body%>
+                  </textarea
                     >
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-check"
+                        id="editbodySuccessIcon"
+                        style="display: block"
+                      ></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                      <i
+                        class="fas fa-exclamation-triangle"
+                        id="editbodyErrorIcon"
+                        style="display: none"
+                      ></i>
+                    </span>
+                    <p
+                      id="editbody_error"
+                      class="help is-error"
+                      style="
+                        display: none;
+                        font-family: 'Courier New', Courier, monospace;
+                        font-size: medium;
+                      "
+                    >
+                      a post without body is nonsense
+                    </p>
                   </div>
                 </div>
 
@@ -117,7 +212,11 @@
                 <% }) %>
                 <div class="field is-grouped is-grouped-right">
                   <div class="control">
-                    <button id="" type="submit" class="button is-primary">
+                    <button
+                      id="Edit-Btn"
+                      type="submit"
+                      class="button is-primary"
+                    >
                       save changes
                     </button>
                     <button class="button is-light" href="/posts/<%=post.id%>">
@@ -132,17 +231,48 @@
       </main>
     </section>
     <%-include('../partials/footer')%>
-  </body>
-  <script src="/scripts/navbar.js"></script>
-  <script src="/scripts/modal.js"></script>
-  <script>
-    const fileInput2 = document.querySelector("#file-edit input[type=file]");
-    fileInput2.onchange = () => {
-      if (fileInput2.files.length > 0) {
-        const fileName2 = document.querySelector("#file-edit .file-name");
-        fileName2.textContent = fileInput2.files[0].name;
+    <script>
+      if ($(".pageloader").length) {
+        $(".pageloader").toggleClass("is-active");
+        $(window).on("load", function () {
+          var pageloadtime = setTimeout(function () {
+            $(".pageloader").toggleClass("is-active");
+            clearTimeout(pageloadtime);
+          }, 1000);
+        });
       }
-    };
-  </script>
-  <script src="/scripts/form-validation.js"></script>
+    </script>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script>
+      const fileInput2 = document.querySelector("#file-edit input[type=file]");
+      fileInput2.onchange = () => {
+        if (fileInput2.files.length > 0) {
+          const fileName2 = document.querySelector("#file-edit .file-name");
+          fileName2.textContent = fileInput2.files[0].name;
+        }
+      };
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".new-area").emojioneArea({
+          pickerPosition: "bottom",
+          filtersPosition: "bottom",
+          hidePickerOnBlur: false,
+        });
+      });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".edit-area").emojioneArea({
+          pickerPosition: "bottom",
+          filtersPosition: "bottom",
+          hidePickerOnBlur: false,
+        });
+      });
+    </script>
+    <script src="/scripts/form-validation.js"></script>
+    <script src="/scripts/form-validation.js"></script>
+    <script src="/scripts/edit-validation.js"></script>
+  </body>
 </html>

@@ -1,11 +1,108 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.modal-card {
+  /* height: 740px; */
+  position: relative;
+}
+
+.emojionearea-picker {
+  /* display: block !important; */
+  z-index: 100 !important;
+}
+
+.modal-card-body::-webkit-scrollbar {
+  display: none !important;
+}
+
+.modal-card-body {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.modal-card {
+  margin: 0;
+}
+
+@media screen and (min-width: 769px) {
+  .modal-card,
+  .modal-content {
+    margin: 0 auto;
+    max-height: calc(100vh - 40px);
+    width: 640px;
+  }
+}
+
+.modal-card-body .field {
+  /* margin-top: rem; */
+  margin-bottom: 3rem;
+}
+
+.modal-card-body #new-body {
+  /* margin-top: rem; */
+  margin-bottom: 6rem;
+}
+
+
+.media-content {
+  overflow: hidden;
+}
+
+.navbar-item {
+  margin-right: 0.5rem;
+}
+
+.navbar-item span {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: medium !important;
+}
+
+.navbar-item .icon {
+  margin-right: 0.1rem;
+}
+
+.footer-icon {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: medium !important;
+}
+
 label {
   font-family: "Times New Roman", Times, serif !important;
   font-size: medium !important;
 }
 
+.modal-card-title {
+  font-family: "Times New Roman", Times, serif !important;
+  font-size: large !important;
+}
+
 input {
   font-family: "Amiri", serif !important;
   font-weight: 400 !important;
+}
+
+.card-header-title .title {
+  font-family: "Amiri", serif !important;
+  font-weight: 600 !important;
+  font-size: 15px;
+}
+
+.card-content .title {
+  font-family: "Amiri", serif !important;
+  font-weight: 600 !important;
+}
+
+.card-content .subtitle {
+  font-family: "Amiri", serif !important;
+  font-weight: 500 !important;
 }
 
 button {
@@ -36,4 +133,3 @@ button {
   background-color: hsl(0, 7%, 18%);
   color: #fff;
 }
-
