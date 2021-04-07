@@ -28,9 +28,6 @@ fileInput.onchange = () => {
     const fileName = document.querySelector("#file-js-example .file-name");
     fileName.textContent = fileInput.files[0].name;
   }
-<<<<<<< HEAD
-};
-=======
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,4 +41,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 });
->>>>>>> 5235d6b12cfada343b0662a13c9c7453fed14fb2
