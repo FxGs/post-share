@@ -11,7 +11,7 @@ const ImageSchema = new Schema({
 const PostSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   title: String,
   image: [ImageSchema],
@@ -19,6 +19,18 @@ const PostSchema = new Schema({
   postedat: {
     type: Date,
     default: Date.now(),
+  },
+  likes: {
+    likedBy: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    count: {
+      type: Number,
+      default: 0,
+    },
   },
   comments: [
     {
