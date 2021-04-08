@@ -1,4 +1,5 @@
 <% layout('layout/boilerplate') -%>
+<div class="pageloader is-dark"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
   <div
     class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
@@ -15,35 +16,35 @@
               alt=""
             />
           </figure>
-          <p
-            class="title"
-            style="font-size: 15px; font-family: 'Open Sans', sans-serif"
-          >
-            @<%=post.author%>
-          </p>
+          <p class="title">@<%=post.author%></p>
         </div>
       </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
-      <%}else{%>
+      <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
           <img src="<%=post.image[0].url%>" alt="" />
         </figure>
       </div>
+      <%}else{%>
+      <div class="container is-clipped" id="carousel">
+        <div id="slider" class="slider">
+          <%for(var i = 0; i < post.image.length; i++){%>
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image is-1by1">
+              <img src="<%=post.image[i].url%>" alt=""/>
+            </figure>
+          </div>
+          <%}%>
+        </div>
+      </div>
       <%}%>
       <div class="card-content">
         <div class="media">
           <div class="media-content">
-            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
-              <%=post.title%>
-            </p>
-            <p
-              class="subtitle is-6"
-              style="font-family: 'Open Sans', sans-serif"
-            >
-              <%=post.body%>
-            </p>
+            <p class="title is-4"><%=post.title%></p>
+            <p class="subtitle is-6"><%=post.body%></p>
           </div>
         </div>
         <div class="content">
@@ -71,7 +72,7 @@
           </div>
         </div>
         <div class="content">
-          <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+          <p><%=post.postedat%></p>
         </div>
       </div>
     </div>
