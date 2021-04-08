@@ -1,21 +1,20 @@
 $(document).ready(function () {
-  $.each($(".comment.parent"), function (i, val) {
-    // console.log($(this).attr('id'));
-    const childid = "child-" + $(this).attr("id");
-    const loadid = "load-" + $(this).attr("id");
-    console.log(childid);
-    $("#" + loadid).click(function () {
-      if ($("#" + childid).css("display") === "none") {
-        $("#" + childid).css("display", "block");
-      } else {
-        $("#" + childid).css("display", "none");
-      }
-    });
-    // $.each($("#" + childid)),
-    //   function (i) {
-    //     i++;
-    //   };
-    // console.log(i);
+
+  $("input.cmnt1").change(function (e) {
+    // alert("changed");
+    $("#Btn1").attr("disabled", false);
+    e.preventDefault();
   });
-  // alert(jQuery.type(pid));
+
+  $("#Btn-reply").on("click", function (e) {
+    // alert("clicked");
+    if ($('#reply-1').css("display") === "none") {
+      // alert("opened");
+      $("#reply-1").css("display", "block");
+      $('#Btn-reply').css("display", "none");
+    } else {
+      $('#reply-1').css("display", "none");
+    }
+    e.preventDefault();
+  });
 });
