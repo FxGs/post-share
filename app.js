@@ -65,6 +65,11 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
+
+app.get("/particle", (req, res) => {
+  res.render("particle");
+});
+
 app.use("/user", user);
 app.use("/posts", requireAuth, postroutes);
 
