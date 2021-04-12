@@ -2,6 +2,11 @@
 <html>
   <head>
     <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
+    <script src="/scripts/sendmail.js"></script>
+    <script
       src="https://kit.fontawesome.com/59ef493f57.js"
       crossorigin="anonymous"
     ></script>
@@ -38,14 +43,14 @@
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
     <link rel="stylesheet" href="/stylesheets/comment.css" />
-    <link rel="stylesheet" href="/stylesheets/likes.css" />
+    <link rel="stylesheet" href="/stylesheets/fnav.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
     style="height: 100vh"
   >
     <!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
-    <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
+    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
     <section>
       <main class="container" style="margin-top: 3rem">
         <%- include("../partials/flash") %><%- body -%>
@@ -77,24 +82,11 @@
     </script>
     <script>
       $(document).ready(function () {
-        $("#comment").emojioneArea({
-          events: {
-            ready: function () {
-              this.setFocus();
-            },
-          },
-          pickerPosition: "top",
-          filtersPosition: "bottom",
-          spellcheck: true,
-        });
-      });
-    </script>
-    <script>
-      $(document).ready(function () {
         $(".slider").slick({
           slidesToShow: 1,
           slidesToScroll: 1,
           dots: true,
+          adaptiveHeight: true,
         });
       });
     </script>

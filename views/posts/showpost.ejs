@@ -34,7 +34,7 @@
                 margin-top: 0;
               "
             >
-              <%=post.postedat%>
+              <%var date = post.postedat.toDateString();%> <%=date%>
             </p>
           </div>
         </div>
@@ -46,8 +46,7 @@
                 class="dropdown-btn"
                 aria-haspopup="true"
                 aria-controls="dropdown-menu4"
-                style="border: none;"
-                
+                style="border: none"
               >
                 <span class="icon is-small">
                   <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
@@ -104,7 +103,7 @@
         <div id="slider" class="slider">
           <%for(var i = 0; i < post.image.length; i++){%>
           <div class="card-image" style="max-height: 100%">
-            <figure class="image is-1by1">
+            <figure class="image">
               <img src="<%=post.image[i].url%>" alt="" />
             </figure>
           </div>
@@ -145,9 +144,7 @@
                 <span class="comments-count"><%=cmnts.length%></span>
               </p>
               <div class="control">
-                <a href="posts/<%=post.id%>"
-                  ><button><i class="far fa-comment-alt"></i></button
-                ></a>
+                <button><i class="far fa-comment-alt"></i></button>
               </div>
             </div>
           </div>
@@ -158,7 +155,7 @@
           <form action="/posts/<%=post.id%>/comments" method="POST">
             <div class="control mt-2" style="display: flex">
               <input
-                class="input mr-2 cmnt1"
+                class="input mr-2 cmnt1 comment-input"
                 type="text"
                 name="comment[body]"
                 id="comment"
@@ -228,28 +225,28 @@
         </div>
         <div class="comment-body">
           <p class="caption parent"><%=cmnts[i].body%></p>
-          <button type="button" id="Btn-reply">Reply</button>
-          <div class="field" id="reply-1" style="display: none">
+          <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
+            <i class="fas fa-reply"></i>
+          </button>
+          <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
             <form
               action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
               method="POST"
             >
               <div class="control" style="display: flex">
                 <input
-                  class="input mr-2"
+                  class="input mr-2 comment-input comment-post"
                   type="text"
                   name="comment[body]"
-                  id="comment"
+                  id="comment-<%=cmnts[i].id%>"
                   placeholder="Add a comment.."
                 />
-                <button type="submit">POST</button>
+                <button type="submit" id="post-<%=cmnts[i].id%>" disabled>
+                  POST
+                </button>
               </div>
             </form>
           </div>
-
-          <!-- <a href="#" class="loadreplies" id="load-<%=cmnts[i].id%>"
-            >Load more replies</a
-          > -->
         </div>
 
         <%loadChildComments(cmnts[i].id);%> <%function loadChildComments(pId){%>
@@ -311,21 +308,33 @@
             </div>
             <div class="comment-body">
               <p class="caption"><%=cmnts[k].body%></p>
-              <button type="button" id="Btn-reply-1">Reply</button>
-              <div class="field">
+              <button
+                type="button"
+                id="Btn-<%=cmnts[k].id%>"
+                class="comment-reply"
+              >
+                <i class="fas fa-reply"></i>
+              </button>
+              <div
+                class="field"
+                id="reply-<%=cmnts[k].id%>"
+                style="display: none"
+              >
                 <form
                   action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
                   method="POST"
                 >
                   <div class="control" style="display: flex">
                     <input
-                      class="input mr-2"
+                      class="input mr-2 comment-input comment-post"
                       type="text"
                       name="comment[body]"
-                      id="comment"
+                      id="comment-<%=cmnts[k].id%>"
                       placeholder="Add a comment.."
                     />
-                    <button type="submit">POST</button>
+                    <button type="submit" id="post-<%=cmnts[k].id%>" disabled>
+                      POST
+                    </button>
                   </div>
                 </form>
               </div>

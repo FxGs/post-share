@@ -50,7 +50,7 @@ router.post(
       for (var i = 0; i < post.image.length; i++) {
         var newurl = post.image[i].url.replace(
           "/upload",
-          "/upload/h_600,g_faces"
+          "/upload/h_600"
         );
         post.image[i].url = newurl;
       }
@@ -74,7 +74,8 @@ router.get(
   CatchAsync(async (req, res) => {
     const post = await Post.findById(req.params.id)
       .populate("comments")
-      .populate("author").populate("likes");
+      .populate("author")
+      .populate("likes");
     const cmnts = [];
     for (let postcomment of post.comments) {
       if (postcomment.childs.length > 0) {
@@ -154,6 +155,12 @@ router.delete(
   checkUser,
   isAuthor,
   CatchAsync(async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    if (post.image.length > 0) {
+      for (var i = 0; i < post.image.length; i++) {
+        await cloudinary.uploader.destroy(post.image[i].filename);
+      }
+    }
     await Post.findByIdAndDelete(req.params.id);
     req.flash("success", "Your post is deleted!!");
     res.redirect("/posts");
@@ -174,8 +181,11 @@ router.post(
         post.likes.likedBy.splice(i);
         post.likes.count = post.likes.likedBy.length;
         await post.save();
+        // res.locals.user.likedposts.push(post);
+        // await res.locals.user.save();
+        // console.log(res.locals.user.likedposts);
         res.json({ message: "disliked successfully" });
-        console.log('found'+post.likes.count);
+        console.log("found" + post.likes.count);
         f = 1;
         break;
       }
@@ -184,14 +194,18 @@ router.post(
       post.likes.likedBy.push(res.locals.user.id);
       post.likes.count = post.likes.likedBy.length;
       await post.save();
+      // res.locals.user.likedposts.push(post);
+      // await res.locals.user.save();
+      // console.log(res.locals.user.likedposts);
       res.json({ message: "liked successfully" });
-      console.log('not found' + post.likes.count);
+      console.log("not found" + post.likes.count);
     }
 
-    // console.log(res.locals.user.id);
-    // res.redirect(`/posts/${post.id}`);
-    // res.send("liked");
-    // console.log("liked");
+    //logic 1
+    // check for users liked list for postid
+    //if found pull that id from posts and decrease the count
+    //then delete the id from user's likedposts array
+    // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
   })
 );
 

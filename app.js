@@ -9,8 +9,8 @@ const Post = require("./models/post");
 const { MONGOURI } = require("./keys");
 const user = require("./routers/user");
 const postroutes = require("./routers/postrouter");
-const cookieParser = require('cookie-parser');
-const {requireAuth, checkUser} = require('./middleware/auth');
+const cookieParser = require("cookie-parser");
+const { requireAuth, checkUser } = require("./middleware/auth");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -41,7 +41,7 @@ app.use(methodOverride("_method"));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("*",checkUser);
+app.get("*", checkUser);
 const sessionConfig = {
   secret: "thisshouldbeabettersecret!",
   resave: false,
@@ -68,16 +68,32 @@ app.get("/", (req, res) => {
 app.use("/user", user);
 app.use("/posts", requireAuth, postroutes);
 
-
-app.get("/contacts", (req, res) => {
+app.get("/contacts", requireAuth, checkUser, (req, res) => {
   res.render("posts/contacts");
+});
+
+app.post("/email", requireAuth, checkUser, (req, res) => {
+  const { subject, text } = req.body;
+  // console.log(req.body);
+
+  // var tempparams = {
+  //   email: res.locals.user.email,
+  //   subject: subject,
+  //   message: text,
+  // };
+
+  // // console.log(tempparams);
+  // send("service_9i3rmlw", "template_iu96bb5", tempparams)
+  //   .then(function (res) {
+  //     console.log("success", res.status);
+  //   });
 });
 
 app.get("/signup", (req, res) => {
   res.render("users/signup");
 });
 
-app.get("/login", (req,res) => {
+app.get("/login", (req, res) => {
   res.render("users/login");
 });
 

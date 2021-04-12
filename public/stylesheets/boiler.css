@@ -111,10 +111,14 @@ button {
 
 #dropdown-menu4 {
   background-color: hsl(0, 0%, 21%);
+  border-radius: 12px;
+  box-shadow: #000000;
 }
 
 #dropdown-menu4 .dropdown-content {
   background-color: hsl(0, 0%, 21%);
+  border-radius: 12px;
+  box-shadow: #000000;
 }
 
 #dropdown-menu4 .dropdown-item {
@@ -144,6 +148,7 @@ button {
 
 .dropdown-trigger button {
   background-color: #f9f6f9;
+  transition: all 3s;
 }
 
 .card-footer .control button {
@@ -164,7 +169,18 @@ button:active {
 
 #likes-container .control button {
   background-color: transparent;
-  border: none;
+  border-radius: 50%;
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #363636;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+#likes-container .control button:hover {
+  border-color: #e0e0e0;
+  box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
 }
 
 #likes-container .control i {
@@ -174,7 +190,6 @@ button:active {
 #show-header {
   background-color: #fff;
 }
-
 
 #show-icons button {
   background-color: #fff;
@@ -190,12 +205,44 @@ button:active {
   transition: all 0.3s;
 }
 
-#show-icons button:hover{
+#show-icons button:hover {
   border-color: #e0e0e0;
   box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
 }
 
-#showposticons{
+#showposticons {
   justify-content: flex-end;
-  align-items: center;  
+  align-items: center;
 }
+
+.comment-reply {
+  background-color: transparent;
+  border-radius: 50%;
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #363636;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.comment-reply:hover {
+  border-color: #e0e0e0;
+  box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
+}
+
+#edit-btns button {
+  background-color: #e6e6e6;
+}
+#edit-btns button:hover {
+  background-color: #a6a6a6;
+}
+
+#edit-btns #Edit-Btn {
+  background-color: #00e6b8;
+}
+
+#edit-btns #Edit-Btn:hover {
+  background-color: #00b386;
+}
+
