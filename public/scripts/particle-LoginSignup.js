@@ -13,6 +13,9 @@ $(document).ready(function(){
   
     $signup.toggleClass('hide');
     $login.toggleClass('hide');
+    
+    $('#switch1').prop("disabled", true);
+    $('#switch2').prop("disabled", false);
   })
   
   $('#switch2').on('click', function() {
@@ -22,14 +25,9 @@ $(document).ready(function(){
   
     $signup.toggleClass('hide');
     $login.toggleClass('hide');
+
+    $('#switch2').prop("disabled", true);
+    $('#switch1').prop("disabled", false);
   })
-  
-  // setTimeout(function(){
-  //   $('#switch1').click()
-  // },1000)
-  
-  // setTimeout(function(){
-  //   $('#switch2').click()
-  // },3000)
-   
+
  });

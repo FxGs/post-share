@@ -29,15 +29,15 @@
           <div class="loginMsg">
             <div class="textcontent">
               <p class="title" style="font-weight: bold; color: rgb(27, 27, 27)">Don't have an account?</p>
-              <p>Sign up to join with us.</p>
-              <button id="switch1">Sign Up</button>
+              <p>Sign up to join with us.</p></br>
+              <button id="switch1" class="btn from-left">𝙶𝚎𝚝 𝚂𝚝𝚊𝚛𝚝𝚎𝚍</button>
             </div>
           </div>
           <div class="signupMsg visibility">
             <div class="textcontent">
               <p class="title" style="font-weight: bold; color: rgb(27, 27, 27)">Have an account?</p>
-              <p>Log in to have a better experince.</p>
-              <button id="switch2">LOG IN</button>
+              <p>Share your world with us.</p></br>
+              <button id="switch2" class="btn from-right">𝙻𝙾𝙶 𝙸𝙽</button>
             </div>
           </div>
         </div>
@@ -52,9 +52,9 @@
                 <form action="/user/login" method="POST">
                     <div class="field">
                         <label class="label" style="font-family:Courier New; float:left ">Email</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input email-input" type="text" placeholder="Email input" name="email"
-                                id="email-input-login">
+                        <div class="control has-icons-left">
+                            <input class="input email-input-login" type="text" placeholder="Email input" name="email" 
+                                id="email-input-login" style="border: 1px solid black;">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
@@ -65,7 +65,7 @@
                         <label class="label" style="font-family:Courier New; float:left ">Password</label>
                         <div class="control has-icons-left">
                             <input class="input password-input-login" type="password" placeholder="Password" name="password"
-                                id="password-input-login">
+                                id="password-input-login" style="border: 1px solid black;">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-lock"></i>
                             </span>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="field">
                         <div class="control">
-                            <button class="button is-primary is-fullwidth" type="submit" id="submit-button">LOGIN</button>
+                            <button class="button is-primary is-fullwidth" type="submit" id="login-submit-button" disabled="true">LOGIN</button>
                         </div>
                     </div>
                 </form>
@@ -98,22 +98,31 @@
                         placeholder="Text input"
                         name="username"
                         id="username-input"
-                        style="margin-bottom: 0;"
+                        style="margin-bottom: 0; border: 1px solid black;"
                       />
+                      <!-- style="margin-bottom: 0;outline-color:grey;  
+                        outline-style:solid;" -->
                       <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                       </span>
                       <span class="icon is-small is-right">
                         <i
+                          class="fas fa-check"
+                          id="username-successIcon"
+                          style="display: none;"
+                        ></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i
                           class="fas fa-exclamation-triangle"
-                          id="username-icon"
-                          
+                          id="username-errorIcon"
+                          style="display: none;"
                         ></i>
                       </span>
                     </div>
                     <p
                       class="help is-danger"
-                      style="display: none"
+                      style="display: none;"
                       id="username-message"
                     >
                       Please enter a valid username.
@@ -128,21 +137,29 @@
                         placeholder="Email input"
                         name="email"
                         id="email-input"
-                        style="margin-bottom: 0;"
+                        style="margin-bottom: 0; border: 1px solid black;"
                       />
                       <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                       </span>
                       <span class="icon is-small is-right">
                         <i
+                          class="fas fa-check"
+                          id="email-successIcon"
+                          style="display: none;"
+                        ></i>
+                      </span>
+                      <span class="icon is-small is-right">
+                        <i
                           class="fas fa-exclamation-triangle"
-                          id="email-icon"
+                          id="email-errorIcon"
+                          style="display: none;"
                         ></i>
                       </span>
                     </div>
                     <p
                       class="help is-danger"
-                      id="email-message"
+                      id="email-signup-message"
                       style="display: none"
                     >
                       Please enter a valid email.
@@ -157,7 +174,7 @@
                         placeholder="Password"
                         name="password"
                         id="password-input"
-                        style="margin-bottom: 0;"
+                        style="margin-bottom: 0; border: 1px solid black;"
                       />
                       <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
@@ -165,7 +182,7 @@
                     </div>
                     <span
                       class="help is-danger"
-                      id="password-message"
+                      id="password-signup-message"
                       style="display: none"
                       >Password should be at least 8 characters long with at
                       least one lowercase, one uppercase and one digit.</span
@@ -180,7 +197,7 @@
                         placeholder="Confirm Password"
                         name="password_confirm"
                         id="password-confirm-input"
-                        style="margin-bottom: 0;"
+                        style="margin-bottom: 0; border: 1px solid black;"
                       />
                       <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
@@ -198,7 +215,7 @@
                       <button
                         class="button is-primary is-fullwidth"
                         type="submit"
-                        id="submit-button"
+                        id="signup-submit-button"
                         disabled="true"
                       >
                         SIGN-UP
@@ -215,48 +232,11 @@
       <!-- login/signiup -->
     </section>
 
-    <!-- <canvas class="background"></canvas>
-
-    <script src="/scripts/particles.min.js"></script>
-    <script>
-      window.onload = function () {
-        Particles.init({
-          selector: ".background",
-          color: "#C0C0C0",
-          sizeVariations: 7,
-          maxParticles: 130,
-          connectParticles: true,
-          responsive: [
-            {
-              breakpoint: 768,
-              options: {
-                maxParticles: 80,
-              },
-            },
-            {
-              breakpoint: 375,
-              options: {
-                maxParticles: 50,
-              },
-            },
-          ],
-          events: {
-            onhover: {
-              enable: true,
-              mode: "repulse",
-            },
-            onclick: {
-              enable: true,
-              mode: "push",
-            },
-            resize: true,
-          },
-        });
-      };
-    </script> -->
+    
     <script src="/scripts/particles.js"></script>
     <script src="/scripts/particles-config.js"></script>
     <script src="/scripts/particle-LoginSignup.js"></script>
-    <script src="/scripts/signup-validation.js"></script>
+    <script src="/scripts/login-validation.js"></script>
+    <script src="/scripts/signup-validation_nage.js"></script>
   </body>
 </html>
