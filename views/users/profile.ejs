@@ -21,14 +21,16 @@
   <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
   <link rel="stylesheet" href="/stylesheets/comment.css" />
   <link rel="stylesheet" href="/stylesheets/likes.css" />
+  <link rel="stylesheet" href="/stylesheets/fnav.css" />
   <title>Post-Share - <%= user.username %>'s Profile</title>
 </head>
 <section class="section">
   <%-include('../partials/newmodal')%>
-  <%-include('../partials/navbar')%>
+  <%-include('../partials/fnavbar')%>
 </section>
 
-<body class="is-flex is-flex-direction-column">
+<body class="is-flex is-flex-direction-column" style="height: 100vh;">
+  <div class="pageloader is-light"><span class="title">Loading...</span></div>
   <section class="hero is-small">
     <div class="hero-body">
       <div class="columns is-mobile">
