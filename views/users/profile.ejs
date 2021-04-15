@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://kit.fontawesome.com/59ef493f57.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+  <script src="/scripts/emojionearea.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
+  <link rel="stylesheet" href="/stylesheets/boiler.css" />
+  <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
+  <link rel="stylesheet" href="/stylesheets/comment.css" />
+  <link rel="stylesheet" href="/stylesheets/likes.css" />
+  <title>Post-Share - <%= user.username %>'s Profile</title>
+</head>
+<section class="section">
+  <%-include('../partials/newmodal')%>
+  <%-include('../partials/navbar')%>
+</section>
+
+<body class="is-flex is-flex-direction-column">
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="columns is-mobile">
+        <div class="column is-narrow is-offset-3-desktop is-offset-1-mobile">
+          <!-- <div class="column is-one-fifth-desktop is-one-quarter-mobile is-offset-3-desktop is-offset-1-mobile"> -->
+          <figure class="image is-128x128">
+            <img class="is-rounded" src="<%=user.profile.avatar.url%>">
+          </figure>
+        </div>
+        <div class="column is-one-quarter-desktop is-one-third-mobile">
+          <div class="title">
+            <%=user.profile.name%>
+          </div>
+          <p class="subtitle">
+            @<%=user.username%>
+          </p>
+          <p>
+            <%= user.profile.bio%>
+          </p>
+        </div>
+        <div class="column">
+          <div class="edit-profile">
+            <a href="/user/profile/<%=user.username%>/edit">
+              <button class="button is-light">
+                Edit Profile
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <hr class="rounded">
+  <section class="is-flex columns is-centered">
+    <div
+      class="container is-max-desktop is-justify-content-center column is-two-fifths-desktop is-three-quarters-tablet is-three-quarters-mobile">
+      <p class="title has-text-centered">
+        Posted Posts
+      </p>
+      <% if (posts.length>0) { %>
+      <% for(let post of posts) { %>
+      <div class="card mb-5">
+        <%if(post.image.length == 0){%>
+        <a href="/posts/<%=post.id%>">
+          <div class="card-image" style="display: none"></div>
+        </a>
+
+        <%}else if(post.image.length == 1){%>
+        <a href="/posts/<%=post.id%>">
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image is-3by3">
+              <img src="<%=post.image[0].url%>" alt="" />
+            </figure>
+          </div>
+        </a>
+
+        <%}else{%>
+        <a href="/posts/<%=post.id%>">
+          <div class="container is-clipped" id="carousel">
+            <div id="slider" class="slider">
+              <%for(var i = 0; i < post.image.length; i++){%>
+              <div class="card-image" style="max-height: 100%">
+                <figure class="image is-1by1">
+                  <img src="<%=post.image[i].url%>" alt="" />
+                </figure>
+              </div>
+              <%}%>
+                    </div>
+                  </div>
+                </a>
+          
+                <%}%>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-4"><%=post.title%></p>
+                    <p class="subtitle is-6"><%=post.body%></p>
+                  </div>
+                </div>
+              </div>
+              <header class="card-header" id="show-header" style="box-shadow: none">
+                <div class="card-header-title">
+                  <figure class="image is-48x48 mr-2">
+                    <img class="is-rounded" src="<%=post.author.profile.avatar.url%> " alt="" />
+                  </figure>
+                  <div class="div">
+                    <p class="title" style="
+                          font-size: 15px;
+                          font-family: 'Open Sans', sans-serif;
+                          margin-bottom: 0;
+                        ">
+                      @<%=post.author.username%>
+                    </p>
+                    <p class="subtitle" style="
+                          font-size: 14px;
+                          font-family: 'Open Sans', sans-serif;
+                          margin-top: 0;
+                        ">
+                      <%=post.postedat%>
+                    </p>
+                  </div>
+                </div>
+                <div class="card-header-icon" id="show-icons">
+                  <p>
+                    <span class="<%=post.id%>"><%=post.likes.count%></span>
+                  </p>
+                  <div class="control">
+                    <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+                      <%var liked = 0;%> <%for(var i = 0 ; i < post.likes.count; i++){%>
+                      <%if((post.likes.likedBy[i]).equals(user.id)){%>
+                      <button>
+                        <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+                      </button>
+                      <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+                      <button>
+                        <i class="far fa-heart" id="like-<%=post.id%>"></i>
+                      </button>
+                      <%}%>
+                      </form>
+                    </div>
+                    <p>
+                      <span class="comments-count"><%=post.comments.length%></span>
+                      </p>
+                      <div class="control">
+                        <a href="/posts/<%=post.id%>"><button><i class="far fa-comment-alt"></i></button></a>
+                      </div>
+                  </div>
+              </header>
+            </div>
+            <% }%>
+            <% } else {%>
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <div>
+                    <img src="https://64.media.tumblr.com/3c9cc0ea3aec71364e004a17e0ec1035/tumblr_inline_p26bt1b16s1regu9d_640.png"/>
+                  </div>
+                  <div class="has-text-centered">
+                    No posts found.
+                  </div>
+                </div>
+              </div>
+              <% } %> 
+          </div>
+      </div>
+    </div>
+  </section>
+    <%-include('../partials/footer')%>
+  </section>
+  <script>
+    if ($(".pageloader").length) {
+      $(".pageloader").toggleClass("is-active");
+      $(window).on("load", function () {
+        var pageloadtime = setTimeout(function () {
+          $(".pageloader").toggleClass("is-active");
+          clearTimeout(pageloadtime);
+        }, 1000);
+      });
+    }
+  </script>
+  <script src="/scripts/navbar.js"></script>
+  <script src="/scripts/modal.js"></script>
+  <script src="/scripts/form-validation.js"></script>
+  <script src="/scripts/signup-validation.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(".new-area").emojioneArea({
+        pickerPosition: "bottom",
+        filtersPosition: "bottom",
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      $("#comment").emojioneArea({
+        events: {
+          ready: function () {
+            this.setFocus();
+          },
+        },
+        pickerPosition: "top",
+        filtersPosition: "bottom",
+        spellcheck: true,
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function () {
+      $(".slider").slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        dots: true,
+      });
+    });
+  </script>
+  <script src="/scripts/comment.js"></script>
+  <script src="/scripts/like.js"></script>
+  <script src="/scripts/navbar.js"></script>
+</body>
+</html>

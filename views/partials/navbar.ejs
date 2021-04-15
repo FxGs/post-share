@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top is-dark has-text-white mb-3" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top is-dark has-text-white mb-3" role="navigation" aria-label="main navigation" >
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
@@ -21,32 +21,43 @@
       <div class="navbar-start">
         <a class="navbar-item" href="/posts"> <span>Posts</span> </a>
         <a class="navbar-item" id="btn-modal">
-          <span class="icon"> <i class="fas fa-plus"></i> </span
-          ><span>Post</span></a
-        >
+          <span class="icon"> <i class="fas fa-plus"></i> </span><span>Post</span></a>
         <a class="navbar-item" href="/contacts"> <span>Contact Us</span></a>
+        <% if (user) { %>
+        <a class="navbar-item " href="/user/profile">
+          <span>
+            Profile
+          </span>
+        </a>
+        <% } %>
+
       </div>
 
       <div class="navbar-end">
+        <% if(user) { %>
         <div class="navbar-item">
-          <% if(user) { %>
-            <p class="navbar-item has-text-white">
-              Welcome, <%= user.username %>
-            </p>
-            <div class ="buttons">
-              <a class="button is-warning" href="/user/logout">
-              <strong>Log Out</strong>
-              </a>
-            </div>
-            <% } else { %>
-            <div class="buttons">
-              <a class="button is-primary" href="/signup">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light" href="/login"> Log in </a>
-            </div>
-            <% } %>
+          <span>
+            Welcome, <%= user.username %>
+          </span>
         </div>
+
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="navbar-item button is-warning" href="/user/logout">
+              <strong>Log Out</strong>
+            </a>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" href="/signup">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" href="/login"> Log in </a>
+          </div>
+        </div>
+        <% } %>
       </div>
     </div>
   </div>

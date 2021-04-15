@@ -25,7 +25,7 @@ $(".like-form").on("submit", function (e) {
       }
     },
     error: function (error) {
-      alert("error");
+      alert(JSON.parse(error));
     },
   });
   e.preventDefault();

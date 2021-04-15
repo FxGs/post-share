@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
   $("input.cmnt1").change(function (e) {
     // alert("changed");
     $("#Btn1").attr("disabled", false);

@@ -1,39 +1,28 @@
 <% layout('layout/boilerplate') -%>
 <div class="pageloader is-dark"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
-  <div
-    class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
-    style="padding: 0"
-  >
+  <div class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop" style="padding: 0">
     <div class="card mb-5">
       <header class="card-header">
         <div class="card-header-title">
           <figure class="image is-48x48 mr-2">
-            <img
-              class="is-rounded"
+            <img class="is-rounded"
               src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-              alt=""
-            />
+              alt="" />
           </figure>
           <div class="div">
-            <p
-              class="title"
-              style="
+            <p class="title" style="
                 font-size: 15px;
                 font-family: 'Open Sans', sans-serif;
                 margin-bottom: 0;
-              "
-            >
+              ">
               @<%=post.author.username%>
             </p>
-            <p
-              class="subtitle"
-              style="
+            <p class="subtitle" style="
                 font-size: 14px;
                 font-family: 'Open Sans', sans-serif;
                 margin-top: 0;
-              "
-            >
+              ">
               <%=post.postedat%>
             </p>
           </div>
@@ -42,13 +31,7 @@
         <div class="card-header-icon">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
-              <button
-                class="dropdown-btn"
-                aria-haspopup="true"
-                aria-controls="dropdown-menu4"
-                style="border: none;"
-                
-              >
+              <button class="dropdown-btn" aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none;">
                 <span class="icon is-small">
                   <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                 </span>
@@ -65,16 +48,12 @@
                   </button>
                 </a>
                 <a href="#" class="dropdown-item">
-                  <form
-                    action="/posts/<%=post.id%>?_method=DELETE"
-                    method="POST"
-                  >
+                  <form action="/posts/<%=post.id%>?_method=DELETE" method="POST">
                     <button class="button" style="border: none">
-                      <span class="icon"><i class="fas fa-trash-alt"></i></span
-                      ><span>Delete</span>
+                      <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
                     </button>
-                  </form></a
-                >
+                  </form>
+                </a>
               </div>
             </div>
           </div>
@@ -86,69 +65,63 @@
           <div class="media-content">
             <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
               <%=post.title%>
-            </p>
-            <p class="subtitle is-6"><%=post.body%></p>
-          </div>
-        </div>
-      </div>
-      <%if(post.image.length == 0){%>
-      <div class="card-image" style="display: none"></div>
-      <%}else if(post.image.length == 1){%>
-      <div class="card-image" style="max-height: 100%">
-        <figure class="image is-3by3">
-          <img src="<%=post.image[0].url%>" alt="" />
-        </figure>
-      </div>
-      <%}else{%>
-      <div class="container is-clipped" id="carousel">
-        <div id="slider" class="slider">
-          <%for(var i = 0; i < post.image.length; i++){%>
-          <div class="card-image" style="max-height: 100%">
-            <figure class="image is-1by1">
-              <img src="<%=post.image[i].url%>" alt="" />
-            </figure>
-          </div>
-          <%}%>
+        </p>
+        <p class="subtitle is-6"><%=post.body%></p>
+    </div>
+  </div>
+</div>
+<%if(post.image.length == 0){%>
+<div class="card-image" style="display: none"></div>
+<%}else if(post.image.length == 1){%>
+<div class="card-image" style="max-height: 100%">
+  <figure class="image is-3by3">
+    <img src="<%=post.image[0].url%>" alt="" />
+  </figure>
+</div>
+<%}else{%>
+<div class="container is-clipped" id="carousel">
+  <div id="slider" class="slider">
+    <%for(var i = 0; i < post.image.length; i++){%>
+    <div class="card-image" style="max-height: 100%">
+      <figure class="image is-1by1">
+        <img src="<%=post.image[i].url%>" alt="" />
+      </figure>
+    </div>
+    <%}%>
         </div>
       </div>
       <%}%>
-      <div class="card-content" style="padding: 0.5rem">
-        <div class="media">
-          <div class="media-left" id="showpost-icons"></div>
-          <div class="media-content"></div>
-          <div class="media-right is-flex" id="likes-container">
-            <div class="likes-container is-flex">
-              <p>
-                <span class="<%=post.id%>"><%=post.likes.count%></span>
-              </p>
-              <div class="control likes mx-1">
-                <form
-                  class="like-form"
-                  action=""
-                  id="/posts/<%=post.id%>/likes"
-                >
-                  <%var liked = 0;%> <%for(var i = 0 ; i < post.likes.count;
+    <div class="card-content" style="padding: 0.5rem">
+      <div class="media">
+        <div class="media-left" id="showpost-icons"></div>
+        <div class="media-content"></div>
+        <div class="media-right is-flex" id="likes-container">
+          <div class="likes-container is-flex">
+            <p>
+              <span class="<%=post.id%>"><%=post.likes.count%></span>
+            </p>
+            <div class="control likes mx-1">
+              <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+                <%var liked = 0;%> <%for(var i = 0 ; i < post.likes.count;
                   i++){%> <%if((post.likes.likedBy[i]).equals(user.id)){%>
-                  <button>
-                    <i class="fas fa-heart" id="like-<%=post.id%>"></i>
-                  </button>
-                  <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
-                  <button>
-                    <i class="far fa-heart" id="like-<%=post.id%>"></i>
-                  </button>
-                  <%}%>
+                <button>
+                  <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+                <button>
+                  <i class="far fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%}%>
                 </form>
               </div>
             </div>
             <div class="comments-container is-flex">
               <p>
                 <span class="comments-count"><%=cmnts.length%></span>
-              </p>
-              <div class="control">
-                <a href="posts/<%=post.id%>"
-                  ><button><i class="far fa-comment-alt"></i></button
-                ></a>
-              </div>
+                </p>
+                <div class="control">
+                  <a href="posts/<%=post.id%>"><button><i class="far fa-comment-alt"></i></button></a>
+                </div>
             </div>
           </div>
         </div>
@@ -157,14 +130,8 @@
         <div class="field pl-3 pb-3 pr-3" style="width: 100%">
           <form action="/posts/<%=post.id%>/comments" method="POST">
             <div class="control mt-2" style="display: flex">
-              <input
-                class="input mr-2 cmnt1"
-                type="text"
-                name="comment[body]"
-                id="comment"
-                placeholder="Add a comment.."
-                autofocus
-              />
+              <input class="input mr-2 cmnt1" type="text" name="comment[body]" id="comment"
+                placeholder="Add a comment.." autofocus />
               <button id="Btn1" type="submit" disabled>POST</button>
             </div>
           </form>
@@ -182,25 +149,17 @@
         <div class="comment-heading">
           <div class="comment-info" style="display: flex; flex-direction: row">
             <figure class="image is-24x24 mr-2">
-              <img
-                class="is-rounded"
+              <img class="is-rounded"
                 src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                alt=""
-              />
+                alt="" />
             </figure>
-            <a href="#" class="comment-author"
-              >@<%=cmnts[i].author.username%></a
-            >
+            <a href="#" class="comment-author">@<%=cmnts[i].author.username%></a>
           </div>
           <%if((cmnts[i].author.id) === (user.id)){%>
           <div class="comment-heading-icon">
             <div class="dropdown is-hoverable">
               <div class="dropdown-trigger">
-                <button
-                  aria-haspopup="true"
-                  aria-controls="dropdown-menu4"
-                  style="border: none"
-                >
+                <button aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none">
                   <span class="icon is-small">
                     <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                   </span>
@@ -209,17 +168,12 @@
               <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                 <div class="dropdown-content">
                   <a href="#" class="dropdown-item">
-                    <form
-                      action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>?_method=DELETE"
-                      method="POST"
-                    >
+                    <form action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>?_method=DELETE" method="POST">
                       <button class="button" style="border: none">
-                        <span class="icon"
-                          ><i class="fas fa-trash-alt"></i></span
-                        ><span>Delete</span>
+                        <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
                       </button>
-                    </form></a
-                  >
+                    </form>
+                  </a>
                 </div>
               </div>
             </div>
@@ -230,18 +184,9 @@
           <p class="caption parent"><%=cmnts[i].body%></p>
           <button type="button" id="Btn-reply">Reply</button>
           <div class="field" id="reply-1" style="display: none">
-            <form
-              action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
-              method="POST"
-            >
+            <form action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>" method="POST">
               <div class="control" style="display: flex">
-                <input
-                  class="input mr-2"
-                  type="text"
-                  name="comment[body]"
-                  id="comment"
-                  placeholder="Add a comment.."
-                />
+                <input class="input mr-2" type="text" name="comment[body]" id="comment" placeholder="Add a comment.." />
                 <button type="submit">POST</button>
               </div>
             </form>
@@ -262,29 +207,18 @@
               <span class="sr-only">Jump to comment-1</span>
             </a>
             <div class="comment-heading">
-              <div
-                class="comment-info"
-                style="display: flex; flex-direction: row"
-              >
+              <div class="comment-info" style="display: flex; flex-direction: row">
                 <figure class="image is-24x24 mr-2">
-                  <img
-                    class="is-rounded"
+                  <img class="is-rounded"
                     src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                    alt=""
-                  />
+                    alt="" />
                 </figure>
-                <a href="#" class="comment-author"
-                  >@<%=cmnts[k].author.username%></a
-                >
+                <a href="#" class="comment-author">@<%=cmnts[k].author.username%></a>
               </div>
               <div class="comment-heading-icon">
                 <div class="dropdown is-hoverable">
                   <div class="dropdown-trigger">
-                    <button
-                      aria-haspopup="true"
-                      aria-controls="dropdown-menu4"
-                      style="border: none"
-                    >
+                    <button aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none">
                       <span class="icon is-small">
                         <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                       </span>
@@ -293,17 +227,12 @@
                   <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                     <div class="dropdown-content">
                       <a href="#" class="dropdown-item">
-                        <form
-                          action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>?_method=DELETE"
-                          method="POST"
-                        >
+                        <form action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>?_method=DELETE" method="POST">
                           <button class="button" style="border: none">
-                            <span class="icon"
-                              ><i class="fas fa-trash-alt"></i></span
-                            ><span>Delete</span>
+                            <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
                           </button>
-                        </form></a
-                      >
+                        </form>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -313,18 +242,10 @@
               <p class="caption"><%=cmnts[k].body%></p>
               <button type="button" id="Btn-reply-1">Reply</button>
               <div class="field">
-                <form
-                  action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
-                  method="POST"
-                >
+                <form action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>" method="POST">
                   <div class="control" style="display: flex">
-                    <input
-                      class="input mr-2"
-                      type="text"
-                      name="comment[body]"
-                      id="comment"
-                      placeholder="Add a comment.."
-                    />
+                    <input class="input mr-2" type="text" name="comment[body]" id="comment"
+                      placeholder="Add a comment.." />
                     <button type="submit">POST</button>
                   </div>
                 </form>
@@ -344,5 +265,5 @@
       <%}%> <%}%>
     </div>
     <%}%>
-  </div>
-</div>
+      </div>
+    </div>
