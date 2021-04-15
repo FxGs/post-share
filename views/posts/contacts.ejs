@@ -1,5 +1,168 @@
-<% layout('layout/boilerplate') -%>
-<div class="pageloader is-dark"><span class="title">Loading...</span></div>
-<div style="margin-top: 5vh;">
-    Under Construction.
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
+    ></script>
+    <script src="/scripts/sendmail.js"></script>
+    <script
+      src="https://kit.fontawesome.com/59ef493f57.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/scripts/emojionearea.min.js"></script>
+    <title>new post</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
+    <link rel="stylesheet" href="/stylesheets/boiler.css" />
+    <link rel="stylesheet" href="/stylesheets/contact.css" />
+    <link rel="stylesheet" href="/stylesheets/fnav.css" />
+  </head>
+  <body
+    class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
+    style="min-height: 100vh"
+    id="contact-body"
+  >
+    <div class="pageloader is-light">
+      <span class="title">Loading...</span>
+    </div>
+    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
+    <div class="inner" style="z-index: 30; margin-top: 10%">
+      <div class="columns is-centered">
+        <div
+          class="column is-full-mobile is-full-tablet is-three-quarters-desktop"
+        >
+          <div class="columns">
+            <div class="column is-full-mobile mt-5">
+              <div
+                class="card"
+                style="
+                  height: 100%;
+                  background-image: url('https://images.unsplash.com/photo-1568275339031-a8ce20ef6f9e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');
+                  background-position: bottom;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                "
+              >
+                <div class="card-content">
+                  <p class="title" style="text-shadow: 1px 1px 5px #808080">
+                    Get in touch with us
+                  </p>
+                  <br />
+                  <p class="subtile" style="text-shadow: 1px 1px 5px #808080">
+                    <span class="icon"><i class="fas fa-map-marker"></i></span
+                    >Rourkela, Odisha
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="column is-full-mobile mt-5">
+              <div class="card" style="height: 100%">
+                <div class="card-content">
+                  <form action="/email" method="POST">
+                    <div class="field">
+                      <label for="subject" class="label">Subject</label>
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          id="subject"
+                          name="subject"
+                          placeholder="subject"
+                        />
+                      </div>
+                    </div>
+                    <div class="field" style="display: none">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="email"
+                          id="email"
+                          name="email"
+                          value="<%=user.email%>"
+                          placeholder="<%=user.email%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="text" class="label">Message</label>
+                      <div class="control">
+                        <textarea
+                          class="textarea"
+                          name="text"
+                          id="text"
+                          cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <button
+                          class="button is-primary"
+                          type="submit"
+                          onclick="sendMail();"
+                        >
+                          Send Message
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="line line-1">
+      <div class="wave wave-1" style="background: url(/assets/1.png)"></div>
+    </div>
+    <div class="line line-2">
+      <div class="wave wave-2" style="background: url(/assets/2.png)"></div>
+    </div>
+    <div class="line line-3">
+      <div class="wave wave-3" style="background: url(/assets/3.png)"></div>
+    </div>
+    <script>
+      if ($(".pageloader").length) {
+        $(".pageloader").toggleClass("is-active");
+        $(window).on("load", function () {
+          var pageloadtime = setTimeout(function () {
+            $(".pageloader").toggleClass("is-active");
+            clearTimeout(pageloadtime);
+          }, 1000);
+        });
+      }
+    </script>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script src="/scripts/form-validation.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".new-area").emojioneArea({
+          pickerPosition: "bottom",
+          filtersPosition: "bottom",
+        });
+      });
+    </script>
+  </body>
+</html>

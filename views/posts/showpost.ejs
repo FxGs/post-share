@@ -1,5 +1,5 @@
 <% layout('layout/boilerplate') -%>
-<div class="pageloader is-dark"><span class="title">Loading...</span></div>
+<div class="pageloader is-light"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
   <div class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop" style="padding: 0">
     <div class="card mb-5">
@@ -22,8 +22,9 @@
                 font-size: 14px;
                 font-family: 'Open Sans', sans-serif;
                 margin-top: 0;
-              ">
-              <%=post.postedat%>
+              "
+            >
+              <%var date = post.postedat.toDateString();%> <%=date%>
             </p>
           </div>
         </div>
@@ -31,7 +32,12 @@
         <div class="card-header-icon">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
-              <button class="dropdown-btn" aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none;">
+              <button
+                class="dropdown-btn"
+                aria-haspopup="true"
+                aria-controls="dropdown-menu4"
+                style="border: none"
+              >
                 <span class="icon is-small">
                   <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                 </span>
@@ -65,29 +71,29 @@
           <div class="media-content">
             <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
               <%=post.title%>
-        </p>
-        <p class="subtitle is-6"><%=post.body%></p>
-    </div>
-  </div>
-</div>
-<%if(post.image.length == 0){%>
-<div class="card-image" style="display: none"></div>
-<%}else if(post.image.length == 1){%>
-<div class="card-image" style="max-height: 100%">
-  <figure class="image is-3by3">
-    <img src="<%=post.image[0].url%>" alt="" />
-  </figure>
-</div>
-<%}else{%>
-<div class="container is-clipped" id="carousel">
-  <div id="slider" class="slider">
-    <%for(var i = 0; i < post.image.length; i++){%>
-    <div class="card-image" style="max-height: 100%">
-      <figure class="image is-1by1">
-        <img src="<%=post.image[i].url%>" alt="" />
-      </figure>
-    </div>
-    <%}%>
+            </p>
+            <p class="subtitle is-6"><%=post.body%></p>
+          </div>
+        </div>
+      </div>
+      <%if(post.image.length == 0){%>
+      <div class="card-image" style="display: none"></div>
+      <%}else if(post.image.length == 1){%>
+      <div class="card-image" style="max-height: 100%">
+        <figure class="image is-3by3">
+          <img src="<%=post.image[0].url%>" alt="" />
+        </figure>
+      </div>
+      <%}else{%>
+      <div class="container is-clipped" id="carousel">
+        <div id="slider" class="slider">
+          <%for(var i = 0; i < post.image.length; i++){%>
+          <div class="card-image" style="max-height: 100%">
+            <figure class="image">
+              <img src="<%=post.image[i].url%>" alt="" />
+            </figure>
+          </div>
+          <%}%>
         </div>
       </div>
       <%}%>
@@ -118,10 +124,10 @@
             <div class="comments-container is-flex">
               <p>
                 <span class="comments-count"><%=cmnts.length%></span>
-                </p>
-                <div class="control">
-                  <a href="posts/<%=post.id%>"><button><i class="far fa-comment-alt"></i></button></a>
-                </div>
+              </p>
+              <div class="control">
+                <button><i class="far fa-comment-alt"></i></button>
+              </div>
             </div>
           </div>
         </div>
@@ -130,8 +136,14 @@
         <div class="field pl-3 pb-3 pr-3" style="width: 100%">
           <form action="/posts/<%=post.id%>/comments" method="POST">
             <div class="control mt-2" style="display: flex">
-              <input class="input mr-2 cmnt1" type="text" name="comment[body]" id="comment"
-                placeholder="Add a comment.." autofocus />
+              <input
+                class="input mr-2 cmnt1 comment-input"
+                type="text"
+                name="comment[body]"
+                id="comment"
+                placeholder="Add a comment.."
+                autofocus
+              />
               <button id="Btn1" type="submit" disabled>POST</button>
             </div>
           </form>
@@ -182,19 +194,28 @@
         </div>
         <div class="comment-body">
           <p class="caption parent"><%=cmnts[i].body%></p>
-          <button type="button" id="Btn-reply">Reply</button>
-          <div class="field" id="reply-1" style="display: none">
-            <form action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>" method="POST">
+          <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
+            <i class="fas fa-reply"></i>
+          </button>
+          <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
+            <form
+              action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
+              method="POST"
+            >
               <div class="control" style="display: flex">
-                <input class="input mr-2" type="text" name="comment[body]" id="comment" placeholder="Add a comment.." />
-                <button type="submit">POST</button>
+                <input
+                  class="input mr-2 comment-input comment-post"
+                  type="text"
+                  name="comment[body]"
+                  id="comment-<%=cmnts[i].id%>"
+                  placeholder="Add a comment.."
+                />
+                <button type="submit" id="post-<%=cmnts[i].id%>" disabled>
+                  POST
+                </button>
               </div>
             </form>
           </div>
-
-          <!-- <a href="#" class="loadreplies" id="load-<%=cmnts[i].id%>"
-            >Load more replies</a
-          > -->
         </div>
 
         <%loadChildComments(cmnts[i].id);%> <%function loadChildComments(pId){%>
@@ -240,19 +261,36 @@
             </div>
             <div class="comment-body">
               <p class="caption"><%=cmnts[k].body%></p>
-              <button type="button" id="Btn-reply-1">Reply</button>
-              <div class="field">
-                <form action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>" method="POST">
+              <button
+                type="button"
+                id="Btn-<%=cmnts[k].id%>"
+                class="comment-reply"
+              >
+                <i class="fas fa-reply"></i>
+              </button>
+              <div
+                class="field"
+                id="reply-<%=cmnts[k].id%>"
+                style="display: none"
+              >
+                <form
+                  action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
+                  method="POST"
+                >
                   <div class="control" style="display: flex">
-                    <input class="input mr-2" type="text" name="comment[body]" id="comment"
-                      placeholder="Add a comment.." />
-                    <button type="submit">POST</button>
+                    <input
+                      class="input mr-2 comment-input comment-post"
+                      type="text"
+                      name="comment[body]"
+                      id="comment-<%=cmnts[k].id%>"
+                      placeholder="Add a comment.."
+                    />
+                    <button type="submit" id="post-<%=cmnts[k].id%>" disabled>
+                      POST
+                    </button>
                   </div>
                 </form>
               </div>
-              <!-- <a href="#" class="loadreplies" id="load-<%=cmnts[k].id%>"
-                >Load more replies</a
-              > -->
             </div>
 
             <%loadChildComments(cmnts[k].id);%>

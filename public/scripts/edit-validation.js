@@ -8,15 +8,11 @@ $(document).ready(function () {
       if (jQuery.trim($(".edit-area").val()) === "") {
         $(".edit-area").removeClass("is-success");
         $(".edit-area").addClass("is-danger");
-        $("#editbodySuccessIcon").css("display", "none");
-        $("#editbodyErrorIcon").css("display", "block");
         $("#editbody_error").css("display", "block");
         bodyValidated = false;
       } else {
         $(".edit-area").removeClass("is-danger");
         $(".edit-area").addClass("is-success");
-        $("#editbodyErrorIcon").css("display", "none");
-        $("#editbodySuccessIcon").css("display", "block");
         $("#editbody_error").css("display", "none");
         bodyValidated = true;
       }

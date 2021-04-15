@@ -5,15 +5,11 @@ $(document).ready(function () {
     if ($(".new-area").val() === "") {
       $(".new-area").removeClass("is-success");
       $(".new-area").addClass("is-danger");
-      $("#bodySuccessIcon").css("display", "none");
-      $("#bodyErrorIcon").css("display", "block");
       $("#body_error").css("display", "block");
       bodyValidated = false;
     } else {
       $(".new-area").removeClass("is-danger");
       $(".new-area").addClass("is-success");
-      $("#bodyErrorIcon").css("display", "none");
-      $("#bodySuccessIcon").css("display", "block");
       $("#body_error").css("display", "none");
       bodyValidated = true;
     }
