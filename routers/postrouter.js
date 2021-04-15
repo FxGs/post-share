@@ -2,6 +2,7 @@ const express = require("express");
 var router = express.Router();
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 const { requireAuth, checkUser } = require("../middleware/auth");
 const {
   isAuthor,
@@ -48,10 +49,7 @@ router.post(
     }));
     if (post.image.length > 1) {
       for (var i = 0; i < post.image.length; i++) {
-        var newurl = post.image[i].url.replace(
-          "/upload",
-          "/upload/h_600"
-        );
+        var newurl = post.image[i].url.replace("/upload", "/upload/h_600");
         post.image[i].url = newurl;
       }
     } else if (post.image.length == 1) {
@@ -172,40 +170,62 @@ router.post(
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
-    // console.log(req.params.id);
     const post = await Post.findById(req.params.id);
-    console.log(post.likes.count);
+    // console.log(post.likes.count);
+    // var f = 0;
+    // for (var i = 0; i < post.likes.likedBy.length; i++) {
+    //   if (post.likes.likedBy[i].equals(res.locals.user.id)) {
+    //     post.likes.likedBy.splice(i);
+    //     post.likes.count = post.likes.likedBy.length;
+    //     await post.save();
+    //     // res.locals.user.likedposts.push(post);
+    //     // await res.locals.user.save();
+    //     // console.log(res.locals.user.likedposts);
+    //     res.json({ message: "disliked successfully" });
+    //     console.log("found" + post.likes.count);
+    //     f = 1;
+    //     break;
+    //   }
+    // }
+    // if (f === 0) {
+    //   post.likes.likedBy.push(res.locals.user.id);
+    //   post.likes.count = post.likes.likedBy.length;
+    //   await post.save();
+    //   // res.locals.user.likedposts.push(post);
+    //   // await res.locals.user.save();
+    //   // console.log(res.locals.user.likedposts);
+    //   res.json({ message: "liked successfully" });
+    //   console.log("not found" + post.likes.count);
+    // }
+
+    //logic 1
+    const user = res.locals.user;
+
     var f = 0;
-    for (var i = 0; i < post.likes.likedBy.length; i++) {
-      if (post.likes.likedBy[i].equals(res.locals.user.id)) {
-        post.likes.likedBy.splice(i);
-        post.likes.count = post.likes.likedBy.length;
+    // check for users liked list for postid
+    //if found pull that id from posts and decrease the count
+    //then delete the id from user's likedposts array
+    for (var i = 0; i < user.likedposts.length; i++) {
+      if (user.likedposts[i].equals(post.id)) {
+        await user.likedposts.splice(i);
+        await user.save();
+        post.likes.count = post.likes.count - 1;
         await post.save();
-        // res.locals.user.likedposts.push(post);
-        // await res.locals.user.save();
-        // console.log(res.locals.user.likedposts);
         res.json({ message: "disliked successfully" });
         console.log("found" + post.likes.count);
         f = 1;
         break;
       }
     }
+    // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
     if (f === 0) {
-      post.likes.likedBy.push(res.locals.user.id);
-      post.likes.count = post.likes.likedBy.length;
+      await user.likedposts.push(post.id);
+      await user.save();
+      post.likes.count = post.likes.count + 1;
       await post.save();
-      // res.locals.user.likedposts.push(post);
-      // await res.locals.user.save();
-      // console.log(res.locals.user.likedposts);
       res.json({ message: "liked successfully" });
       console.log("not found" + post.likes.count);
     }
-
-    //logic 1
-    // check for users liked list for postid
-    //if found pull that id from posts and decrease the count
-    //then delete the id from user's likedposts array
-    // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
   })
 );
 

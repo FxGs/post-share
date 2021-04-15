@@ -1,7 +1,10 @@
 <% layout('layout/boilerplate') -%>
 <div class="pageloader is-light"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
-  <div class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop" style="padding: 0">
+  <div
+    class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
+    style="padding: 0"
+  >
     <% for(let post of posts) { %>
     <div class="card mb-5">
       <%if(post.image.length == 0){%>
@@ -28,30 +31,37 @@
       </div>
 
       <%}%>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4"><%=post.title%></p>
-                  <p class="subtitle is-6"><%=post.body%></p>
-                </div>
-              </div>
-            </div>
-            <header class="card-header" id="show-header" style="box-shadow: none">
-              <div class="card-header-title">
-                <figure class="image is-48x48 mr-2">
-                  <img class="is-rounded"
-                    src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                    alt="" />
-                </figure>
-                <div class="div">
-                  <p class="title" style="
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4"><%=post.title%></p>
+            <p class="subtitle is-6"><%=post.body%></p>
+          </div>
+        </div>
+      </div>
+      <header class="card-header" id="show-header" style="box-shadow: none">
+        <div class="card-header-title">
+          <figure class="image is-48x48 mr-2">
+            <img
+              class="is-rounded"
+              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+              alt=""
+            />
+          </figure>
+          <div class="div">
+            <p
+              class="title"
+              style="
                 font-size: 15px;
                 font-family: 'Open Sans', sans-serif;
                 margin-bottom: 0;
-              ">
-                    @<%=post.author.username%>
-                  </p>
-                  <p class="subtitle" style="
+              "
+            >
+              @<%=post.author.username%>
+            </p>
+            <p
+              class="subtitle"
+              style="
                 font-size: 14px;
                 font-family: 'Open Sans', sans-serif;
                 margin-top: 0;
@@ -67,8 +77,8 @@
           </p>
           <div class="control">
             <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
-              <%var liked = 0;%> <%for(var i = 0 ; i < post.likes.count; i++){%>
-              <%if((post.likes.likedBy[i]).equals(user.id)){%>
+              <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+              i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
               <button>
                 <i class="fas fa-heart" id="like-<%=post.id%>"></i>
               </button>
@@ -81,13 +91,15 @@
           </div>
           <p>
             <span class="comments-count"><%=post.comments.length%></span>
-                    </p>
-                    <div class="control">
-                      <a href="/posts/<%=post.id%>"><button><i class="far fa-comment-alt"></i></button></a>
-                    </div>
-                </div>
-            </header>
+          </p>
+          <div class="control">
+            <a href="/posts/<%=post.id%>"
+              ><button><i class="far fa-comment-alt"></i></button
+            ></a>
           </div>
-          <% }%>
         </div>
+      </header>
     </div>
+    <% }%>
+  </div>
+</div>

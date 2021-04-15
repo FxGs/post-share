@@ -108,8 +108,8 @@
             </p>
             <div class="control likes mx-1">
               <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
-                <%var liked = 0;%> <%for(var i = 0 ; i < post.likes.count;
-                  i++){%> <%if((post.likes.likedBy[i]).equals(user.id)){%>
+                <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+                  i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
                 <button>
                   <i class="fas fa-heart" id="like-<%=post.id%>"></i>
                 </button>

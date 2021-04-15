@@ -21,12 +21,6 @@ const PostSchema = new Schema({
     default: Date.now(),
   },
   likes: {
-    likedBy: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
     count: {
       type: Number,
       default: 0,
