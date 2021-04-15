@@ -1,0 +1,120 @@
+<% layout('layout/boilerplate') %>
+<div class="columns">
+  <div class="column">
+    <p class="has-text-centered is-size-3 mb-5">Preview</p>
+    <div class="columns box is-mobile">
+      <div class="column is-narrow">
+        <figure class="image is-128x128">
+          <img
+            class="is-rounded"
+            src="<%=user.profile.avatar.url%>"
+            id="avatar-preview"
+            style="object-fit: cover; width: 128px; height: 128px"
+          />
+        </figure>
+      </div>
+      <div class="column">
+        <div class="title">
+          <span id="name-preview"> <%=user.profile.name%> </span>
+        </div>
+        <p class="subtitle">@<%=user.username%></p>
+        <p id="bio-preview"><%= user.profile.bio%></p>
+      </div>
+    </div>
+  </div>
+  <hr class="rounded" />
+  <div class="column">
+    <form
+      class="edit-profile-form"
+      method="POST"
+      action="/user/profile/<%=user.username%>?_method=PUT"
+      id="<%=user.username%>"
+      enctype="multipart/form-data"
+    >
+      <div class="field">
+        <label class="label">Avatar</label>
+        <div id="file-edit is-fullwidth" class="file is-primary has-name">
+          <label class="file-label">
+            <input
+              class="file-input"
+              type="file"
+              name="profile-picture"
+              accept="image/png, image/jpeg"
+              id="file-input"
+            />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Upload </span>
+            </span>
+            <span class="file-name"> No files chosen. </span>
+          </label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            name="name"
+            id="name"
+            value="<%=user.profile.name%>"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Bio</label>
+        <div class="control">
+          <input
+            class="input"
+            type="text"
+            name="bio"
+            id="bio"
+            value="<%=user.profile.bio%>"
+          />
+        </div>
+      </div>
+      <button
+        class="button is-primary"
+        id="edit-profile-submit-button"
+        type="submit"
+      >
+        Save
+      </button>
+      <button class="button" href="/user/profile">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const fileInput2 = document.querySelector("#file-edit input[type=file]");
+  fileInput2.onchange = () => {
+    if (fileInput2.files.length > 0) {
+      const fileName2 = document.querySelector("#file-edit .file-name");
+      fileName2.textContent = fileInput2.files[0].name;
+    }
+  };
+</script>
+<script>
+  $(document).ready((e) => {
+    $("#name").change(() => {
+      $("#name-preview").text($("#name").val());
+    });
+    $("#bio").change(() => {
+      $("#bio-preview").text($("#bio").val());
+    });
+    $("#file-input").change(() => {
+      const file = document.getElementById("file-input").files[0];
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function (event) {
+          $("#avatar-preview").attr("src", event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    e.preventDefault();
+  });
+</script>
