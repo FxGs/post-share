@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
   <head>
+    <title>Post-Share</title>
+    <script
+      src="https://kit.fontawesome.com/59ef493f57.js"
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.6.0.js"
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
-    ></script>
-    <script src="/scripts/sendmail.js"></script>
-    <script
-      src="https://kit.fontawesome.com/59ef493f57.js"
-      crossorigin="anonymous"
-    ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
     <script src="/scripts/emojionearea.min.js"></script>
-
-    <title>new post</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
@@ -45,15 +38,14 @@
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
     <link rel="stylesheet" href="/stylesheets/comment.css" />
-    <link rel="stylesheet" href="/stylesheets/fnav.css" />
-    <link rel="stylesheet" href="/stylesheets/aboutus.css" />
   </head>
+
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
-    style="min-height: 100vh"
+    style="height: 100vh"
   >
     <!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
-    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
+    <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
     <section>
       <main class="container" style="margin-top: 3rem">
         <%- include("../partials/flash") %><%- body -%>
@@ -85,90 +77,29 @@
     </script>
     <script>
       $(document).ready(function () {
+        $("#comment").emojioneArea({
+          events: {
+            ready: function () {
+              this.setFocus();
+            },
+          },
+          pickerPosition: "top",
+          filtersPosition: "bottom",
+          spellcheck: true,
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
         $(".slider").slick({
           slidesToShow: 1,
           slidesToScroll: 1,
           dots: true,
-          adaptiveHeight: true,
+          adaptiveheight: true,
         });
-=======
-<head>
-  <title>Post-Share</title>
-  <script src="https://kit.fontawesome.com/59ef493f57.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
-  <script src="/scripts/emojionearea.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
-  <link rel="stylesheet" href="/stylesheets/boiler.css" />
-  <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
-  <link rel="stylesheet" href="/stylesheets/comment.css" />
-</head>
-
-<body class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile" style="height: 100vh">
-  <!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
-  <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
-  <section>
-    <main class="container" style="margin-top: 3rem">
-      <%- include("../partials/flash") %><%- body -%>
-    </main>
-  </section>
-  <%-include('../partials/footer')%>
-  <script>
-    if ($(".pageloader").length) {
-      $(".pageloader").toggleClass("is-active");
-      $(window).on("load", function () {
-        var pageloadtime = setTimeout(function () {
-          $(".pageloader").toggleClass("is-active");
-          clearTimeout(pageloadtime);
-        }, 1000);
       });
-    }
-  </script>
-  <script src="/scripts/navbar.js"></script>
-  <script src="/scripts/modal.js"></script>
-  <script src="/scripts/form-validation.js"></script>
-  <script src="/scripts/signup-validation.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $(".new-area").emojioneArea({
-        pickerPosition: "bottom",
-        filtersPosition: "bottom",
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $("#comment").emojioneArea({
-        events: {
-          ready: function () {
-            this.setFocus();
-          },
-        },
-        pickerPosition: "top",
-        filtersPosition: "bottom",
-        spellcheck: true,
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $(".slider").slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        dots: true,
->>>>>>> 2e08e286e155726f8b1dea43c2dca86d9cf58009
-      });
-    });
-  </script>
-  <script src="/scripts/comment.js"></script>
-  <script src="/scripts/like.js"></script>
-</body>
-
+    </script>
+    <script src="/scripts/comment.js"></script>
+    <script src="/scripts/like.js"></script>
+  </body>
 </html>
