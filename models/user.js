@@ -40,12 +40,12 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   },
-  // likedposts: [
-  //   {
-  //     type: Schema.Types.ObjectId,
-  //     ref: "Post",
-  //   },
-  // ],
+  likedposts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
 });
 
 UserSchema.pre('save', async function(next) {
