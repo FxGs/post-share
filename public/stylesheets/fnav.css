@@ -1,5 +1,5 @@
 .navigation {
-  background-color: hsl(0, 0%, 21%);
+  background-color: #fff;
   height: 60px;
   position: fixed;
   width: 100%;
@@ -24,13 +24,13 @@
 
 .navigation .logo a {
   position: relative;
-  color: hsl(0, 0%, 96%);
+  color: #000000;
   font-size: 22px;
   font-family: "Roboto", sans-serif;
   text-decoration: none;
 }
 
-@media only screen and (max-width: 1023px) {
+@media only screen and (max-width: 1080px) {
   /* Navigation */
   .navigation {
     padding: 0 20px;
@@ -54,14 +54,14 @@
 
 .navigation-link i {
   margin-left: 30px;
-  color: hsl(0, 0%, 96%);
+  color: #000000;
   text-decoration: none;
   font-size: 22px;
 }
 
 .navnames {
   margin-left: 1rem;
-  color: hsl(0, 0%, 96%);
+  color: #000000;
   font-size: 15px;
 }
 

@@ -77,21 +77,12 @@ app.get("/contacts", requireAuth, checkUser, (req, res) => {
   res.render("posts/contacts");
 });
 
+app.get("/creators", requireAuth, checkUser, (req, res) => {
+  res.render("aboutus");
+});
+
 app.post("/email", requireAuth, checkUser, (req, res) => {
   const { subject, text } = req.body;
-  // console.log(req.body);
-
-  // var tempparams = {
-  //   email: res.locals.user.email,
-  //   subject: subject,
-  //   message: text,
-  // };
-
-  // // console.log(tempparams);
-  // send("service_9i3rmlw", "template_iu96bb5", tempparams)
-  //   .then(function (res) {
-  //     console.log("success", res.status);
-  //   });
 });
 
 app.get("/signup", (req, res) => {

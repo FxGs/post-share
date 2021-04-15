@@ -33,146 +33,115 @@
     <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/contact.css" />
+    <link rel="stylesheet" href="/stylesheets/fnav.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
     style="min-height: 100vh"
     id="contact-body"
   >
-    <div class="pageloader is-dark"><span class="title">Loading...</span></div>
-    <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
-    <div class="columns is-mobile is-centered">
-      <div
-        class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
-      >
-        <div class="columns">
-          <div class="column mt-5">
-            <div
-              class="card"
-              style="
-                height: 100%;
-                background-image: url('https://images.unsplash.com/photo-1568275339031-a8ce20ef6f9e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');
-                background-position: bottom;
-                background-repeat: no-repeat;
-                background-size: cover;
-              "
-            >
-              <div class="card-content">
-                <p class="title" style="text-shadow: 1px 1px 5px #808080;">Get in touch with us</p>
+    <div class="pageloader is-light">
+      <span class="title">Loading...</span>
+    </div>
+    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
+    <div class="inner" style="z-index: 30; margin-top: 10%">
+      <div class="columns is-centered">
+        <div
+          class="column is-full-mobile is-full-tablet is-three-quarters-desktop"
+        >
+          <div class="columns">
+            <div class="column is-full-mobile mt-5">
+              <div
+                class="card"
+                style="
+                  height: 100%;
+                  background-image: url('https://images.unsplash.com/photo-1568275339031-a8ce20ef6f9e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');
+                  background-position: bottom;
+                  background-repeat: no-repeat;
+                  background-size: cover;
+                "
+              >
+                <div class="card-content">
+                  <p class="title" style="text-shadow: 1px 1px 5px #808080">
+                    Get in touch with us
+                  </p>
+                  <br />
+                  <p class="subtile" style="text-shadow: 1px 1px 5px #808080">
+                    <span class="icon"><i class="fas fa-map-marker"></i></span
+                    >Rourkela, Odisha
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="column mt-5">
-            <div class="card" style="height: 100%">
-              <div class="card-content">
-                <form action="/email" method="POST">
-                  <div class="field">
-                    <label for="subject" class="label">Subject</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        placeholder="subject"
-                      />
+            <div class="column is-full-mobile mt-5">
+              <div class="card" style="height: 100%">
+                <div class="card-content">
+                  <form action="/email" method="POST">
+                    <div class="field">
+                      <label for="subject" class="label">Subject</label>
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="text"
+                          id="subject"
+                          name="subject"
+                          placeholder="subject"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="field" style="display: none">
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="email"
-                        id="email"
-                        name="email"
-                        value="<%=user.email%>"
-                        placeholder="<%=user.email%>"
-                      />
+                    <div class="field" style="display: none">
+                      <div class="control">
+                        <input
+                          class="input"
+                          type="email"
+                          id="email"
+                          name="email"
+                          value="<%=user.email%>"
+                          placeholder="<%=user.email%>"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="field">
-                    <label for="text" class="label">Message</label>
-                    <div class="control">
-                      <textarea
-                        class="textarea"
-                        name="text"
-                        id="text"
-                        cols="30"
-                        rows="5"
-                      ></textarea>
+                    <div class="field">
+                      <label for="text" class="label">Message</label>
+                      <div class="control">
+                        <textarea
+                          class="textarea"
+                          name="text"
+                          id="text"
+                          cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
                     </div>
-                  </div>
-                  <div class="field">
-                    <div class="control">
-                      <button
-                        class="button is-primary"
-                        type="submit"
-                        onclick="sendMail();"
-                      >
-                        Send Message
-                      </button>
+                    <div class="field">
+                      <div class="control">
+                        <button
+                          class="button is-primary"
+                          type="submit"
+                          onclick="sendMail();"
+                        >
+                          Send Message
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero mt-5" style="height: 60px; background-color: transparent">
-      <div class="container has-text-centered">
-        <p class="title" style="text-shadow: 1px 1px 5px #808080;">Developers</p>
-      </div>
-    </div>
-    <div class="columns is-mobile is-centered mt-3">
-      <div class="row">
-        <div class="column">
-          <div class="card" style="border-radius: 30%">
-            <div class="card-image">
-              <figure>
-                <img src="https://robohash.org/abhi" alt="" />
-              </figure>
-            </div>
-            <p class="subtitle has-text-centered">Abhi</p>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card" style="border-radius: 30%">
-            <div class="card-image">
-              <figure>
-                <img src="https://robohash.org/deba" alt="" />
-              </figure>
-            </div>
-            <p class="subtitle has-text-centered">Deba</p>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="column">
-          <div class="card" style="border-radius: 30%">
-            <div class="card-image">
-              <figure>
-                <img src="https://robohash.org/nage" alt="" />
-              </figure>
-            </div>
-            <p class="subtitle has-text-centered">nage</p>
-          </div>
-        </div>
-        <div class="column">
-          <div class="card" style="border-radius: 30%">
-            <div class="card-image">
-              <figure>
-                <img src="https://robohash.org/somen" alt="" />
-              </figure>
-            </div>
-            <p class="subtitle has-text-centered">somen</p>
           </div>
         </div>
       </div>
     </div>
 
-    <%-include('../partials/footer')%>
+    <div class="line line-1">
+      <div class="wave wave-1" style="background: url(/assets/1.png)"></div>
+    </div>
+    <div class="line line-2">
+      <div class="wave wave-2" style="background: url(/assets/2.png)"></div>
+    </div>
+    <div class="line line-3">
+      <div class="wave wave-3" style="background: url(/assets/3.png)"></div>
+    </div>
     <script>
       if ($(".pageloader").length) {
         $(".pageloader").toggleClass("is-active");

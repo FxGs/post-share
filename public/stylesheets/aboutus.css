@@ -1,0 +1,76 @@
+.card {
+  animation-name: example;
+  animation-iteration-count: 1;
+  opacity: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.card-1 {
+  animation-delay: 0s;
+  animation-duration: 3s;
+}
+.card-2 {
+  animation-delay: 0s;
+  animation-duration: 4s;
+}
+.card-3 {
+  animation-delay: 0s;
+  animation-duration: 5s;
+}
+.card-4 {
+  animation-delay: 0s;
+  animation-duration: 6s;
+}
+.card-5 {
+  animation-delay: 1s;
+  animation-duration: 4s;
+}
+.card-6 {
+  animation-delay: 1s;
+  animation-duration: 4s;
+}
+
+@keyframes example {
+  0% {
+    /* position: absolute; */
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.about-icon {
+  animation-name: icn;
+  animation-iteration-count: 1;
+  opacity: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.icon-1 {
+  animation-delay: 0s;
+  animation-duration: 6s;
+}
+.icon-2 {
+  animation-delay: 0s;
+  animation-duration: 7s;
+}
+.icon-3 {
+  animation-delay: 0s;
+  animation-duration: 8s;
+}
+
+@keyframes icn{
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
