@@ -51,7 +51,6 @@ body {
   margin-bottom: 6rem;
 }
 
-
 .media-content {
   overflow: hidden;
 }
@@ -92,7 +91,7 @@ input {
 .card-header-title .title {
   font-family: "Amiri", serif !important;
   font-weight: 600 !important;
-  font-size: 15px;
+  font-size: 18px !important;
 }
 
 .card-content .title {
@@ -112,10 +111,14 @@ button {
 
 #dropdown-menu4 {
   background-color: hsl(0, 0%, 21%);
+  border-radius: 12px;
+  box-shadow: #000000;
 }
 
 #dropdown-menu4 .dropdown-content {
   background-color: hsl(0, 0%, 21%);
+  border-radius: 12px;
+  box-shadow: #000000;
 }
 
 #dropdown-menu4 .dropdown-item {
@@ -134,6 +137,112 @@ button {
   color: #fff;
 }
 
-.children{
+.children {
   color: blueviolet;
 }
+
+.card-header {
+  background-color: #f9f6f6;
+  box-shadow: none;
+}
+
+.dropdown-trigger button {
+  background-color: #f9f6f9;
+  transition: all 3s;
+}
+
+.card-footer .control button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  outline: none;
+}
+
+.card-footer .control button:hover,
+button:focus,
+button:active {
+  border: none;
+  background-color: transparent;
+  color: black;
+  outline: none;
+}
+
+#likes-container .control button {
+  background-color: transparent;
+  border-radius: 50%;
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #363636;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+#likes-container .control button:hover {
+  border-color: #e0e0e0;
+  box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
+}
+
+#likes-container .control i {
+  font-size: x-large;
+}
+
+#show-header {
+  background-color: #fff;
+}
+
+#show-icons button {
+  background-color: #fff;
+  padding: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #363636;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+#show-icons button:hover {
+  border-color: #e0e0e0;
+  box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
+}
+
+#showposticons {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.comment-reply {
+  background-color: transparent;
+  border-radius: 50%;
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  color: #363636;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.comment-reply:hover {
+  border-color: #e0e0e0;
+  box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
+}
+
+#edit-btns button {
+  background-color: #e6e6e6;
+}
+#edit-btns button:hover {
+  background-color: #a6a6a6;
+}
+
+#edit-btns #Edit-Btn {
+  background-color: #00e6b8;
+}
+
+#edit-btns #Edit-Btn:hover {
+  background-color: #00b386;
+}
+

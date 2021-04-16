@@ -1,5 +1,5 @@
 <% layout('layout/boilerplate') -%>
-<div class="pageloader is-dark"><span class="title">Loading...</span></div>
+<div class="pageloader is-light"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
   <div
     class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
@@ -7,38 +7,29 @@
   >
     <% for(let post of posts) { %>
     <div class="card mb-5">
-      <header class="card-header" style="box-shadow: none">
-        <div class="card-header-title">
-          <figure class="image is-48x48 mr-2">
-            <img
-              class="is-rounded"
-              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-              alt=""
-            />
-          </figure>
-          <p class="title">@<%=post.author%></p>
-        </div>
-      </header>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
+
       <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
         <figure class="image is-3by3">
           <img src="<%=post.image[0].url%>" alt="" />
         </figure>
       </div>
+
       <%}else{%>
       <div class="container is-clipped" id="carousel">
         <div id="slider" class="slider">
           <%for(var i = 0; i < post.image.length; i++){%>
           <div class="card-image" style="max-height: 100%">
-            <figure class="image is-1by1">
-              <img src="<%=post.image[i].url%>" alt=""/>
+            <figure class="image">
+              <img src="<%=post.image[i].url%>" alt="" />
             </figure>
           </div>
           <%}%>
         </div>
       </div>
+
       <%}%>
       <div class="card-content">
         <div class="media">
@@ -47,34 +38,67 @@
             <p class="subtitle is-6"><%=post.body%></p>
           </div>
         </div>
-        <div class="content">
-          <div class="media">
-            <div class="media-left">
-              <a href="#" class=""
-                ><span
-                  class="icon"
-                  style="font-size: 1.5em; margin-right: 0.25em; color: black"
-                  ><i class="far fa-heart" id="like" style="display: block"></i
-                  ><i
-                    class="fas fa-heart"
-                    id="dislike"
-                    style="display: none"
-                  ></i></span
-              ></a>
-              <a href="posts/<%=post.id%>" class=""
-                ><span
-                  class="icon"
-                  id="comments"
-                  style="font-size: 1.5em; color: black"
-                  ><i class="fas fa-comments"></i></span
-              ></a>
-            </div>
+      </div>
+      <header class="card-header" id="show-header" style="box-shadow: none">
+        <div class="card-header-title">
+          <figure class="image is-48x48 mr-2">
+            <img
+              class="is-rounded"
+              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+              alt=""
+            />
+          </figure>
+          <div class="div">
+            <p
+              class="title"
+              style="
+                font-size: 15px;
+                font-family: 'Open Sans', sans-serif;
+                margin-bottom: 0;
+              "
+            >
+              @<%=post.author.username%>
+            </p>
+            <p
+              class="subtitle"
+              style="
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                margin-top: 0;
+              "
+            >
+              <%var date = post.postedat.toDateString();%> <%=date%>
+            </p>
           </div>
         </div>
-        <div class="content">
-          <p><%=post.postedat%></p>
+        <div class="card-header-icon" id="show-icons">
+          <p>
+            <span class="<%=post.id%>"><%=post.likes.count%></span>
+          </p>
+          <div class="control">
+            <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+              <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+              i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
+              <button>
+                <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+              </button>
+              <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+              <button>
+                <i class="far fa-heart" id="like-<%=post.id%>"></i>
+              </button>
+              <%}%>
+            </form>
+          </div>
+          <p>
+            <span class="comments-count"><%=post.comments.length%></span>
+          </p>
+          <div class="control">
+            <a href="/posts/<%=post.id%>"
+              ><button><i class="far fa-comment-alt"></i></button
+            ></a>
+          </div>
         </div>
-      </div>
+      </header>
     </div>
     <% }%>
   </div>

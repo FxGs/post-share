@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    var authorValidated = true;
     var bodyValidated = true;
     var titleValidated = true;
     
@@ -9,15 +8,11 @@ $(document).ready(function () {
       if (jQuery.trim($(".edit-area").val()) === "") {
         $(".edit-area").removeClass("is-success");
         $(".edit-area").addClass("is-danger");
-        $("#editbodySuccessIcon").css("display", "none");
-        $("#editbodyErrorIcon").css("display", "block");
         $("#editbody_error").css("display", "block");
         bodyValidated = false;
       } else {
         $(".edit-area").removeClass("is-danger");
         $(".edit-area").addClass("is-success");
-        $("#editbodyErrorIcon").css("display", "none");
-        $("#editbodySuccessIcon").css("display", "block");
         $("#editbody_error").css("display", "none");
         bodyValidated = true;
       }
@@ -41,26 +36,8 @@ $(document).ready(function () {
       }
       checkSubmit();
     });
-    $(".edit-author").change(function () {
-      if (jQuery.trim($(".edit-author").val()) === "") {
-        $(".edit-author").removeClass("is-success");
-        $(".edit-author").addClass("is-danger");
-        $("#editauthorSuccessIcon").css("display", "none");
-        $("#editauthorErrorIcon").css("display", "block");
-        $("#editauthor_error").css("display", "block");
-        authorValidated = false;
-      } else {
-        $(".edit-author").removeClass("is-danger");
-        $(".edit-author").addClass("is-success");
-        $("#editauthorErrorIcon").css("display", "none");
-        $("#editauthorSuccessIcon").css("display", "block");
-        $("#editauthor_error").css("display", "none");
-        authorValidated = true;
-      }
-      checkSubmit();
-    });
     function checkSubmit() {
-      if (authorValidated && titleValidated && bodyValidated) {
+      if (titleValidated && bodyValidated) {
         $("#Edit-Btn").attr("disabled", false);
         // $("#Edit-Btn").removeAttr("disabled");
       } else {

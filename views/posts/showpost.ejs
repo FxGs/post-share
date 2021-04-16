@@ -1,32 +1,39 @@
 <% layout('layout/boilerplate') -%>
-<!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
+<div class="pageloader is-light"><span class="title">Loading...</span></div>
 <div class="columns is-mobile is-centered">
-  <div
-    class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop"
-    style="padding: 0"
-  >
+  <div class="column is-three-quarters-mobile is-three-quarters-tablet is-half-desktop" style="padding: 0">
     <div class="card mb-5">
-      <header class="card-header" style="box-shadow: none">
+      <header class="card-header">
         <div class="card-header-title">
           <figure class="image is-48x48 mr-2">
-            <img
-              class="is-rounded"
+            <img class="is-rounded"
               src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-              alt=""
-            />
+              alt="" />
           </figure>
-          <p
-            class="title"
-            style="font-size: 15px; font-family: 'Open Sans', sans-serif"
-          >
-            @<%=post.author.username%>
-          </p>
+          <div class="div">
+            <p class="title" style="
+                font-size: 15px;
+                font-family: 'Open Sans', sans-serif;
+                margin-bottom: 0;
+              ">
+              @<%=post.author.username%>
+            </p>
+            <p class="subtitle" style="
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                margin-top: 0;
+              "
+            >
+              <%var date = post.postedat.toDateString();%> <%=date%>
+            </p>
+          </div>
         </div>
+        <%if((post.author.id) === (user.id)){%>
         <div class="card-header-icon">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
               <button
-                class="button"
+                class="dropdown-btn"
                 aria-haspopup="true"
                 aria-controls="dropdown-menu4"
                 style="border: none"
@@ -47,21 +54,28 @@
                   </button>
                 </a>
                 <a href="#" class="dropdown-item">
-                  <form
-                    action="/posts/<%=post.id%>?_method=DELETE"
-                    method="POST"
-                  >
+                  <form action="/posts/<%=post.id%>?_method=DELETE" method="POST">
                     <button class="button" style="border: none">
-                      <span class="icon"><i class="fas fa-trash-alt"></i></span
-                      ><span>Delete</span>
+                      <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
                     </button>
-                  </form></a
-                >
+                  </form>
+                </a>
               </div>
             </div>
           </div>
         </div>
+        <%}%>
       </header>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
+              <%=post.title%>
+            </p>
+            <p class="subtitle is-6"><%=post.body%></p>
+          </div>
+        </div>
+      </div>
       <%if(post.image.length == 0){%>
       <div class="card-image" style="display: none"></div>
       <%}else if(post.image.length == 1){%>
@@ -75,7 +89,7 @@
         <div id="slider" class="slider">
           <%for(var i = 0; i < post.image.length; i++){%>
           <div class="card-image" style="max-height: 100%">
-            <figure class="image is-1by1">
+            <figure class="image">
               <img src="<%=post.image[i].url%>" alt="" />
             </figure>
           </div>
@@ -83,55 +97,54 @@
         </div>
       </div>
       <%}%>
-      <div class="card-content">
-        <div class="media">
-          <div class="media-content">
-            <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
-              <%=post.title%>
+    <div class="card-content" style="padding: 0.5rem">
+      <div class="media">
+        <div class="media-left" id="showpost-icons"></div>
+        <div class="media-content"></div>
+        <div class="media-right is-flex" id="likes-container">
+          <div class="likes-container is-flex">
+            <p>
+              <span class="<%=post.id%>"><%=post.likes.count%></span>
             </p>
-            <p class="subtitle is-6"><%=post.body%></p>
-          </div>
-        </div>
-        <div class="content">
-          <div class="media">
-            <div class="media-left">
-              <a href="#" class=""
-                ><span
-                  class="icon"
-                  style="font-size: 1.5em; margin-right: 0.25em; color: black"
-                  ><i class="far fa-heart" id="like" style="display: block"></i
-                  ><i
-                    class="fas fa-heart"
-                    id="dislike"
-                    style="display: none"
-                  ></i></span
-              ></a>
+            <div class="control likes mx-1">
+              <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+                <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+                  i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
+                <button>
+                  <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+                <button>
+                  <i class="far fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%}%>
+                </form>
+              </div>
+            </div>
+            <div class="comments-container is-flex">
+              <p>
+                <span class="comments-count"><%=cmnts.length%></span>
+              </p>
+              <div class="control">
+                <button><i class="far fa-comment-alt"></i></button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="content"></div>
       </div>
-      <footer class="card-footer" style="border-top: none">
+      <footer class="card-footer">
         <div class="field pl-3 pb-3 pr-3" style="width: 100%">
-          <form
-            action="/posts/<%=post.id%>/comments"
-            method="POST"
-          >
-            <label class="label" for="comment">Add a comment..</label>
-            <div class="control" style="display: flex">
+          <form action="/posts/<%=post.id%>/comments" method="POST">
+            <div class="control mt-2" style="display: flex">
               <input
-                class="input mr-2"
+                class="input mr-2 cmnt1 comment-input"
                 type="text"
                 name="comment[body]"
                 id="comment"
-                placeholder="comment.."
+                placeholder="Add a comment.."
                 autofocus
               />
-              <button class="button is-primary" type="submit">
-                <span class="icon mt-2" style="font-size: 1.8rem; float: right"
-                  ><i class="far fa-comment"></i
-                ></span>
-              </button>
+              <button id="Btn1" type="submit" disabled>POST</button>
             </div>
           </form>
         </div>
@@ -142,124 +155,153 @@
       <%for(var i = 0; i < cmnts.length; i++){%> <%if(cmnts[i].parentId ==
       null){%>
       <div class="comment parent ml-1" id="<%=cmnts[i].id%>">
-        <a href="#comment-1" class="comment-border-link">
+        <a href="#" class="comment-border-link">
           <span class="sr-only">Jump to comment-1</span>
         </a>
         <div class="comment-heading">
           <div class="comment-info" style="display: flex; flex-direction: row">
             <figure class="image is-24x24 mr-2">
-              <img
-                class="is-rounded"
+              <img class="is-rounded"
                 src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                alt=""
-              />
+                alt="" />
             </figure>
-            <a href="#" class="comment-author">someguy14</a>
+            <a href="#" class="comment-author">@<%=cmnts[i].author.username%></a>
           </div>
+          <%if((cmnts[i].author.id) === (user.id)){%>
+          <div class="comment-heading-icon">
+            <div class="dropdown is-hoverable">
+              <div class="dropdown-trigger">
+                <button aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none">
+                  <span class="icon is-small">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  </span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                <div class="dropdown-content">
+                  <a href="#" class="dropdown-item">
+                    <form action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>?_method=DELETE" method="POST">
+                      <button class="button" style="border: none">
+                        <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
+                      </button>
+                    </form>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%}%>
         </div>
         <div class="comment-body">
-          <p class="title parent"><%=cmnts[i].body%></p>
-          <form
-            action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
-            method="POST"
-          >
-            <label class="label" for="comment">Add a comment..</label>
-            <div class="control" style="display: flex">
-              <input
-                class="input mr-2"
-                type="text"
-                name="comment[body]"
-                id="comment"
-                placeholder="comment.."
-                autofocus
-              />
-              <button class="button is-primary" type="submit">
-                <span class="icon mt-2" style="font-size: 1.8rem; float: right"
-                  ><i class="far fa-comment"></i
-                ></span>
-              </button>
-            </div>
-          </form>
-          <form
-            action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>?_method=DELETE"
-            method="POST"
-          >
-            <button class="button is-danger">Delete</button>
-          </form>
-          <a href="#" class="loadreplies" id="load-<%=cmnts[i].id%>">Load more replies</a>
-          <!-- <button type="button">Reply</button>
-          <button type="button">Flag</button> -->
+          <p class="caption parent"><%=cmnts[i].body%></p>
+          <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
+            <i class="fas fa-reply"></i>
+          </button>
+          <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
+            <form
+              action="/posts/<%=post.id%>/comments/<%=cmnts[i].id%>"
+              method="POST"
+            >
+              <div class="control" style="display: flex">
+                <input
+                  class="input mr-2 comment-input comment-post"
+                  type="text"
+                  name="comment[body]"
+                  id="comment-<%=cmnts[i].id%>"
+                  placeholder="Add a comment.."
+                />
+                <button type="submit" id="post-<%=cmnts[i].id%>" disabled>
+                  POST
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <%loadChildComments(cmnts[i].id);%>
-        
-        <%function loadChildComments(pId){%>
-        <div class="replies" style="display: block;" id="child-<%=cmnts[i].id%>">
-        <%for (var k = 0; k < cmnts.length; k++) {%> <%if (cmnts[k].parentId ==
-        pId) {%>
-        
+        <%loadChildComments(cmnts[i].id);%> <%function loadChildComments(pId){%>
+        <div class="replies" style="display: block" id="child-<%=cmnts[i].id%>">
+          <%for (var k = 0; k < cmnts.length; k++) {%> <%if (cmnts[k].parentId
+          == pId) {%>
+
           <div class="comment">
-            <a href="#comment-1" class="comment-border-link">
+            <a href="#" class="comment-border-link">
               <span class="sr-only">Jump to comment-1</span>
             </a>
             <div class="comment-heading">
-              <div
-                class="comment-info"
-                style="display: flex; flex-direction: row"
-              >
+              <div class="comment-info" style="display: flex; flex-direction: row">
                 <figure class="image is-24x24 mr-2">
-                  <img
-                    class="is-rounded"
+                  <img class="is-rounded"
                     src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
-                    alt=""
-                  />
+                    alt="" />
                 </figure>
-                <a href="#" class="comment-author">someguy14</a>
+                <a href="#" class="comment-author">@<%=cmnts[k].author.username%></a>
+              </div>
+              <div class="comment-heading-icon">
+                <div class="dropdown is-hoverable">
+                  <div class="dropdown-trigger">
+                    <button aria-haspopup="true" aria-controls="dropdown-menu4" style="border: none">
+                      <span class="icon is-small">
+                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                    <div class="dropdown-content">
+                      <a href="#" class="dropdown-item">
+                        <form action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>?_method=DELETE" method="POST">
+                          <button class="button" style="border: none">
+                            <span class="icon"><i class="fas fa-trash-alt"></i></span><span>Delete</span>
+                          </button>
+                        </form>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="comment-body">
-              <p class="title"><%=cmnts[k].body%></p>
-              <form
-                action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
-                method="POST"
+              <p class="caption"><%=cmnts[k].body%></p>
+              <button
+                type="button"
+                id="Btn-<%=cmnts[k].id%>"
+                class="comment-reply"
               >
-                <label class="label" for="comment">Add a comment..</label>
-                <div class="control" style="display: flex">
-                  <input
-                    class="input mr-2"
-                    type="text"
-                    name="comment[body]"
-                    id="comment"
-                    placeholder="comment.."
-                    autofocus
-                  />
-                  <button class="button is-primary" type="submit">
-                    <span
-                      class="icon mt-2"
-                      style="font-size: 1.8rem; float: right"
-                      ><i class="far fa-comment"></i
-                    ></span>
-                  </button>
-                </div>
-              </form>
-              <form
-                action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>?_method=DELETE"
-                method="POST"
+                <i class="fas fa-reply"></i>
+              </button>
+              <div
+                class="field"
+                id="reply-<%=cmnts[k].id%>"
+                style="display: none"
               >
-                <button class="button is-danger">Delete</button>
-              </form>
+                <form
+                  action="/posts/<%=post.id%>/comments/<%=cmnts[k].id%>"
+                  method="POST"
+                >
+                  <div class="control" style="display: flex">
+                    <input
+                      class="input mr-2 comment-input comment-post"
+                      type="text"
+                      name="comment[body]"
+                      id="comment-<%=cmnts[k].id%>"
+                      placeholder="Add a comment.."
+                    />
+                    <button type="submit" id="post-<%=cmnts[k].id%>" disabled>
+                      POST
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
 
             <%loadChildComments(cmnts[k].id);%>
           </div>
 
-        <%}%> <%}%>
-        </div> 
+          <%}%> <%}%>
+        </div>
         <%return true;%> <%}%>
-        
       </div>
       <%}%> <%}%>
     </div>
     <%}%>
-  </div>
-</div>
+      </div>
+    </div>

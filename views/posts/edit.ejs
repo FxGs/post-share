@@ -41,190 +41,160 @@
     <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
     <section>
       <main class="container" style="margin-top: 3rem">
-        <div class="columns is-mobile is-centered">
+        <div class="columns is-mobile is-centered mb-5">
           <div
-            class="column is-full-mobile is-three-quarters-tablet is-half-desktop"
+            class="column is-full-mobile is-three-quarters-tablet is-three-quarters-desktop"
           >
-            <div class="box" id="edit-box">
-              <h1 class="title">Edit Post</h1>
-              <form
-                action="/posts/<%=post.id%>?_method=PUT"
-                method="POST"
-                enctype="multipart/form-data"
-              >
-                <div class="field">
-                  <label for="author" class="label">Author</label>
-                  <div class="control has-icons-right">
-                    <input
-                      class="input is-success edit-author"
-                      type="text"
-                      id="author"
-                      name="post[author]"
-                      value="<%=post.author%>"
-                      required
-                    />
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-check"
-                        id="editauthorSuccessIcon"
-                        style="display: block"
-                      ></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-exclamation-triangle"
-                        id="editauthorErrorIcon"
-                        style="display: none"
-                      ></i>
-                    </span>
-                    <p
-                      id="editauthor_error"
-                      class="help is-error"
-                      style="
-                        display: none;
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: medium;
-                      "
-                    >
-                      Just tell your name
-                    </p>
+            <div class="columns">
+              <div class="column left is-hidden-mobile">
+                <div
+                  class="box"
+                  style="
+                    height: 100%;
+                    background-image: url(https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60);
+                  "
+                >
+                  <img src="/assets/logo07.png" alt="" />
+                  <div class="content has-text-centered" style="margin-top: 0">
+                    <h1 class="title is-1">Post-Share</h1>
+                    <h2 class="subtitle colored is-4">Nageswar Ku. Murmu</h2>
                   </div>
                 </div>
-                <div class="field">
-                  <label for="title" class="label">Title</label>
-                  <div class="control has-icons-right">
-                    <input
-                      class="input is-success edit-title"
-                      type="text"
-                      id="title"
-                      name="post[title]"
-                      value="<%=post.title%>"
-                      required
-                    />
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-check"
-                        id="edittitleSuccessIcon"
-                        style="display: block"
-                      ></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-exclamation-triangle"
-                        id="edittitleErrorIcon"
-                        style="display: none"
-                      ></i>
-                    </span>
-                    <p
-                      id="edittitle_error"
-                      class="help is-error"
-                      style="
-                        display: none;
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: medium;
-                      "
-                    >
-                      Give a nice title to your post
-                    </p>
-                  </div>
-                </div>
-                <div class="field">
-                  <div id="file-edit" class="file has-name is-fullwidth">
-                    <label class="file-label">
-                      <input
-                        class="file-input"
-                        type="file"
-                        name="image"
-                        multiple
-                      />
-                      <span class="file-cta">
-                        <span class="file-icon">
-                          <i class="fas fa-upload"></i>
+              </div>
+              <div class="column right">
+                <div class="box" id="edit-box" style="height: 100%;">
+                  <h1 class="title has-text-centered" id="edit-title">Edit Post</h1>
+                  <form
+                    action="/posts/<%=post.id%>?_method=PUT"
+                    method="POST"
+                    enctype="multipart/form-data"
+                  >
+                    <div class="field">
+                      <label for="title" class="label">Title</label>
+                      <div class="control has-icons-right">
+                        <input
+                          class="input is-success edit-title"
+                          type="text"
+                          id="title"
+                          name="post[title]"
+                          value="<%=post.title%>"
+                          required
+                        />
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-check"
+                            id="edittitleSuccessIcon"
+                            style="display: block"
+                          ></i>
                         </span>
-                        <span class="file-label"> Add new images... </span>
-                      </span>
-                      <span class="file-name"></span>
-                    </label>
-                  </div>
-                </div>
-                <div class="field">
-                  <label for="body" class="label">body</label>
-                  <div class="control has-icons-right">
-                    <textarea
-                      class="textarea is-success edit-area"
-                      rows="5"
-                      id="body edit-body"
-                      name="post[body]"
-                      required
-                    >
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-exclamation-triangle"
+                            id="edittitleErrorIcon"
+                            style="display: none"
+                          ></i>
+                        </span>
+                        <p
+                          id="edittitle_error"
+                          class="help is-error"
+                          style="
+                            display: none;
+                            font-family: 'Courier New', Courier, monospace;
+                            font-size: medium;
+                          "
+                        >
+                          Give a nice title to your post
+                        </p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div id="file-edit" class="file has-name is-fullwidth">
+                        <label class="file-label">
+                          <input
+                            class="file-input"
+                            type="file"
+                            name="image"
+                            multiple
+                          />
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label"> Add new images... </span>
+                          </span>
+                          <span class="file-name"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label for="body" class="label">body</label>
+                      <div class="control has-icons-right">
+                        <textarea
+                          class="textarea is-success edit-area"
+                          rows="5"
+                          id="body edit-body"
+                          name="post[body]"
+                          required
+                        >
 <%=post.body%>
                   </textarea
-                    >
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-check"
-                        id="editbodySuccessIcon"
-                        style="display: block"
-                      ></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                      <i
-                        class="fas fa-exclamation-triangle"
-                        id="editbodyErrorIcon"
-                        style="display: none"
-                      ></i>
-                    </span>
-                    <p
-                      id="editbody_error"
-                      class="help is-error"
-                      style="
-                        display: none;
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: medium;
-                      "
-                    >
-                      a post without body is nonsense
-                    </p>
-                  </div>
-                </div>
+                        >
+                        <p
+                          id="editbody_error"
+                          class="help is-error"
+                          style="
+                            display: none;
+                            font-family: 'Courier New', Courier, monospace;
+                            font-size: medium;
+                          "
+                        >
+                          a post without body is nonsense
+                        </p>
+                      </div>
+                    </div>
 
-                <% post.image.forEach(function(img, i) { %>
-                <div class="field is-grouped">
-                  <div class="control">
-                    <figure class="image is-96x96">
-                      <img
-                        src="<%=img.url%>"
-                        alt=""
-                        style="width: 96px; height: 96px"
-                      />
-                    </figure>
-                  </div>
-                  <div class="control">
-                    <input
-                      type="checkbox"
-                      id="image-<%=i%>"
-                      name="deleteImages[]"
-                      value="<%=img.filename%>"
-                    />
-                    <label for="image-<%=i%>">Delete</label>
-                  </div>
+                    <% post.image.forEach(function(img, i) { %>
+                    <div class="field is-grouped">
+                      <div class="control">
+                        <figure class="image is-96x96">
+                          <img
+                            src="<%=img.url%>"
+                            alt=""
+                            style="width: 96px; height: 96px"
+                          />
+                        </figure>
+                      </div>
+                      <div class="control">
+                        <input
+                          type="checkbox"
+                          id="image-<%=i%>"
+                          name="deleteImages[]"
+                          value="<%=img.filename%>"
+                        />
+                        <label for="image-<%=i%>">Delete</label>
+                      </div>
+                    </div>
+                    <% }) %>
+                    <div class="field is-grouped is-grouped-right">
+                      <div class="control" id="edit-btns">
+                        <button
+                          id="Edit-Btn"
+                          type="submit"
+                          class="button is-primary"
+                        >
+                          save changes
+                        </button>
+                        <button
+                          class="button is-light"
+                          href="/posts/<%=post.id%>"
+                        >
+                          cancel
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <% }) %>
-                <div class="field is-grouped is-grouped-right">
-                  <div class="control">
-                    <button
-                      id="Edit-Btn"
-                      type="submit"
-                      class="button is-primary"
-                    >
-                      save changes
-                    </button>
-                    <button class="button is-light" href="/posts/<%=post.id%>">
-                      cancel
-                    </button>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

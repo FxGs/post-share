@@ -1,0 +1,33 @@
+<div class="navigation">
+  <div class="logo">
+    <a class="no-underline" href="/posts">
+      <span class="icon"><i class="fas fa-home"></i></span>
+      <span class="navnames ml-0">Posts</span>
+    </a>
+  </div>
+
+  <div class="navigation-icons">
+    <a href="/contacts" class="navigation-link mx-3">
+      <span class="icon">
+        <i class="far fa-envelope"></i>
+      </span>
+      <span class="navnames">Contact Us</span>
+    </a>
+    <a href="#" class="navigation-link mx-3" id="btn-modal">
+      <span class="icon">
+        <i class="fas fa-plus"></i>
+      </span>
+      <span class="navnames">Post</span>
+    </a>
+    <% if(user) { %>
+    <a href="/user/profile" class="navigation-link mx-3">
+      <span class="icon"><i class="far fa-user-circle"></i></span>
+      <span class="navnames"><%=user.username%></span>
+    </a>
+    <a href="/user/logout" id="signout" class="navigation-link mx-3">
+      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+      <span class="navnames">Log Out</span>
+    </a>
+    <%}%>
+  </div>
+</div>

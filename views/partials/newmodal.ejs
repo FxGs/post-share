@@ -10,42 +10,6 @@
         <section class="modal-card-body">
           <form action="/posts" method="POST" enctype="multipart/form-data">
             <div class="field">
-              <label for="author" class="label">Author</label>
-              <div class="control has-icons-right">
-                <input
-                  class="input is-focused"
-                  type="text"
-                  id="author"
-                  name="post[author]"
-                />
-                <span class="icon is-small is-right">
-                  <i
-                    class="fas fa-check"
-                    id="authorSuccessIcon"
-                    style="display: none"
-                  ></i>
-                </span>
-                <span class="icon is-small is-right">
-                  <i
-                    class="fas fa-exclamation-triangle"
-                    id="authorErrorIcon"
-                    style="display: none"
-                  ></i>
-                </span>
-                <p
-                  id="author_error"
-                  class="help is-error"
-                  style="
-                    display: none;
-                    font-family: 'Courier New', Courier, monospace;
-                    font-size: medium;
-                  "
-                >
-                  Just tell your name
-                </p>
-              </div>
-            </div>
-            <div class="field">
               <label for="title" class="label">Title</label>
               <div class="control has-icons-right">
                 <input
@@ -117,20 +81,6 @@
                   name="post[body]"
                   placeholder="𝒶 𝓃𝒾𝒸𝑒 𝓅𝑜𝓈𝓉 𝓃𝑒𝑒𝒹𝓈 𝒶 𝓃𝒾𝒸𝑒 𝒹𝑒𝓈𝒸𝓇𝒾𝓅𝓉𝒾𝑜𝓃.."
                 ></textarea>
-                <span class="icon is-small is-right">
-                  <i
-                    class="fas fa-check"
-                    id="bodySuccessIcon"
-                    style="display: none"
-                  ></i>
-                </span>
-                <span class="icon is-small is-right">
-                  <i
-                    class="fas fa-exclamation-triangle"
-                    id="bodyErrorIcon"
-                    style="display: none"
-                  ></i>
-                </span>
                 <p
                   id="body_error"
                   class="help is-error"
