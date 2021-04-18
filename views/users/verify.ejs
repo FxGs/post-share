@@ -1,0 +1,5 @@
+<% if(user.verified) { %>
+    <div>This profile has been verified.</div>
+<% } else { %>
+    <div>This profile has not been verified. A verification link has been sent to <%= user.email %>. Refresh this page to resend the email.</div>
+<% } %>

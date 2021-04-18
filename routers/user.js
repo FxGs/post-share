@@ -20,11 +20,14 @@ const {
     cloudinary
 } = require("../cloudinary");
 
+const jwt = require('jsonwebtoken');
+
 //specifying the destination of images uploaded
 const upload = multer({
     storage
 });
 
+require('dotenv').config();
 
 router.get('/signup', authController.signup_get);
 router.post('/signup', authController.signup_post);
@@ -97,9 +100,9 @@ router.put('/profile/:username', requireAuth, checkUser,
             });
             user.profile.name = profile.name;
             user.profile.bio = profile.bio;
-            if(req.file) {
+            if (req.file) {
                 await cloudinary.uploader.destroy(user.profile.avatar.filename);
-                user.profile.avatar.url = req.file.path.replace("/upload","/upload/c_fill,h_256,w_256");
+                user.profile.avatar.url = req.file.path.replace("/upload", "/upload/c_fill,h_256,w_256");
                 user.profile.avatar.filename = req.file.filename;
             }
             await user.save();
@@ -112,5 +115,38 @@ router.put('/profile/:username', requireAuth, checkUser,
         }
     })
 );
+
+router.get('/verify/:username',CatchAsync(async (req,res)=>{
+    const { username } = req.params;
+    const user = await User.findOne({username});
+    if(!user.verified) {
+        authController.send_verification_mail(user.email);
+    }
+    res.render('users/verify',{user});
+}));
+
+router.get('/verify/token/:token', CatchAsync(async (req, res) => {
+    const {
+        token
+    } = req.params;
+    if (token) {
+        jwt.verify(token, process.env.EMAIL_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+            } else {
+                await User.findByIdAndUpdate(decodedToken.id, {
+                    verified: true
+                }, {
+                    new: true
+                });
+                res.redirect("/posts");
+            }
+        });
+    } else {
+        res.status(403).json({
+            message: 'No Verification Token Found'
+        });
+    }
+}));
 
 module.exports = router;

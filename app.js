@@ -6,7 +6,6 @@ const ejsMate = require("ejs-mate");
 const port = 3000;
 const mongoose = require("mongoose");
 const Post = require("./models/post");
-const { MONGOURI } = require("./keys");
 const user = require("./routers/user");
 const postroutes = require("./routers/postrouter");
 const cookieParser = require("cookie-parser");
@@ -15,7 +14,9 @@ const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
 const flash = require("connect-flash");
 
-mongoose.connect(MONGOURI, {
+require('dotenv').config();
+
+mongoose.connect(process.env.MONGOURI, {
   useNewUrlParser: true,
   useFindAndModify: false,
   useCreateIndex: true,
