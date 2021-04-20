@@ -74,21 +74,16 @@
       <% for(let post of posts) { %>
       <div class="card mb-5">
         <%if(post.image.length == 0){%>
-        <a href="/posts/<%=post.id%>">
           <div class="card-image" style="display: none"></div>
-        </a>
 
         <%}else if(post.image.length == 1){%>
-        <a href="/posts/<%=post.id%>">
           <div class="card-image" style="max-height: 100%">
             <figure class="image is-3by3">
               <img src="<%=post.image[0].url%>" alt="" />
             </figure>
           </div>
-        </a>
 
         <%}else{%>
-        <a href="/posts/<%=post.id%>">
           <div class="container is-clipped" id="carousel">
             <div id="slider" class="slider">
               <%for(var i = 0; i < post.image.length; i++){%>
@@ -100,7 +95,6 @@
               <%}%>
                     </div>
                   </div>
-                </a>
           
                 <%}%>
               <div class="card-content">
@@ -227,6 +221,6 @@
   </script>
   <script src="/scripts/comment.js"></script>
   <script src="/scripts/like.js"></script>
-  <script src="/scripts/navbar.js"></script>
+
 </body>
 </html>

@@ -82,7 +82,7 @@ app.get("/creators", requireAuth, checkUser, (req, res) => {
 });
 
 app.post("/email", requireAuth, checkUser, (req, res) => {
-  const { subject, text } = req.body;
+  console.log(req.body);
 });
 
 app.get("/signup", (req, res) => {

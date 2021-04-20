@@ -49,11 +49,17 @@ router.post(
     }));
     if (post.image.length > 1) {
       for (var i = 0; i < post.image.length; i++) {
-        var newurl = post.image[i].url.replace("/upload", "/upload/h_600");
+        var newurl = post.image[i].url.replace(
+          "/upload",
+          "/upload/c_fill,w_500,h_500"
+        );
         post.image[i].url = newurl;
       }
     } else if (post.image.length == 1) {
-      var newurl = post.image[0].url.replace("/upload", "/upload/g_faces");
+      var newurl = post.image[0].url.replace(
+        "/upload",
+        "/upload/c_fill,w_500,h_500"
+      );
       post.image[0].url = newurl;
     }
     // await post.save();
@@ -130,6 +136,18 @@ router.put(
       url: f.path,
       filename: f.filename,
     }));
+    if (imgs.length > 1) {
+      for (var i = 0; i < imgs.length; i++) {
+        var newurl = imgs[i].url.replace(
+          "/upload",
+          "/upload/c_fill,w_500,h_500"
+        );
+        imgs[i].url = newurl;
+      }
+    } else if (imgs.length == 1) {
+      var newurl = imgs[0].url.replace("/upload", "/upload/c_fill,w_500,h_500");
+      imgs[0].url = newurl;
+    }
     post.image.push(...imgs);
     await post.save();
     if (req.body.deleteImages) {
@@ -207,10 +225,11 @@ router.post(
     //then delete the id from user's likedposts array
     for (var i = 0; i < user.likedposts.length; i++) {
       if (user.likedposts[i].equals(post.id)) {
-        await user.likedposts.splice(i);
+        user.likedposts.splice(i);
         await user.save();
         post.likes.count = post.likes.count - 1;
-        await post.save();
+        const newpost = await post.save();
+        console.log(newpost.likes.count);
         res.json({ message: "disliked successfully" });
         console.log("found" + post.likes.count);
         f = 1;
@@ -219,10 +238,11 @@ router.post(
     }
     // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
     if (f === 0) {
-      await user.likedposts.push(post.id);
+      user.likedposts.push(post.id);
       await user.save();
       post.likes.count = post.likes.count + 1;
-      await post.save();
+      const newpost = await post.save();
+      console.log(newpost.likes.count);
       res.json({ message: "liked successfully" });
       console.log("not found" + post.likes.count);
     }
@@ -243,6 +263,14 @@ router.post(
     post.comments.push(comment);
     await comment.save();
     await post.save();
+    const user = await User.findById(post.author);
+    if (!res.locals.user.equals(user)) {
+      const mssg = {
+        body: `<a href="/user/profile/${res.locals.user.username}">${res.locals.user.username}</a> commented on your post <a href="/posts/${post.id}">${post.title}</a>.`,
+      };
+      user.nfs.push(mssg);
+      await user.save();
+    }
     // console.log(post);
     res.redirect(`/posts/${post.id}`);
   })
@@ -266,6 +294,14 @@ router.post(
     await comment.save();
     await parentcomment.save();
     await post.save();
+    const user = await User.findById(parentcomment.author);
+    if (!res.locals.user.equals(user)) {
+      const mssg = {
+        body: `<a href="/user/profile/${res.locals.user.username}">${res.locals.user.username}</a> replied on your comment on post <a href="/posts/${post.id}">${post.title}</a>`,
+      };
+      user.nfs.push(mssg);
+      await user.save();
+    }
     // console.log(post);
     res.redirect(`/posts/${id}`);
   })

@@ -3,6 +3,7 @@ function sendMail() {
     email: document.getElementById("email").value,
     subject: document.getElementById("subject").value,
     message: document.getElementById("text").value,
+    user: document.getElementById("username").value,
   };
   console.log(tempparams);
 
@@ -16,7 +17,8 @@ function sendMail() {
     .then(
       function (res) {
         console.log("success", res.status);
-        window.location.href = "/posts";
+        $("#contact-nf").css("display", "block");
+        window.stop();
       },
       function (error) {
         console.log("FAILED...", error);
