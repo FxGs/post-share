@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Post = require("./post");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
+const { boolean } = require("joi");
 
 const UserSchema = new Schema({
   username: {
@@ -16,7 +17,7 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   verified: {
     type: Boolean,
@@ -25,26 +26,26 @@ const UserSchema = new Schema({
   profile: {
     name: {
       type: String,
-      default: null
+      default: null,
     },
     bio: {
       type: String,
-      default: null
+      default: null,
     },
     avatar: {
       url: {
         type: String,
-        default: "https://bulma.io/images/placeholders/128x128.png"
+        default: "https://bulma.io/images/placeholders/128x128.png",
       },
       filename: {
         type: String,
-        default: "null"
-      }
-    }
+        default: "null",
+      },
+    },
   },
   createdAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
   },
   likedposts: [
     {
@@ -52,28 +53,38 @@ const UserSchema = new Schema({
       ref: "Post",
     },
   ],
+  nfs: [
+    {
+      body: String,
+      read: {
+        type: Boolean,
+        default: "false"
+      }
+    }
+  ]
 });
 
-UserSchema.pre('save', async function(next) {
-  if (!this.isModified('password'))
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
+  }
+
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
+
   next();
 });
 
-UserSchema.statics.login = async function(email, password) {
+UserSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   if (user) {
     const auth = await bcrypt.compare(password, user.password);
     if (auth) {
       return user;
     }
-    throw Error('Incorrect Password');
-  } 
-  throw Error('Incorrect Email');
+    throw Error("Incorrect Password");
+  }
+  throw Error("Incorrect Email");
 };
-
-
 
 module.exports = mongoose.model("User", UserSchema);

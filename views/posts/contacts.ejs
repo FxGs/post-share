@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"
@@ -32,100 +34,121 @@
     />
     <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
-    <link rel="stylesheet" href="/stylesheets/contact.css" />
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
+    <link rel="stylesheet" href="/stylesheets/contact.css" />
   </head>
   <body
-    class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
-    style="min-height: 100vh"
+    class="is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
+
     id="contact-body"
   >
     <div class="pageloader is-light">
       <span class="title">Loading...</span>
     </div>
-    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
-    <div class="inner" style="z-index: 30; margin-top: 10%">
-      <div class="columns is-centered">
-        <div
-          class="column is-full-mobile is-full-tablet is-three-quarters-desktop"
-        >
-          <div class="columns">
-            <div class="column is-full-mobile mt-5">
-              <div
-                class="card"
-                style="
-                  height: 100%;
-                  background-image: url('https://images.unsplash.com/photo-1568275339031-a8ce20ef6f9e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');
-                  background-position: bottom;
-                  background-repeat: no-repeat;
-                  background-size: cover;
-                "
-              >
-                <div class="card-content">
-                  <p class="title" style="text-shadow: 1px 1px 5px #808080">
-                    Get in touch with us
-                  </p>
-                  <br />
-                  <p class="subtile" style="text-shadow: 1px 1px 5px #808080">
-                    <span class="icon"><i class="fas fa-map-marker"></i></span
-                    >Rourkela, Odisha
-                  </p>
-                </div>
-              </div>
+    <%-include('../partials/newmodal')%>
+    <div class="hero is-medium" style="z-index: 30">
+      <div class="hero-head"><%-include('../partials/fnavbar')%></div>
+
+      <div class="hero-body mt-5" style="width: 100%; padding-left: 0">
+        <div class="content has-text-centered">
+          <p class="title" style="text-shadow: 1px 0.5px 3px #808080">
+            Get in touch with us
+          </p>
+          <p class="subtitle" style="text-shadow: 1px 0.5px 3px #808080">
+            <span class="icon"><i class="fas fa-map-marker"></i></span>
+            Rourkela, Odisha
+          </p>
+          <!-- <p class="subtitle" style="text-shadow: 1px 0.5px 3px #808080">
+            <span class="icon"><i class="fas fa-phone"></i></span> 8144039325
+          </p>
+          <p class="subtitle" style="text-shadow: 1px 0.5px 3px #808080">
+            <span class="icon"><i class="fab fa-whatsapp"></i></span> 8144039325
+          </p> -->
+        </div>
+
+        <div class="columns is-centered is-mobile" style="z-index: 30">
+          <div
+            class="column is-half-desktop is-three-quarters-tablet is-three-quarters-mobile"
+          >
+            <div
+              class="notification is-success mt-3"
+              id="contact-nf"
+              style="z-index: 100; display: none"
+            >
+              <button class="delete"></button>
+              Thanks for contacting us...
             </div>
-            <div class="column is-full-mobile mt-5">
-              <div class="card" style="height: 100%">
-                <div class="card-content">
-                  <form action="/email" method="POST">
-                    <div class="field">
-                      <label for="subject" class="label">Subject</label>
-                      <div class="control">
-                        <input
-                          class="input"
-                          type="text"
-                          id="subject"
-                          name="subject"
-                          placeholder="subject"
-                        />
-                      </div>
+            <div
+              class="card"
+              style="
+                background-color: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(5px);
+              "
+            >
+              <div class="card-content">
+                <form action="/email" method="POST">
+                  <div class="field">
+                    <label for="subject" class="label">Subject</label>
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="subject"
+                      />
                     </div>
-                    <div class="field" style="display: none">
-                      <div class="control">
-                        <input
-                          class="input"
-                          type="email"
-                          id="email"
-                          name="email"
-                          value="<%=user.email%>"
-                          placeholder="<%=user.email%>"
-                        />
-                      </div>
+                  </div>
+                  <div class="field" style="display: none">
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="<%=user.email%>"
+                        placeholder="<%=user.email%>"
+                      />
                     </div>
-                    <div class="field">
-                      <label for="text" class="label">Message</label>
-                      <div class="control">
-                        <textarea
-                          class="textarea"
-                          name="text"
-                          id="text"
-                          cols="30"
-                          rows="5"
-                        ></textarea>
-                      </div>
+                  </div>
+                  <div class="field" style="display: none">
+                    <div class="control">
+                      <input
+                        class="input"
+                        type="text"
+                        id="username"
+                        name="username"
+                        value="<%=user.username%>"
+                        placeholder="<%=user.username%>"
+                      />
                     </div>
-                    <div class="field">
-                      <div class="control">
-                        <button
-                          class="button is-primary"
-                          type="submit"
-                          onclick="sendMail();"
-                        >
-                          Send Message
-                        </button>
-                      </div>
+                  </div>
+                  <div class="field">
+                    <label for="text" class="label">Message</label>
+                    <div class="control">
+                      <textarea
+                        class="textarea"
+                        name="text"
+                        id="text"
+                        cols="30"
+                        rows="5"
+                      ></textarea>
                     </div>
-                  </form>
-                </div>
+                  </div>
+                  <div class="field">
+                    <div class="control">
+                      <button
+                        class="button is-dark"
+                        type="submit"
+                        onclick="sendMail();"
+                        disabled="true"
+                        id="mail-btn"
+                      >
+                        Contact Us
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -152,6 +175,38 @@
           }, 1000);
         });
       }
+    </script>
+    <script>
+      $(document).ready(function () {
+        var subvalidated = false;
+        var mssgvalidated = false;
+
+        $("#subject").change(function (e) {
+          if ($("#subject").val() !== "") {
+            subvalidated = true;
+          } else {
+            subvalidated = false;
+          }
+          checkbtn();
+        });
+
+        $("#text").change(function (e) {
+          if ($("#text").val() !== "") {
+            mssgvalidated = true;
+          } else {
+            mssgvalidated = false;
+          }
+          checkbtn();
+        });
+
+        function checkbtn() {
+          if (subvalidated && mssgvalidated) {
+            $("#mail-btn").attr("disabled", false);
+          } else {
+            $("#mail-btn").attr("disabled", true);
+          }
+        }
+      });
     </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>

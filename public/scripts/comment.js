@@ -1,7 +1,10 @@
 $(document).ready(function () {
   $("input.cmnt1").change(function (e) {
-    // alert("changed");
-    $("#Btn1").attr("disabled", false);
+    if ($("input.cmnt1").val() === "") {
+      $("#Btn1").attr("disabled", true);
+    } else {
+      $("#Btn1").attr("disabled", false);
+    }
     e.preventDefault();
   });
 
@@ -34,7 +37,11 @@ $(document).ready(function () {
     const id = inputs[j].id;
     $("#" + id).change(function (e) {
       // console.log(id);
-      $("#post-" + id.substring(8, 32)).attr("disabled", false);
+      if ($("#" + id).val() === "") {
+        $("#post-" + id.substring(8, 32)).attr("disabled", true);
+      } else {
+        $("#post-" + id.substring(8, 32)).attr("disabled", false);
+      }
 
       e.preventDefault();
     });

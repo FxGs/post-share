@@ -63,7 +63,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("particle");
 });
 
 
@@ -83,7 +83,7 @@ app.get("/creators", requireAuth, checkUser, (req, res) => {
 });
 
 app.post("/email", requireAuth, checkUser, (req, res) => {
-  const { subject, text } = req.body;
+  console.log(req.body);
 });
 
 app.get("/signup", (req, res) => {

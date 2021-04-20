@@ -51,6 +51,11 @@
   text-decoration: none;
 }
 
+.navigation-icons a:hover{
+  background-color: azure;
+}
+
+
 .navigation-link i {
   margin-left: 1.875rem;
   color: #363636;
