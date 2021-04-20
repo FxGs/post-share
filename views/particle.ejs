@@ -20,23 +20,226 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/particle.css" />
   </head>
-  <body style="height: 100vh">
-    <div id="particles-js"></div>
-    <section class="hero is-fullheight has-text-white">
+  <body >
+    <div class="container2 is-hidden-desktop">
+      <div class="box is-desktop is-half-tablet" id="container2Box" style=" background: transparent;">
+        <div class="box" id="login2" style="box-shadow: none; background: transparent;">
+          <div class="signup2">
+            
+          <form action="/user/login" method="POST" style="margin-top: 1em;">
+              <div class="field">
+                  <label class="label" style="font-family:Courier New; float:left ">Email</label>
+                  <div class="control has-icons-left">
+                      <input class="input email-input-login" type="text" placeholder="Email input" name="email" 
+                          id="email-input-login-mobile" style="border: 1px solid black;">
+                      <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                      </span>
+                  </div>
+                  <p class="help is-danger" id="email-message-mobile" style="display: none;">Please enter a valid email.</p>
+              </div>
+              <div class="field">
+                  <label class="label" style="font-family:Courier New; float:left ">Password</label>
+                  <div class="control has-icons-left">
+                      <input 
+                          class="input password-input-login" 
+                          type="password" 
+                          placeholder="Password" 
+                          name="password"
+                          id="password-input-login-mobile" 
+                          style="border: 1px solid black;">
+                      <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                      </span>
+                  </div>
+                  <span class="help is-danger" id="password-message-mobile" style="display: none;"><p>
+                    Password should be at least 8 characters long</p><p>with at least one lowercase, one uppercase and one digit.   </p></span>
+              </div>
+              <div class="field">
+                  <div class="control">
+                      <button class="button is-primary is-fullwidth" type="submit" id="login-submit-button-mobile" disabled="true">LOGIN</button>
+                  </div>
+              </div>
+          </form>
+          <div class="field mt-3">
+            <strong>
+              <p style="text-align: center;">or</p>
+            </strong>
+            <div class="control">
+              <button class="button is-dark is-fullwidth" id="signup2button"> signup</button>
+            </div>
+          </div>
+          
+      </div>
+        </div>
+        <div class="box" id="signup2" style="box-sizing:border-box; box-shadow: none; background: transparent;">             
+                <form action="/user/signup" method="POST">
+                    <div class="field">
+                      <label class="label" style="font-family:Courier New; float:left ">Username</label>
+                      <div class="control has-icons-left has-icons-right">
+                        <input
+                          class="input username-input"
+                          type="text"
+                          placeholder="Text input"
+                          name="username"
+                          id="username-input-mobile"
+                          style="margin-bottom: 0; border: 1px solid black;"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-user"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-check"
+                            id="username-successIcon-mobile"
+                            style="display: none;"
+                          ></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-exclamation-triangle"
+                            id="username-errorIcon-mobile"
+                            style="display: none;"
+                          ></i>
+                        </span>
+                      </div>
+                      <p
+                        class="help is-danger"
+                        style="display: none;"
+                        id="username-message-mobile"
+                      >
+                        Please enter a valid username.
+                      </p>
+                    </div>
+                    <div class="field">
+                      <label class="label" style="font-family:Courier New; float:left ">Email</label>
+                      <div class="control has-icons-left has-icons-right">
+                        <input
+                          class="input email-input"
+                          type="text"
+                          placeholder="Email input"
+                          name="email"
+                          id="email-input-mobile"
+                          style="margin-bottom: 0; border: 1px solid black;"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-check"
+                            id="email-successIcon-mobile"
+                            style="display: none;"
+                          ></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                          <i
+                            class="fas fa-exclamation-triangle"
+                            id="email-errorIcon-mobile"
+                            style="display: none;"
+                          ></i>
+                        </span>
+                      </div>
+                      <p
+                        class="help is-danger"
+                        id="email-signup-message-mobile"
+                        style="display: none"
+                      >
+                        Please enter a valid email.
+                      </p>
+                    </div>
+                    <div class="field">
+                      <label class="label" style="font-family:Courier New; float:left ">Password</label>
+                      <div class="control has-icons-left">
+                        <input
+                          class="input password-input"
+                          type="password"
+                          placeholder="Password"
+                          name="password"
+                          id="password-input-mobile"
+                          style="margin-bottom: 0; border: 1px solid black;"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                      <span
+                        class="help is-danger"
+                        id="password-signup-message-mobile"
+                        style="display: none"
+                        ><p>
+                          Password should be at least 8 characters long</p><p>with at least one lowercase, one uppercase and one digit.   </p></span
+                      >
+                    </div>
+                    <div class="field">
+                      <label class="label" style="font-family:Courier New; float:left ">Confirm Password</label>
+                      <div class="control has-icons-left">
+                        <input
+                          class="input password-confirm-input"
+                          type="password"
+                          placeholder="Confirm Password"
+                          name="password_confirm"
+                          id="password-confirm-input-mobile"
+                          style="margin-bottom: 0; border: 1px solid black;"
+                        />
+                        <span class="icon is-small is-left">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                      <span
+                        class="help is-danger"
+                        id="password-confirm-message-mobile"
+                        style="display: none; height: auto"
+                        >Passwords should match.</span
+                      >
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <button
+                          class="button is-primary is-fullwidth"
+                          type="submit"
+                          id="signup-submit-button-mobile"
+                          disabled="true"
+                        >
+                          SIGN-UP
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="field">
+                    <div class="control">
+                      <strong>
+                        <p style="text-align: center;">or</p>
+                      </strong>
+                      <button class="button is-dark is-fullwidth" id="login2button">login</button>
+                    </div>
+                  </div>
+        </div>
+      </div>
+     
+    </div>
+    
+    <div id="particles-js" style="height: 200vh;"></div>
+    
+    
 
+    
+    <section class="hero is-fullheight has-text-white">
+     
+      
       <div class="container1 is-hidden-mobile is-hidden-tablet-only">
         <div class="backbox">
           <div class="loginMsg">
             <div class="textcontent">
-              <p class="title" style="font-weight: bold; color: rgb(27, 27, 27)">Don't have an account?</p>
-              <p>Sign up to join with us.</p></br>
+              <p class="title" style="font-weight: bold;font-family: sans-serif ; color: rgb(27, 27, 27)">Don't have an account?</p>
+              <p style="font-weight: bold;font-family:open sans ; color: grey">Sign up to join with us.</p></br>
               <button id="switch1" class="btn from-left">𝙶𝚎𝚝 𝚂𝚝𝚊𝚛𝚝𝚎𝚍</button>
             </div>
           </div>
           <div class="signupMsg visibility">
             <div class="textcontent">
-              <p class="title" style="font-weight: bold; color: rgb(27, 27, 27)">Have an account?</p>
-              <p>Share your world with us.</p></br>
+              <p class="title" style="font-weight: bold; font-family: sans-serif ;color: rgb(27, 27, 27)">Have an account?</p>
+              <p style="font-weight: bold;font-family:open sans ; color: grey">Share your world with us.</p></br>
               <button id="switch2" class="btn from-right">𝙻𝙾𝙶 𝙸𝙽</button>
             </div>
           </div>
@@ -230,6 +433,7 @@
         <!-- frontbox -->
       </div>
       <!-- login/signiup -->
+      
     </section>
 
     
@@ -237,6 +441,9 @@
     <script src="/scripts/particles-config.js"></script>
     <script src="/scripts/particle-LoginSignup.js"></script>
     <script src="/scripts/login-validation.js"></script>
-    <script src="/scripts/signup-validation_nage.js"></script>
+    <script src="/scripts/signup-validation.js"></script>
+    <script src="/scripts/login-validation-mobile.js"></script>
+    <script src="/scripts/signup-validation-mobile.js"></script>
+    <script src="/scripts/particle-mobile.js"></script>
   </body>
 </html>

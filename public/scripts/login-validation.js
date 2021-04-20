@@ -2,12 +2,11 @@ const loginSubmitButton = document.getElementById('login-submit-button');
 const emailInputLogin = document.getElementById('email-input-login');
 const passwordInputLogin = document.getElementById('password-input-login');
 
-var emailValidatedLogin = true ;
+var emailValidatedLogin = false ;
 var passwordValidatedLogin = false;
 
 function validateEmailLogin(value) {
     const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    console.log("in");
     const loginEmailMessage = document.getElementById('email-message');
     if (regexString.test(String(value).toLowerCase())) {
         emailInputLogin.style.border = "1px solid #32CD32";
@@ -25,7 +24,6 @@ function validateEmailLogin(value) {
 }
 
 function validatePasswordLogin(value) {
-    console.log("out");
     const regexString = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     const loginPasswordMessage = document.getElementById('password-message');
     if (regexString.test(String(value))) {
@@ -55,9 +53,9 @@ function loginSubmitCheck(){
 }
 
 document.addEventListener('change', event => {
-    if (event.target.matches('.password-input-login')){
+    if (event.target.matches('#password-input-login')){
         validatePasswordLogin(event.target.value);
-    } else if (event.target.matches('.email-input-login')){
+    } else if (event.target.matches('#email-input-login')){
         validateEmailLogin(event.target.value);
     }
 }, false);
