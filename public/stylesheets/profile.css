@@ -1,0 +1,57 @@
+.profile-wrapper {
+    display: grid;
+    gap : 1rem;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 1rem 20% 1rem 20%;
+    border-bottom: 1px;
+}
+
+.profile-info {
+    padding-left: 3rem;
+}
+.name {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.username {
+    font-size: 2rem;
+}
+
+.bio {
+    font-size: 1rem;
+}
+
+.edit-profile a{
+    align-items: flex-start;
+    color:#363636;
+}
+@media screen and (max-width:768px) {
+    .profile-wrapper {
+        display: grid;
+        gap : 1rem;
+        grid-template-columns: 1.5fr 2fr 0.5fr;
+        padding: 1rem 5% 1rem 5%;
+    }
+
+    .name {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .username {
+        font-size:1.5rem;
+    }
+
+    .bio {
+        font-size: 0.75rem;
+    }
+    .profile-info {
+        padding-left: 0.75rem;
+    }
+}
+
+
+
+
+

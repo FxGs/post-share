@@ -1,5 +1,29 @@
-<% if(user.verified) { %>
-    <div>This profile has been verified.</div>
-<% } else { %>
-    <div>This profile has not been verified. A verification link has been sent to <%= user.email %>. Refresh this page to resend the email.</div>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/verify.css" />
+    <title>Post-Share User Verification</title>
+</head>
+
+<body>
+    <div class="verify-body">
+        <div class="verify-message">
+            <% if(user.verified) { %>
+            <p>This profile has been verified.</p>
+            <% } else { %>
+            <div>This profile has not been verified. A verification link has been sent to <%= user.email %>. Refresh
+                this page to
+                resend the email.</div>
+            <% } %>
+        </div>
+    </div>
+</body>
+
+</html>

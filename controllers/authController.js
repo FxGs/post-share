@@ -66,7 +66,6 @@ const signup_post = async (req, res) => {
     email,
     password
   } = req.body;
-
   try {
     const user = await User.create({
       username,
@@ -105,9 +104,8 @@ const login_post = async (req, res) => {
     res.redirect("/posts");
   } catch (err) {
     const errors = handleErrors(err);
-    res.status(400).json({
-      errors
-    });
+    req.flash("error","Couldn't log you in.");
+    res.redirect('/login');
   }
 }
 
@@ -141,7 +139,7 @@ const send_verification_mail = async (email) => {
       text: `${emailBody}`,
       html: `<p>${emailBody}</p>`,
     });
-    console.log("Message sent: %s", info.messageId);
+    console.log(`Message sent: ${info.messageId} to ${user.email} at ${Date.now()}`);
   } else {
     res.redirect(`/user/verify/${user.username}`);
   }

@@ -50,18 +50,18 @@ router.get('/profile/:username', requireAuth, checkUser,
         const {
             username
         } = req.params;
-        const user = await User.findOne({
+        const user_profile = await User.findOne({
             username
         });
-        if (!user) {
+        if (!user_profile) {
             req.flash("error", "No user found!");
             return res.status(404);
         }
         const posts = await Post.find({
-            author: user.id
+            author: user_profile.id
         }).populate("author");
         res.render("users/profile", {
-            user,
+            user_profile,
             posts
         });
     })
