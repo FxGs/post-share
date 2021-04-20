@@ -12,7 +12,7 @@
 
       <%}else if(post.image.length == 1){%>
       <div class="card-image" style="max-height: 100%">
-        <figure class="image is-3by3">
+        <figure class="image">
           <img src="<%=post.image[0].url%>" alt="" />
         </figure>
       </div>
@@ -44,21 +44,24 @@
           <figure class="image is-48x48 mr-2">
             <img
               class="is-rounded"
-              src="https://res.cloudinary.com/fancy/image/upload/w_48,h_48,c_fill,g_faces,r_max/v1617374348/samples/somen_unzclj.jpg"
+              src="<%=post.author.profile.avatar.url%>"
               alt=""
             />
           </figure>
           <div class="div">
-            <p
-              class="title"
-              style="
-                font-size: 15px;
-                font-family: 'Open Sans', sans-serif;
-                margin-bottom: 0;
-              "
+            <a href="/user/profile/<%=post.author.username%>">
+              <p
+                class="title"
+                style="
+                  font-size: 15px;
+                  font-family: 'Open Sans', sans-serif;
+                  margin-bottom: 0;
+                "
+              >
+                @<%=post.author.username%>
+              </p></a
             >
-              @<%=post.author.username%>
-            </p>
+
             <p
               class="subtitle"
               style="
