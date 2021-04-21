@@ -10,7 +10,9 @@
       id="nfs-<%=user.nfs[i].id%>"
     >
       <div class="message-body">
-        <p class="subtitle"><%-user.nfs[i].body%></p>
+        <p class="subtitle">
+          <%-user.nfs[i].body%> <span><%=user.nfs[i].time%></span>
+        </p>
         <form class="nfs-form" action="" id="<%=user.nfs[i].id%>">
           <%if(user.nfs[i].read === false){%>
           <button id="nbtn-<%=user.nfs[i].id%>">

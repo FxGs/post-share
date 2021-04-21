@@ -53,12 +53,12 @@
               <p
                 class="title"
                 style="
-                  font-size: 15px;
+                  font-size: 1.5em;
                   font-family: 'Open Sans', sans-serif;
                   margin-bottom: 0;
                 "
               >
-                @<%=post.author.username%>
+                <%=post.author.username%>
               </p></a
             >
 
@@ -70,7 +70,7 @@
                 margin-top: 0;
               "
             >
-              <%var date = post.postedat.toDateString();%> <%=date%>
+              <%=post.postedat%>
             </p>
           </div>
         </div>

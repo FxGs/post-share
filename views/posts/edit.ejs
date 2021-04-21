@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -32,13 +34,14 @@
     />
     <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
+    <link rel="stylesheet" href="/stylesheets/fnav.css" />
   </head>
   <body
     class="has-navbar-fixed-top is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
     style="height: 100vh"
   >
-    <div class="pageloader is-dark"><span class="title">Loading...</span></div>
-    <%-include('../partials/newmodal')%> <%-include('../partials/navbar')%>
+    <div class="pageloader is-light"><span class="title">Loading...</span></div>
+    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
     <section>
       <main class="container" style="margin-top: 3rem">
         <div class="columns is-mobile is-centered mb-5">
@@ -62,8 +65,10 @@
                 </div>
               </div>
               <div class="column right">
-                <div class="box" id="edit-box" style="height: 100%;">
-                  <h1 class="title has-text-centered" id="edit-title">Edit Post</h1>
+                <div class="box" id="edit-box" style="height: 100%">
+                  <h1 class="title has-text-centered" id="edit-title">
+                    Edit Post
+                  </h1>
                   <form
                     action="/posts/<%=post.id%>?_method=PUT"
                     method="POST"

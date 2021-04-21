@@ -53,6 +53,10 @@ const UserSchema = new Schema({
       read: {
         type: Boolean,
         default: "false"
+      },
+      time: {
+        type: Date,
+        default: Date.now(),
       }
     }
   ]

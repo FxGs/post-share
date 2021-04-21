@@ -24,7 +24,7 @@
                 margin-bottom: 0;
               "
             >
-              @<%=post.author.username%>
+              <%=post.author.username%>
             </p>
             <p
               class="subtitle"
@@ -179,16 +179,43 @@
         </a>
         <div class="comment-heading">
           <div class="comment-info" style="display: flex; flex-direction: row">
-            <figure class="image is-24x24 mr-2">
+            <figure class="image is-32x32 mr-2">
               <img
                 class="is-rounded"
                 src="<%=cmnts[i].author.profile.avatar.url%>"
                 alt=""
               />
             </figure>
-            <a href="/user/profile/<%=cmnts[i].author.username%>" class="comment-author"
-              >@<%=cmnts[i].author.username%></a
-            >
+            <ul>
+              <li>
+                <p
+                  class="title"
+                  style="
+                    font-size: 13px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-bottom: 0;
+                  "
+                >
+                  <a
+                    href="/user/profile/<%=cmnts[i].author.username%>"
+                    class="comment-author"
+                    >@<%=cmnts[i].author.username%></a
+                  >
+                </p>
+              </li>
+              <li>
+                <p
+                  class="subtitle"
+                  style="
+                    font-size: 12px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-top: 0;
+                  "
+                >
+                  <%var date = cmnts[i].createdat.toDateString();%> <%=date%>
+                </p>
+              </li>
+            </ul>
           </div>
           <%if((cmnts[i].author.id) === (user.id)){%>
           <div class="comment-heading-icon">
@@ -264,16 +291,44 @@
                 class="comment-info"
                 style="display: flex; flex-direction: row"
               >
-                <figure class="image is-24x24 mr-2">
+                <figure class="image is-32x32 mr-2">
                   <img
                     class="is-rounded"
                     src="<%=cmnts[k].author.profile.avatar.url%>"
                     alt=""
                   />
                 </figure>
-                <a href="/user/profile/<%=cmnts[k].author.username%>" class="comment-author"
-                  >@<%=cmnts[k].author.username%></a
-                >
+                <ul>
+                  <li>
+                    <p
+                      class="title"
+                      style="
+                        font-size: 13px;
+                        font-family: 'Open Sans', sans-serif;
+                        margin-bottom: 0;
+                      "
+                    >
+                      <a
+                        href="/user/profile/<%=cmnts[i].author.username%>"
+                        class="comment-author"
+                        >@<%=cmnts[k].author.username%></a
+                      >
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="subtitle"
+                      style="
+                        font-size: 12px;
+                        font-family: 'Open Sans', sans-serif;
+                        margin-top: 0;
+                      "
+                    >
+                      <%var date = cmnts[k].createdat.toDateString();%>
+                      <%=date%>
+                    </p>
+                  </li>
+                </ul>
               </div>
               <%if((cmnts[k].author.id) === (user.id)){%>
               <div class="comment-heading-icon">

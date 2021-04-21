@@ -75,14 +75,12 @@ router.get(
 );
 
 router.get(
-  "/profile/:username/nfs",
+  "/nfs",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
-    const { username } = req.params;
-    const user = await User.findOne({
-      username,
-    });
+    const user = res.locals.user;
+    console.log(user);
     res.render("users/nfs", { user });
   })
 );
@@ -96,6 +94,12 @@ router.post(
     const user = await User.findOne({
       username,
     });
+    if (res.locals.user.id != user.id) {
+      req.flash("error", "Not authorized.");
+      return res.status(403).json({
+        message: "Not authorized.",
+      });
+    }
     var f = 0;
     for (var i = user.nfs.length - 1; i >= 0; i--) {
       if (user.nfs[i].id === nid) {

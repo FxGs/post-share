@@ -8,16 +8,16 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
-  $(".cmnt1").emojioneArea({
-    events: {
-      ready: function () {
-        this.setFocus();
-      },
-    },
-    pickerPosition: "top",
-    filtersPosition: "bottom",
-    spellcheck: true,
-  });
+  // $(".cmnt1").emojioneArea({
+  //   events: {
+  //     ready: function () {
+  //       this.setFocus();
+  //     },
+  //   },
+  //   pickerPosition: "top",
+  //   filtersPosition: "bottom",
+  //   spellcheck: true,
+  // });
 
   const replies = $(".comment-reply");
   for (var i = 0; i < replies.length; i++) {
@@ -45,15 +45,15 @@ $(document).ready(function () {
 
       e.preventDefault();
     });
-    $("#" + id).emojioneArea({
-      events: {
-        ready: function () {
-          this.setFocus();
-        },
-      },
-      pickerPosition: "top",
-      filtersPosition: "bottom",
-      spellcheck: true,
-    });
+    // $("#" + id).emojioneArea({
+    //   events: {
+    //     ready: function () {
+    //       this.setFocus();
+    //     },
+    //   },
+    //   pickerPosition: "top",
+    //   filtersPosition: "bottom",
+    //   spellcheck: true,
+    // });
   }
 });

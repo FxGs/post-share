@@ -9,6 +9,26 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .modal-card {
   /* height: 740px; */
   position: relative;
@@ -245,4 +265,3 @@ button:active {
 #edit-btns #Edit-Btn:hover {
   background-color: #00b386;
 }
-
