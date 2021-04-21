@@ -29,14 +29,19 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+div {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .modal-card {
   /* height: 740px; */
   position: relative;
-}
-
-.emojionearea-picker {
-  /* display: block !important; */
-  z-index: 100 !important;
 }
 
 .modal-card-body::-webkit-scrollbar {
@@ -57,18 +62,7 @@ button {
   .modal-content {
     margin: 0 auto;
     max-height: calc(100vh - 40px);
-    width: 640px;
   }
-}
-
-.modal-card-body .field {
-  /* margin-top: rem; */
-  margin-bottom: 3rem;
-}
-
-.modal-card-body #new-body {
-  /* margin-top: rem; */
-  margin-bottom: 6rem;
 }
 
 .media-content {

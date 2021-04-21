@@ -10,17 +10,14 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
-  <script src="/scripts/emojionearea.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
   <link rel="stylesheet" href="/stylesheets/boiler.css" />
   <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
   <link rel="stylesheet" href="/stylesheets/comment.css" />
-  <link rel="stylesheet" href="/stylesheets/likes.css" />
   <link rel="stylesheet" href="/stylesheets/fnav.css" />
   <title>Post-Share - <%= user.username %>'s Profile</title>
 </head>
@@ -188,28 +185,6 @@
   <script src="/scripts/modal.js"></script>
   <script src="/scripts/form-validation.js"></script>
   <script src="/scripts/signup-validation.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $(".new-area").emojioneArea({
-        pickerPosition: "bottom",
-        filtersPosition: "bottom",
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function () {
-      $("#comment").emojioneArea({
-        events: {
-          ready: function () {
-            this.setFocus();
-          },
-        },
-        pickerPosition: "top",
-        filtersPosition: "bottom",
-        spellcheck: true,
-      });
-    });
-  </script>
   <script>
     $(document).ready(function () {
       $(".slider").slick({

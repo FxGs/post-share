@@ -80,7 +80,6 @@ router.get(
   checkUser,
   CatchAsync(async (req, res) => {
     const user = res.locals.user;
-    console.log(user);
     res.render("users/nfs", { user });
   })
 );

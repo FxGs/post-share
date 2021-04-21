@@ -8,17 +8,6 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
-  // $(".cmnt1").emojioneArea({
-  //   events: {
-  //     ready: function () {
-  //       this.setFocus();
-  //     },
-  //   },
-  //   pickerPosition: "top",
-  //   filtersPosition: "bottom",
-  //   spellcheck: true,
-  // });
-
   const replies = $(".comment-reply");
   for (var i = 0; i < replies.length; i++) {
     // console.log(replies[i].id.substring(4, 28));
@@ -45,15 +34,5 @@ $(document).ready(function () {
 
       e.preventDefault();
     });
-    // $("#" + id).emojioneArea({
-    //   events: {
-    //     ready: function () {
-    //       this.setFocus();
-    //     },
-    //   },
-    //   pickerPosition: "top",
-    //   filtersPosition: "bottom",
-    //   spellcheck: true,
-    // });
   }
 });
