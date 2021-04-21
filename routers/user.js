@@ -197,8 +197,10 @@ router.put(
 router.get('/verify/:username',CatchAsync(async (req,res)=>{
     const { username } = req.params;
     const user = await User.findOne({username});
+    var fullUrl = req.protocol + '://' + req.get('host');
+    console.log({fullUrl});
     if(!user.verified) {
-        authController.send_verification_mail(user.email);
+        authController.send_verification_mail(user.email,fullUrl);
     }
     res.render('users/verify',{user});
 }));

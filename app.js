@@ -63,7 +63,6 @@ app.use((req, res, next) => {
 });
 
 app.get("/", checkUser, (req, res) => {
-  console.log(res.locals.user);
   if(res.locals.user)
     return res.redirect('/posts');
   res.render("particle");

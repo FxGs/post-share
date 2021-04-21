@@ -116,7 +116,7 @@ const logout_get = (req, res) => {
   res.redirect('/');
 }
 
-const send_verification_mail = async (email) => {
+const send_verification_mail = async (email, url) => {
   var user = await User.findOne({
     email
   });
@@ -129,11 +129,9 @@ const send_verification_mail = async (email) => {
       },
     });
     const token = createToken(user._id, process.env.EMAIL_SECRET);
-    const emailBody = `Click on this link to verify your email address - <a href="http://localhost:3000/user/verify/token/${token}">Verify</a>`;
-    console.log(user.email);
-
+    const emailBody = `Click on this link to verify your email address - <a href=${url}/user/verify/token/${token}>Verify</a>`;
     let info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <foo@example.com>',
+      from: `"Post-Share App" <${process.env.GMAIL_USER}>`,
       to: user.email,
       subject: "Post-Share App email-verification",
       text: `${emailBody}`,
