@@ -1,0 +1,15 @@
+:root {
+    --main-bg-color-success: hsl(141, 71%, 48%)
+}
+
+.verify-body {
+    background-color: var(--main-bg-color-success);
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+.verify-message {
+    font-size: 3rem;
+    color: hsl(142, 52%, 96%);
+}

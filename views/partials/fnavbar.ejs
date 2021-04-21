@@ -1,6 +1,6 @@
-<div class="navigation">
+<div class="navigation has-background-white">
   <div class="logo">
-    <a class="no-underline" href="/posts">
+    <a href="/posts">
       <span class="icon"><i class="fas fa-home"></i></span>
       <span class="navnames ml-0">Posts</span>
     </a>
@@ -25,12 +25,12 @@
       <span class="navnames"><%=user.username%></span>
     </a>
 
-    <a href="/user/nfs" class="navigation-link mx-3">
+    <a href="/user/notifications" class="navigation-link mx-3">
       <span class="icon" style="font-size: large">
-        <%const l = user.nfs.length;%><%if(l === 0){%><i
+        <%const l = user.notifications.length;%><%if(l === 0){%><i
           class="fas fa-bell"
         ></i>
-        <%}else if(user.nfs[l-1].read === false){%>
+        <%}else if(user.notifications[l-1].read === false){%>
         <i class="fas fa-bell" style="color: red !important"></i>
         <%}else{%><i class="fas fa-bell"></i>
         <%}%>

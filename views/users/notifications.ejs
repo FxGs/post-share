@@ -4,18 +4,16 @@
   <div
     class="column is-half-desktop is-three-quarters-tablet is-three-quarters-mobile"
   >
-    <%for(var i = user.nfs.length-1; i >= 0; i--){%>
+    <%for(var i = user.notifications.length-1; i >= 0; i--){%>
     <div
-      class="message <%if(user.nfs[i].read === false){%>is-danger<%}else{%>is-info<%}%>"
-      id="nfs-<%=user.nfs[i].id%>"
+      class="message <%if(user.notifications[i].read === false){%>is-danger<%}else{%>is-info<%}%>"
+      id="notifications-<%=user.notifications[i].id%>"
     >
       <div class="message-body">
-        <p class="subtitle">
-          <%-user.nfs[i].body%> <span><%=user.nfs[i].time%></span>
-        </p>
-        <form class="nfs-form" action="" id="<%=user.nfs[i].id%>">
-          <%if(user.nfs[i].read === false){%>
-          <button id="nbtn-<%=user.nfs[i].id%>">
+        <p class="subtitle"><%-user.notifications[i].body%></p>
+        <form class="notifications-form" action="" id="<%=user.notifications[i].id%>">
+          <%if(user.notifications[i].read === false){%>
+          <button id="nbtn-<%=user.notifications[i].id%>">
             <i class="fas fa-check"></i>
           </button>
           <%}%>
@@ -27,9 +25,9 @@
 </div>
 
 <script>
-  $(".nfs-form").on("submit", function (e) {
+  $(".notifications-form").on("submit", function (e) {
     const id = $(this).attr("id");
-    const newurl = "/user/profile/<%=user.username%>/nfs/" + id;
+    const newurl = "/user/profile/<%=user.username%>/notifications/" + id;
     $.ajax({
       type: "POST",
       url: newurl,
@@ -37,8 +35,8 @@
       success: function (data) {
         if (data.message === "read successfully") {
           $("#nbtn-" + id).css("display", "none");
-          $("#nfs-" + id).removeClass("is-danger");
-          $("#nfs-" + id).addClass("is-info");
+          $("#notifications-" + id).removeClass("is-danger");
+          $("#notifications-" + id).addClass("is-info");
         }
       },
       error: function (error) {

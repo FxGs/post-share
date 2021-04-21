@@ -12,11 +12,14 @@ const multer = require("multer");
 //cloudinary storage requirement
 const { storage, cloudinary } = require("../cloudinary");
 
+const jwt = require('jsonwebtoken');
+
 //specifying the destination of images uploaded
 const upload = multer({
   storage,
 });
 
+require('dotenv').config();
 router.get("/signup", authController.signup_get);
 router.post("/signup", authController.signup_post);
 router.get("/login", authController.login_get);
@@ -43,49 +46,46 @@ router.get(
   checkUser,
   CatchAsync(async (req, res) => {
     const { username } = req.params;
-    const user = await User.findOne({
+    const user_profile = await User.findOne({
       username,
     });
-    if (!user) {
+    if (!user_profile) {
       req.flash("error", "No user found!");
       return res.status(404);
     }
-    console.log(user.likedposts.length);
-    for (let pid of user.likedposts) {
+    for (let pid of user_profile.likedposts) {
       const p = await Post.findById(pid);
       if (!p) {
         console.log("doesnt exist");
-        user.likedposts = user.likedposts.filter((post) => post != pid);
-        // console.log("deleted");
+        user_profile.likedposts = user_profile.likedposts.filter((post) => post != pid);
       } else {
         console.log("exist");
       }
     }
-    await user.save();
-    // console.log(user.likedposts);
+    await user_profile.save();
     const posts = await Post.find({
-      author: user.id,
+      author: user_profile.id,
     }).populate("author");
 
     res.render("users/profile", {
-      user,
+      user_profile,
       posts,
     });
   })
 );
 
 router.get(
-  "/nfs",
+  "/notifications",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
     const user = res.locals.user;
-    res.render("users/nfs", { user });
+    res.render("users/notifications", { user });
   })
 );
 
 router.post(
-  "/profile/:username/nfs/:nid",
+  "/profile/:username/notifications/:nid",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
@@ -100,9 +100,9 @@ router.post(
       });
     }
     var f = 0;
-    for (var i = user.nfs.length - 1; i >= 0; i--) {
-      if (user.nfs[i].id === nid) {
-        user.nfs[i].read = true;
+    for (var i = user.notifications.length - 1; i >= 0; i--) {
+      if (user.notifications[i].id === nid) {
+        user.notifications[i].read = true;
         await user.save();
         res.json({ message: "read successfully" });
         f = 1;
@@ -113,6 +113,34 @@ router.post(
       res.json({ message: "not found" });
     }
   })
+);
+
+router.put('/profile/:username', requireAuth, checkUser,
+    upload.single("profile-picture"),
+    CatchAsync(async (req, res) => {
+        const {
+            username
+        } = req.params;
+        const profile = req.body;
+        if (username === res.locals.user.username) {
+            const user = await User.findOne({
+                username
+            });
+            user.profile.name = profile.name;
+            user.profile.bio = profile.bio;
+            if (req.file) {
+                await cloudinary.uploader.destroy(user.profile.avatar.filename);
+                user.profile.avatar.url = req.file.path.replace("/upload", "/upload/c_fill,h_256,w_256");
+                user.profile.avatar.filename = req.file.filename;
+            }
+            await user.save();
+            return res.redirect('/user/profile');
+        } else {
+            return res.status(402).json({
+                message: "Not authorized"
+            });
+        }
+    })
 );
 
 router.get(
@@ -168,5 +196,40 @@ router.put(
     }
   })
 );
+
+router.get('/verify/:username',CatchAsync(async (req,res)=>{
+    const { username } = req.params;
+    const user = await User.findOne({username});
+    var fullUrl = req.protocol + '://' + req.get('host');
+    console.log({fullUrl});
+    if(!user.verified) {
+        authController.send_verification_mail(user.email,fullUrl);
+    }
+    res.render('users/verify',{user});
+}));
+
+router.get('/verify/token/:token', CatchAsync(async (req, res) => {
+    const {
+        token
+    } = req.params;
+    if (token) {
+        jwt.verify(token, process.env.EMAIL_SECRET, async (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+            } else {
+                await User.findByIdAndUpdate(decodedToken.id, {
+                    verified: true
+                }, {
+                    new: true
+                });
+                res.redirect("/posts");
+            }
+        });
+    } else {
+        res.status(403).json({
+            message: 'No Verification Token Found'
+        });
+    }
+}));
 
 module.exports = router;
