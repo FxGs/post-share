@@ -40,7 +40,7 @@
         </div>
         <%if((post.author.id) === (user.id)){%>
         <div class="card-header-icon">
-          <div class="dropdown is-hoverable">
+          <div class="dropdown is-hoverable is-right">
             <div class="dropdown-trigger">
               <button
                 class="dropdown-btn"
@@ -60,7 +60,7 @@
                     <span class="icon">
                       <i class="fas fa-pen-square"></i>
                     </span>
-                    <span>Edit</span>
+                    <span class="is-hidden-mobile">Edit</span>
                   </button>
                 </a>
                 <a href="#" class="dropdown-item">
@@ -69,8 +69,8 @@
                     method="POST"
                   >
                     <button class="button" style="border: none">
-                      <span class="icon"><i class="fas fa-trash-alt"></i></span
-                      ><span>Delete</span>
+                      <span class="icon"><i class="fas fa-trash-alt"></i></span>
+                      <span class="is-hidden-mobile">Delete</span>
                     </button>
                   </form>
                 </a>
@@ -242,7 +242,7 @@
                   id="comment-<%=cmnts[i].id%>"
                   placeholder="Add a comment.."
                 />
-                <button type="submit" id="post-<%=cmnts[i].id%>" disabled>
+                <button class="button is-light" type="submit" id="post-<%=cmnts[i].id%>" disabled>
                   POST
                 </button>
               </div>

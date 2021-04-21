@@ -7,16 +7,22 @@ const { boolean } = require("joi");
 const UserSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    unique: true,
+    required: true
   },
   email: {
     type: String,
-    required: true,
+    unique: true,
+    required: true
   },
   password: {
     type: String,
     required: true,
   },
+  verified: {
+    type: Boolean,
+    default: false
+  },  
   profile: {
     name: {
       type: String,
@@ -47,7 +53,7 @@ const UserSchema = new Schema({
       ref: "Post",
     },
   ],
-  nfs: [
+  notifications: [
     {
       body: String,
       read: {

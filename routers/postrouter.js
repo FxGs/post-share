@@ -268,7 +268,7 @@ router.post(
       const mssg = {
         body: `<a href="/user/profile/${res.locals.user.username}">${res.locals.user.username}</a> commented on your post <a href="/posts/${post.id}">${post.title}</a>.`,
       };
-      user.nfs.push(mssg);
+      user.notifications.push(mssg);
       await user.save();
     }
     // console.log(post);
@@ -299,7 +299,7 @@ router.post(
       const mssg = {
         body: `<a href="/user/profile/${res.locals.user.username}">${res.locals.user.username}</a> replied on your comment on post <a href="/posts/${post.id}">${post.title}</a>`,
       };
-      user.nfs.push(mssg);
+      user.notifications.push(mssg);
       await user.save();
     }
     // console.log(post);

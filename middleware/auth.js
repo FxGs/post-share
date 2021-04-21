@@ -5,12 +5,19 @@ const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, "randomString", (err, decodedToken) => {
+    jwt.verify(token, "randomString", async (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        res.redirect('/login');
       } else {
         //console.log(decodedToken);
+        let user = await User.findById(decodedToken.id);
+        try {
+          if(!user.verified) {
+            return res.redirect(`/user/verify/${user.username}`);
+          }
+        } catch(err) {
+          console.log(err);
+        }
         next();
       }
     });
