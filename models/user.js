@@ -53,7 +53,7 @@ const UserSchema = new Schema({
       ref: "Post",
     },
   ],
-  nfs: [
+  notifications: [
     {
       body: String,
       read: {

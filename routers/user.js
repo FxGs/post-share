@@ -75,7 +75,7 @@ router.get(
 );
 
 router.get(
-  "/profile/:username/nfs",
+  "/profile/:username/notifications",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
@@ -83,12 +83,12 @@ router.get(
     const user = await User.findOne({
       username,
     });
-    res.render("users/nfs", { user });
+    res.render("users/notifications", { user });
   })
 );
 
 router.post(
-  "/profile/:username/nfs/:nid",
+  "/profile/:username/notifications/:nid",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
@@ -97,9 +97,9 @@ router.post(
       username,
     });
     var f = 0;
-    for (var i = user.nfs.length - 1; i >= 0; i--) {
-      if (user.nfs[i].id === nid) {
-        user.nfs[i].read = true;
+    for (var i = user.notifications.length - 1; i >= 0; i--) {
+      if (user.notifications[i].id === nid) {
+        user.notifications[i].read = true;
         await user.save();
         res.json({ message: "read successfully" });
         f = 1;

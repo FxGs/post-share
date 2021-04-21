@@ -62,7 +62,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
+app.get("/", checkUser, (req, res) => {
+  console.log(res.locals.user);
+  if(res.locals.user)
+    return res.redirect('/posts');
   res.render("particle");
 });
 
