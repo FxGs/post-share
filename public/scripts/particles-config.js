@@ -16,7 +16,7 @@ Particle JS - Vincent Garreau
 particlesJS('particles-js', {
   'particles': {
       'number': {
-          'value': 150,
+          'value': 100,
         //   'density': {
         //       'enable': true,
         //       'value_area': 800
@@ -65,7 +65,7 @@ particlesJS('particles-js', {
       },
       'move': {
           'enable': true,
-          'speed': 4,
+          'speed': 5,
           'direction': 'none',
           'random': false,
           'straight': false,
@@ -87,14 +87,18 @@ particlesJS('particles-js', {
           },
           'onclick': {
               'enable': true,
-              'mode': 'repulsive'
+              'mode': 'repulse'
           },
           'resize': true
       },
       'modes': {
           'grab': {
-              'distance': 140,
-              'line_linked': { 'opacity': 1 }
+              'distance': 200,
+              'line_linked': { 
+                  'opacity': 1,
+                  'color' : '#000000',
+                  'width' : 4
+            }
           },
           'bubble': {
               'distance': 400,
@@ -113,3 +117,4 @@ particlesJS('particles-js', {
   },
   'retina_detect': true
 });
+
