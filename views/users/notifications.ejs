@@ -1,49 +1,41 @@
 <% layout('layout/boilerplate') -%>
 
-<div class="columns is-mobile is-centered">
+<div
+  class="container is-max-desktop is-justify-content-center column is-half-desktop is-three-quarters-tablet is-full-mobile"
+>
+  <%for(var i = user.notifications.length-1; i >= 0; i--){%>
   <div
-    class="column is-half-desktop is-three-quarters-tablet is-three-quarters-mobile"
+    class="message <%if(user.notifications[i].read === false){%>is-danger<%}else{%>is-info<%}%>"
+    id="<%=user.notifications[i].id%>"
   >
-    <%for(var i = user.notifications.length-1; i >= 0; i--){%>
-    <div
-      class="message <%if(user.notifications[i].read === false){%>is-danger<%}else{%>is-info<%}%>"
-      id="notifications-<%=user.notifications[i].id%>"
-    >
-      <div class="message-body">
-        <p class="subtitle"><%-user.notifications[i].body%></p>
-        <form class="notifications-form" action="" id="<%=user.notifications[i].id%>">
-          <%if(user.notifications[i].read === false){%>
-          <button id="nbtn-<%=user.notifications[i].id%>">
-            <i class="fas fa-check"></i>
-          </button>
-          <%}%>
-        </form>
-      </div>
+    <div class="message-body">
+      <p class="subtitle"><%-user.notifications[i].body%></p>
+      <p><%=user.notifications[i].time%></p>
     </div>
-    <%}%>
   </div>
+  <%}%>
 </div>
 
 <script>
-  $(".notifications-form").on("submit", function (e) {
-    const id = $(this).attr("id");
-    const newurl = "/user/profile/<%=user.username%>/notifications/" + id;
-    $.ajax({
-      type: "POST",
-      url: newurl,
-      dataType: "json",
-      success: function (data) {
-        if (data.message === "read successfully") {
-          $("#nbtn-" + id).css("display", "none");
-          $("#notifications-" + id).removeClass("is-danger");
-          $("#notifications-" + id).addClass("is-info");
-        }
-      },
-      error: function (error) {
-        alert(JSON.parse(error));
-      },
+  $(document).ready(function () {
+    $("#nfs-icon").css("color", "black");
+    $(".is-danger").on("click", function (e) {
+      const id = $(this).attr("id");
+      const newurl = "/user/profile/<%=user.username%>/notifications/" + id;
+      $.ajax({
+        type: "POST",
+        url: newurl,
+        dataType: "json",
+        success: function (data) {
+          if (data.message === "read successfully") {
+            $("#" + id).removeClass("is-danger");
+            $("#" + id).addClass("is-info");
+          }
+        },
+        error: function (error) {
+          alert(JSON.parse(error));
+        },
+      });
     });
-
-    e.preventDefault();
   });
 </script>

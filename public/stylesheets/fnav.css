@@ -32,11 +32,11 @@
 @media only screen and (max-width: 1080px) {
   /* Navigation */
   .navigation {
-    padding: 0 1.25rem;
+    padding: 0 1rem;
     justify-content: space-between;
   }
   .navnames {
-      display: none;
+    display: none;
   }
   .navigation-icons {
     display: flex;
@@ -49,22 +49,21 @@
 
 .navigation-icons a {
   text-decoration: none;
+  margin: 0 0.5rem;
 }
 
 .navigation-link i {
-  margin-left: 1.875rem;
   color: #363636;
   text-decoration: none;
   font-size: 1.375rem;
 }
 
 .navnames {
-  margin-left: 1rem;
+  margin-left: 0.1rem;
   color: #363636;
   font-size: 1rem;
 }
 
 .navigation-link span {
-  font-family: 'Open Sans', sans-serif !important;
-  /* font-size: large !important; */
+  font-family: "Open Sans", sans-serif;
 }

@@ -98,9 +98,6 @@ router.get(
       req.flash("error", "Not Found!!");
       return res.redirect("/posts");
     }
-    // console.log(res.locals.user.id);
-    // res.send(cmnts);
-    // console.log(post.likes);
     res.render("posts/showpost", { post, cmnts });
     // console.log(post.author.username);
   })

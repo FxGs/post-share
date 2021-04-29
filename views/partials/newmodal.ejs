@@ -2,22 +2,24 @@
   <div class="columns is-mobile is-centered">
     <div class="column is-three-quarters-mobile is-three-quarters-tablet">
       <div class="modal-background"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title is-size-5-mobile">CREATE A NEW POST</p>
-          <button class="delete" aria-label="close"></button>
-        </header>
+      <div
+        class="modal-card"
+        style="
+          border-radius: 4px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+            rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        "
+      >
         <section class="modal-card-body">
-          <form action="/posts" method="POST" enctype="multipart/form-data">
+          <form id="post-form" action="/posts" method="POST" enctype="multipart/form-data">
             <div class="field">
-              <label for="title" class="label">Title</label>
               <div class="control has-icons-right">
                 <input
                   class="input"
                   type="text"
                   id="title"
                   name="post[title]"
-                  placeholder="𝓉𝒾𝓉𝓁𝑒.."
+                  placeholder="Title"
                 />
                 <span class="icon is-small is-right">
                   <i
@@ -49,37 +51,44 @@
             <div class="field">
               <div id="file-js-example" class="file has-name is-fullwidth">
                 <label class="file-label">
-                  <input
-                    class="file-input"
-                    type="file"
-                    name="image"
-                    placeholder="𝒸𝒽𝑜𝑜𝓈𝑒 𝒾𝓂𝒶𝑔𝑒(𝓈).."
-                    multiple
-                  />
+                  <input class="file-input" type="file" name="image" multiple />
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-label"> 𝒷𝓇𝑜𝓌𝓈𝑒 </span>
+                    <span
+                      class="file-label"
+                      style="
+                        font-family: 'Open Sans', sans-serif;
+                        color: rgba(0, 0, 0, 0.5);
+                      "
+                    >
+                      Browse
+                    </span>
                   </span>
                   <span
                     class="file-name"
-                    style="font-weight: 100; color: lightgray"
+                    style="
+                      font-weight: 100;
+                      color: lightgray;
+                      font-family: 'Open Sans', sans-serif;
+                      color: rgba(0, 0, 0, 0.5);
+                    "
                   >
-                    𝒸𝒽𝑜𝑜𝓈𝑒 𝒾𝓂𝒶𝑔𝑒(𝓈)..
+                    Choose a post
                   </span>
                 </label>
               </div>
             </div>
             <div class="field" id="new-body">
-              <label for="body" class="label">Body</label>
+              <!-- <label for="body" class="label">Body</label> -->
               <div class="control has-icons-right">
                 <textarea
                   class="textarea new-area"
-                  rows="5"
+                  rows="2"
                   id="body"
                   name="post[body]"
-                  placeholder="𝒶 𝓃𝒾𝒸𝑒 𝓅𝑜𝓈𝓉 𝓃𝑒𝑒𝒹𝓈 𝒶 𝓃𝒾𝒸𝑒 𝒹𝑒𝓈𝒸𝓇𝒾𝓅𝓉𝒾𝑜𝓃.."
+                  placeholder="caption"
                 ></textarea>
                 <p
                   id="body_error"
@@ -90,25 +99,24 @@
                     font-size: medium;
                   "
                 >
-                  a post without body is nonsense
+                  give a caption..
                 </p>
               </div>
             </div>
             <div class="field">
               <div class="control">
                 <button
-                  class="button is-primary is-fullwidth"
+                  class="button is-dark is-fullwidth"
                   id="newpost"
                   type="submit"
                   disabled="true"
                 >
-                  ADD
+                  Post
                 </button>
               </div>
             </div>
           </form>
         </section>
-        <footer class="modal-card-foot"></footer>
       </div>
     </div>
   </div>
