@@ -86,6 +86,9 @@ app.get("/creators", requireAuth, checkUser, (req, res) => {
 
 app.post("/email", requireAuth, checkUser, (req, res) => {
   console.log(req.body);
+  if (!req.body.text && !req.body.subject) {
+    res.send("error");
+  }
 });
 
 app.get("/signup", (req, res) => {
@@ -96,12 +99,8 @@ app.get("/login", (req, res) => {
   res.render("users/login");
 });
 
-app.get("/status", (req, res) => {
+app.get("*", (req, res) => {
   res.render("status");
-});
-
-app.get("*", (req, res, next) => {
-  next(new ExpressError("Page not Found", 404));
 });
 
 app.use((err, req, res, next) => {
