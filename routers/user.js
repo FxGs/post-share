@@ -12,14 +12,14 @@ const multer = require("multer");
 //cloudinary storage requirement
 const { storage, cloudinary } = require("../cloudinary");
 
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 //specifying the destination of images uploaded
 const upload = multer({
   storage,
 });
 
-require('dotenv').config();
+require("dotenv").config();
 router.get("/signup", authController.signup_get);
 router.post("/signup", authController.signup_post);
 router.get("/login", authController.login_get);
@@ -56,10 +56,9 @@ router.get(
     for (let pid of user_profile.likedposts) {
       const p = await Post.findById(pid);
       if (!p) {
-        // console.log("doesnt exist");
-        user_profile.likedposts = user_profile.likedposts.filter((post) => post != pid);
-      } else {
-        // console.log("exist");
+        user_profile.likedposts = user_profile.likedposts.filter(
+          (post) => post != pid
+        );
       }
     }
     await user_profile.save();
@@ -74,14 +73,11 @@ router.get(
 );
 
 router.get(
-  "/profile/:username/notifications",
+  "/notifications",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
-    const { username } = req.params;
-    const user = await User.findOne({
-      username,
-    });
+    const user = res.locals.user;
     res.render("users/notifications", { user });
   })
 );
@@ -95,6 +91,12 @@ router.post(
     const user = await User.findOne({
       username,
     });
+    if (res.locals.user.id != user.id) {
+      req.flash("error", "Not authorized.");
+      return res.status(403).json({
+        message: "Not authorized.",
+      });
+    }
     var f = 0;
     for (var i = user.notifications.length - 1; i >= 0; i--) {
       if (user.notifications[i].id === nid) {
@@ -111,34 +113,36 @@ router.post(
   })
 );
 
-router.put('/profile/:username', requireAuth, checkUser,
-    upload.single("profile-picture"),
-    CatchAsync(async (req, res) => {
-        const {
-            username
-        } = req.params;
-        const profile = req.body;
-        if (username === res.locals.user.username) {
-            const user = await User.findOne({
-                username
-            });
-            user.profile.name = profile.name;
-            user.profile.bio = profile.bio;
-            if (req.file) {
-                await cloudinary.uploader.destroy(user.profile.avatar.filename);
-                user.profile.avatar.url = req.file.path.replace("/upload", "/upload/c_fill,h_256,w_256");
-                user.profile.avatar.filename = req.file.filename;
-            }
-            await user.save();
-           
-            return res.redirect('/user/profile');
-
-        } else {
-            return res.status(402).json({
-                message: "Not authorized"
-            });
-        }
-    })
+router.put(
+  "/profile/:username",
+  requireAuth,
+  checkUser,
+  upload.single("profile-picture"),
+  CatchAsync(async (req, res) => {
+    const { username } = req.params;
+    const profile = req.body;
+    if (username === res.locals.user.username) {
+      const user = await User.findOne({
+        username,
+      });
+      user.profile.name = profile.name;
+      user.profile.bio = profile.bio;
+      if (req.file) {
+        await cloudinary.uploader.destroy(user.profile.avatar.filename);
+        user.profile.avatar.url = req.file.path.replace(
+          "/upload",
+          "/upload/c_fill,h_256,w_256"
+        );
+        user.profile.avatar.filename = req.file.filename;
+      }
+      await user.save();
+      return res.redirect("/user/profile");
+    } else {
+      return res.status(402).json({
+        message: "Not authorized",
+      });
+    }
+  })
 );
 
 router.get(
@@ -163,71 +167,47 @@ router.get(
   })
 );
 
-// router.put(
-//   "/profile/:username",
-//   requireAuth,
-//   checkUser,
-//   upload.single("profile-picture"),
-//   CatchAsync(async (req, res) => {
-//     const { username } = req.params;
-//     const profile = req.body;
-//     if (username === res.locals.user.username) {
-//       const user = await User.findOne({
-//         username,
-//       });
-//       user.profile.name = profile.name;
-//       user.profile.bio = profile.bio;
-//       if (req.file) {
-//         await cloudinary.uploader.destroy(user.profile.avatar.filename);
-//         user.profile.avatar.url = req.file.path.replace(
-//           "/upload",
-//           "/upload/c_fill,h_256,w_256,g_faces,r_max"
-//         );
-//         user.profile.avatar.filename = req.file.filename;
-//       }
-//       await user.save();
-//       return res.redirect("/user/profile");
-//     } else {
-//       return res.status(402).json({
-//         message: "Not authorized",
-//       });
-//     }
-//   })
-// );
-
-router.get('/verify/:username',CatchAsync(async (req,res)=>{
+router.get(
+  "/verify/:username",
+  CatchAsync(async (req, res) => {
     const { username } = req.params;
-    const user = await User.findOne({username});
-    var fullUrl = req.protocol + '://' + req.get('host');
-    console.log({fullUrl});
-    if(!user.verified) {
-        authController.send_verification_mail(user.email,fullUrl);
+    const user = await User.findOne({ username });
+    var fullUrl = req.protocol + "://" + req.get("host");
+    console.log({ fullUrl });
+    if (!user.verified) {
+      authController.send_verification_mail(user.email, fullUrl);
     }
-    res.render('users/verify',{user});
-}));
+    res.render("users/verify", { user });
+  })
+);
 
-router.get('/verify/token/:token', CatchAsync(async (req, res) => {
-    const {
-        token
-    } = req.params;
+router.get(
+  "/verify/token/:token",
+  CatchAsync(async (req, res) => {
+    const { token } = req.params;
     if (token) {
-        jwt.verify(token, process.env.EMAIL_SECRET, async (err, decodedToken) => {
-            if (err) {
-                console.log(err.message);
-            } else {
-                await User.findByIdAndUpdate(decodedToken.id, {
-                    verified: true
-                }, {
-                    new: true
-                });
-                res.redirect("/posts");
+      jwt.verify(token, process.env.EMAIL_SECRET, async (err, decodedToken) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          await User.findByIdAndUpdate(
+            decodedToken.id,
+            {
+              verified: true,
+            },
+            {
+              new: true,
             }
-        });
+          );
+          res.redirect("/posts");
+        }
+      });
     } else {
-        res.status(403).json({
-            message: 'No Verification Token Found'
-        });
+      res.status(403).json({
+        message: "No Verification Token Found",
+      });
     }
-}));
+  })
+);
 
 module.exports = router;

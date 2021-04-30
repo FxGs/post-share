@@ -2,7 +2,7 @@ $(document).ready(function () {
     var bodyValidated = true;
     var titleValidated = true;
     
-    $(".edit-area").change(function () {
+    $(".edit-area").on("input", function () {
       // var area = jQuery.trim($(".edit-area").val());
       // console.log(area.length);
       if (jQuery.trim($(".edit-area").val()) === "") {
@@ -18,7 +18,7 @@ $(document).ready(function () {
       }
       checkSubmit();
     });
-    $(".edit-title").change(function () {
+    $(".edit-title").on("input", function () {
       if (jQuery.trim($(".edit-title").val()) === "") {
         $(".edit-title").removeClass("is-success");
         $(".edit-title").addClass("is-danger");

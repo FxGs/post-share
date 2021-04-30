@@ -9,35 +9,24 @@
     />
     <title>404</title>
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
+    <link rel="stylesheet" href="/stylesheets/status.css" />
   </head>
-  <body class="is-flex is-flex-direction-column" style="min-height: 100vh">
-    <div class="columns is-centered is-mobile">
-      <div
-        class="column is-half-desktop is-three-quarters-mobile is-three-quarters-tablet"
-      >
-        <div
-          class="card"
-          style="
-            top: 50%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            position: absolute;
-            box-shadow: none;
-          "
-        >
-          <div class="card-image" style="display: grid; place-items: center">
-            <figure class="image">
-              <img
-                src="/assets/aqua.png"
-                alt=""
-                style="max-width: 500px; max-height: 500px"
-              />
-            </figure>
-          </div>
-          <div class="card-content has-text-centered">
-            <p class="title">Oops</p>
-            <p class="subtitle">Page Not Found</p>
-          </div>
+  <body class="is-flex is-flex-direction-column" style="height: 100vh">
+    <div
+      class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
+    >
+      <div class="content has-text-centered">
+        <figure class="image">
+          <img
+            src="/assets/aqua.png"
+            alt=""
+            style="max-width: 50%; max-height: 50%"
+          />
+        </figure>
+        <div class="container">
+          <div class="error">404</div>
+          <br /><br />
+          <span class="info">Page not found</span>
         </div>
       </div>
     </div>

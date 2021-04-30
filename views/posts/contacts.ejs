@@ -17,7 +17,6 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <script src="/scripts/emojionearea.min.js"></script>
     <title>new post</title>
     <link
       rel="stylesheet"
@@ -32,15 +31,14 @@
       href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/stylesheets/emojionearea.min.css" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
     <link rel="stylesheet" href="/stylesheets/contact.css" />
   </head>
   <body
-    class="is-flex is-flex-direction-column is-size-6 is-size-7-mobile"
-
+    class="is-flex is-flex-direction-column"
     id="contact-body"
+    style="height: 100vh"
   >
     <div class="pageloader is-light">
       <span class="title">Loading...</span>
@@ -49,7 +47,7 @@
     <div class="hero is-medium" style="z-index: 30">
       <div class="hero-head"><%-include('../partials/fnavbar')%></div>
 
-      <div class="hero-body mt-5" style="width: 100%; padding-left: 0">
+      <div class="hero-body mt-5">
         <div class="content has-text-centered">
           <p class="title" style="text-shadow: 1px 0.5px 3px #808080">
             Get in touch with us
@@ -66,90 +64,88 @@
           </p> -->
         </div>
 
-        <div class="columns is-centered is-mobile" style="z-index: 30">
+        <div
+          class="container is-max-desktop is-justify-content-center column is-half-desktop is-three-quarters-tablet"
+        >
           <div
-            class="column is-half-desktop is-three-quarters-tablet is-three-quarters-mobile"
+            class="notification is-success mt-3"
+            id="contact-nf"
+            style="z-index: 100; display: none"
           >
-            <div
-              class="notification is-success mt-3"
-              id="contact-nf"
-              style="z-index: 100; display: none"
-            >
-              <button class="delete"></button>
-              Thanks for contacting us...
-            </div>
-            <div
-              class="card"
-              style="
-                background-color: rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(5px);
-              "
-            >
-              <div class="card-content">
-                <form action="/email" method="POST">
-                  <div class="field">
-                    <label for="subject" class="label">Subject</label>
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        id="subject"
-                        name="subject"
-                        placeholder="subject"
-                      />
-                    </div>
+            <button class="delete"></button>
+            Thanks for contacting us...
+          </div>
+          <div
+            class="card"
+            style="
+              background-color: rgba(255, 255, 255, 0.15);
+              backdrop-filter: blur(5px);
+            "
+          >
+            <div class="card-content">
+              <form action="/email" method="POST">
+                <div class="field">
+                  <label for="subject" class="label">Subject</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      placeholder="subject"
+                    />
                   </div>
-                  <div class="field" style="display: none">
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="email"
-                        id="email"
-                        name="email"
-                        value="<%=user.email%>"
-                        placeholder="<%=user.email%>"
-                      />
-                    </div>
+                </div>
+                <div class="field" style="display: none">
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="email"
+                      id="email"
+                      name="email"
+                      value="<%=user.email%>"
+                      placeholder="<%=user.email%>"
+                    />
                   </div>
-                  <div class="field" style="display: none">
-                    <div class="control">
-                      <input
-                        class="input"
-                        type="text"
-                        id="username"
-                        name="username"
-                        value="<%=user.username%>"
-                        placeholder="<%=user.username%>"
-                      />
-                    </div>
+                </div>
+                <div class="field" style="display: none">
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      id="username"
+                      name="username"
+                      value="<%=user.username%>"
+                      placeholder="<%=user.username%>"
+                    />
                   </div>
-                  <div class="field">
-                    <label for="text" class="label">Message</label>
-                    <div class="control">
-                      <textarea
-                        class="textarea"
-                        name="text"
-                        id="text"
-                        cols="30"
-                        rows="5"
-                      ></textarea>
-                    </div>
+                </div>
+                <div class="field">
+                  <label for="text" class="label">Message</label>
+                  <div class="control">
+                    <textarea
+                      class="textarea"
+                      name="text"
+                      id="text"
+                      cols="30"
+                      rows="5"
+                    ></textarea>
                   </div>
-                  <div class="field">
-                    <div class="control">
-                      <button
-                        class="button is-dark"
-                        type="submit"
-                        onclick="sendMail();"
-                        disabled="true"
-                        id="mail-btn"
-                      >
-                        Contact Us
-                      </button>
-                    </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button
+                      class="button is-dark"
+                      type="submit"
+                      onclick="sendMail();"
+                      disabled="true"
+                      id="mail-btn"
+                    >
+                      Contact Us
+                    </button>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -177,47 +173,41 @@
       }
     </script>
     <script>
-      $(document).ready(function () {
-        var subvalidated = false;
-        var mssgvalidated = false;
+      // $(document).ready(function () {
+      var subvalidated = false;
+      var mssgvalidated = false;
 
-        $("#subject").change(function (e) {
-          if ($("#subject").val() !== "") {
-            subvalidated = true;
-          } else {
-            subvalidated = false;
-          }
-          checkbtn();
-        });
-
-        $("#text").change(function (e) {
-          if ($("#text").val() !== "") {
-            mssgvalidated = true;
-          } else {
-            mssgvalidated = false;
-          }
-          checkbtn();
-        });
-
-        function checkbtn() {
-          if (subvalidated && mssgvalidated) {
-            $("#mail-btn").attr("disabled", false);
-          } else {
-            $("#mail-btn").attr("disabled", true);
-          }
+      $("#subject").on("input", function (e) {
+        // alert(subvalidated + ", " + mssgvalidated);
+        if ($("#subject").val() !== "") {
+          subvalidated = true;
+        } else {
+          subvalidated = false;
         }
+        checkbtn();
       });
+
+      $("#text").on("input", function (e) {
+        // alert(subvalidated + ", " + mssgvalidated);
+        if ($("#text").val() !== "") {
+          mssgvalidated = true;
+        } else {
+          mssgvalidated = false;
+        }
+        checkbtn();
+      });
+
+      function checkbtn() {
+        if (subvalidated && mssgvalidated) {
+          $("#mail-btn").attr("disabled", false);
+        } else {
+          $("#mail-btn").attr("disabled", true);
+        }
+      }
+      // });
     </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
     <script src="/scripts/form-validation.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $(".new-area").emojioneArea({
-          pickerPosition: "bottom",
-          filtersPosition: "bottom",
-        });
-      });
-    </script>
   </body>
 </html>

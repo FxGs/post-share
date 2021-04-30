@@ -4,17 +4,28 @@ const Post = require("./post");
 const bcrypt = require("bcryptjs");
 const { boolean } = require("joi");
 
+const notificationsSchema = new Schema({
+  body: String,
+  read: {
+    type: Boolean,
+    default: "false",
+  },
+  createdat: {
+    type: Date,
+    default: Date.now(),
+  },
+});
 
 const UserSchema = new Schema({
   username: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
     type: String,
@@ -22,8 +33,8 @@ const UserSchema = new Schema({
   },
   verified: {
     type: Boolean,
-    default: false
-  },  
+    default: false,
+  },
   profile: {
     name: {
       type: String,
@@ -54,15 +65,7 @@ const UserSchema = new Schema({
       ref: "Post",
     },
   ],
-  notifications: [
-    {
-      body: String,
-      read: {
-        type: Boolean,
-        default: "false"
-      }
-    }
-  ]
+  notifications: [notificationsSchema],
 });
 
 UserSchema.pre("save", async function (next) {
@@ -87,5 +90,45 @@ UserSchema.statics.login = async function (email, password) {
   }
   throw Error("Incorrect Email");
 };
+
+notificationsSchema.virtual("time").get(function () {
+  const date1 = this.createdat;
+  const date2 = Date.now();
+  const diff = date2 - date1;
+
+  const days = parseInt(diff / (24 * 60 * 60 * 1000));
+  const hrs = parseInt(diff / (60 * 60 * 1000));
+  const mins = parseInt(diff / (60 * 1000));
+  const secs = parseInt(diff / 1000);
+
+  var s = "";
+  if (diff > 24 * 60 * 60 * 1000) {
+    if (days > 1) {
+      s = days + " days ago";
+    } else {
+      s = days + " day ago";
+    }
+  } else if (diff > 60 * 60 * 1000) {
+    if (hrs > 1) {
+      s = hrs + " hours ago";
+    } else {
+      s = hrs + " hour ago";
+    }
+  } else if (diff > 60 * 1000) {
+    if (mins > 1) {
+      s = mins + " minutes ago";
+    } else {
+      s = mins + " minute ago";
+    }
+  } else {
+    if (secs > 1) {
+      s = secs + " seconds ago";
+    } else {
+      s = secs + " second ago";
+    }
+  }
+  // console.log(s);
+  return s;
+});
 
 module.exports = mongoose.model("User", UserSchema);

@@ -9,14 +9,54 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+#edit-box .textarea::-webkit-scrollbar {
+  display: none;
+}
+#edit-box .textarea::-webkit-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body {
+  width: 100%;
+}
+
+a {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+
+div {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .modal-card {
   /* height: 740px; */
   position: relative;
-}
-
-.emojionearea-picker {
-  /* display: block !important; */
-  z-index: 100 !important;
 }
 
 .modal-card-body::-webkit-scrollbar {
@@ -37,18 +77,7 @@ body {
   .modal-content {
     margin: 0 auto;
     max-height: calc(100vh - 40px);
-    width: 640px;
   }
-}
-
-.modal-card-body .field {
-  /* margin-top: rem; */
-  margin-bottom: 3rem;
-}
-
-.modal-card-body #new-body {
-  /* margin-top: rem; */
-  margin-bottom: 6rem;
 }
 
 .media-content {
@@ -73,25 +102,33 @@ body {
   font-size: medium !important;
 }
 
-label {
-  font-family: "Times New Roman", Times, serif !important;
-  font-size: medium !important;
-}
-
-.modal-card-title {
-  font-family: "Times New Roman", Times, serif !important;
-  font-size: large !important;
-}
-
-input {
+.modal-card input {
   font-family: "Amiri", serif !important;
   font-weight: 400 !important;
+  border: none;
+  border-bottom: 1px solid #d8d8d8;
+}
+.modal-card input:focus {
+  outline: none;
+  border: 1px solid #555;
+  box-shadow: none;
+}
+.modal-card textarea:focus {
+  outline: none;
+  border: 1px solid #555;
+  box-shadow: none;
 }
 
-.card-header-title .title {
-  font-family: "Amiri", serif !important;
-  font-weight: 600 !important;
-  font-size: 18px !important;
+.modal-card input::placeholder {
+  font-family: "Open Sans", sans-serif !important;
+  font-size: medium !important;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-card textarea::placeholder {
+  font-family: "Open Sans", sans-serif !important;
+  font-size: medium !important;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .card-content .title {
@@ -105,7 +142,7 @@ input {
 }
 
 button {
-  font-family: "Times New Roman", Times, serif !important;
+  font-family: "Open Sans", sans-serif !important;
   font-size: medium !important;
 }
 
@@ -245,4 +282,3 @@ button:active {
 #edit-btns #Edit-Btn:hover {
   background-color: #00b386;
 }
-
