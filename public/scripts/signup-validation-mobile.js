@@ -10,28 +10,29 @@ var emailValidatedMobile = false;
 var passwordValidatedMobile = false;
 var passwordMobile;
 var passwordConfirmedMobile = false;
+var v = false;
 
 function validateUserNameMobile(value) {
     const regexString = /^(?=[a-zA-Z0-9._]{3,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
 
-    const usernameSuccessIconMobile = document.getElementById('username-successIcon-mobile');
-    const usernameErrorIconMobile = document.getElementById('username-errorIcon-mobile');
-    const usernameMessageMobile = document.getElementById('username-message-mobile');
+    // const usernameSuccessIconMobile = document.getElementById('username-successIcon-mobile');
+    // const usernameErrorIconMobile = document.getElementById('username-errorIcon-mobile');
+    // const usernameMessageMobile = document.getElementById('username-message-mobile');
     if (regexString.test(String(value))) {
-        usernameInputMobile.style.border = "1px solid #32CD32";
+        usernameInputMobile.style.borderBottom = "1px solid #32CD32";
 
-        usernameErrorIconMobile.style.display = "none";
-        usernameSuccessIconMobile.style.display = "block";  
+        // usernameErrorIconMobile.style.display = "none";
+        // usernameSuccessIconMobile.style.display = "block";  
 
-        usernameMessageMobile.style = 'display:none;';
+        // usernameMessageMobile.style = 'display:none;';
         usernameValidatedMobile = true;
     } else {
-        usernameInputMobile.style.border = "1px solid red";
+        usernameInputMobile.style.borderBottom = "1px solid red";
 
-        usernameSuccessIconMobile.style.display = "none";
-        usernameErrorIconMobile.style.display = "block";
+        // usernameSuccessIconMobile.style.display = "none";
+        // usernameErrorIconMobile.style.display = "block";
 
-        usernameMessageMobile.style = 'display:block;';
+        // usernameMessageMobile.style = 'display:block;';
         usernameValidatedMobile = false;
     }
     signupsubmitCheckMobile();
@@ -41,23 +42,23 @@ function validateUserNameMobile(value) {
 function validateEmailMobile(value) {
     const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    const emailSuccessIconMobile = document.getElementById('email-successIcon-mobile');
-    const emailErrorIconMobile = document.getElementById('email-errorIcon-mobile');
+    // const emailSuccessIconMobile = document.getElementById('email-successIcon-mobile');
+    // const emailErrorIconMobile = document.getElementById('email-errorIcon-mobile');
     const emailMessageMobile = document.getElementById('email-signup-message-mobile');
     if (regexString.test(String(value).toLowerCase())) {
-        emailInputMobile.style.border = "1px solid #32CD32";
+        emailInputMobile.style.borderBottom = "1px solid #32CD32";
 
-        emailErrorIconMobile.style.display = "none";
-        emailSuccessIconMobile.style.display = "block";
+        // emailErrorIconMobile.style.display = "none";
+        // emailSuccessIconMobile.style.display = "block";
 
         emailMessageMobile.style = 'display:none';
         emailValidatedMobile = true;
         
     } else {
-        emailInputMobile.style.border = "1px solid red";
+        emailInputMobile.style.borderBottom = "1px solid red";
 
-        emailSuccessIconMobile.style.display = "none";
-        emailErrorIconMobile.style.display = "block";
+        // emailSuccessIconMobile.style.display = "none";
+        // emailErrorIconMobile.style.display = "block";
         
         emailMessageMobile.style = 'display:block';
         emailValidatedMobile = false;
@@ -68,20 +69,38 @@ function validateEmailMobile(value) {
 function validatePasswordMobile(value) {
     const regexString = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
-    const passwordMessageMobile = document.getElementById('password-signup-message-mobile');
+    const passwordConfirmMessageMobile = document.getElementById('password-confirm-message-mobile');
+    // const passwordMessageMobile = document.getElementById('password-signup-message-mobile');
     if (regexString.test(String(value))) {
-        passwordInputMobile.style.border = "1px solid #32CD32";
+        passwordInputMobile.style.borderBottom = "1px solid #32CD32";
 
-        passwordMessageMobile.style = 'display:none;';
+        // passwordMessageMobile.style = 'display:none;';
 
         passwordValidatedMobile = true;
-        passwordMobile = value;
+        // passwordMobile = value;
 
     } else {
-        passwordInputMobile.style.border = "1px solid red";
+        passwordInputMobile.style.borderBottom = "1px solid red";
 
-        passwordMessageMobile.style = 'display:block';
+        // passwordMessageMobile.style = 'display:block';
         passwordValidatedMobile = false;
+    }
+    passwordMobile = value;
+    if(v === true){
+        if (confirmPasswordMobile === value) {
+            passwordConfirmInputMobile.style.borderBottom = "1px solid #32CD32";
+    
+            passwordConfirmMessageMobile.style = 'display:none';
+    
+            if (passwordValidatedMobile)
+                passwordConfirmedMobile = true;
+        } else {
+            passwordConfirmInputMobile.style.borderBottom = "1px solid red";
+    
+            passwordConfirmMessageMobile.style = 'display:block';
+    
+            passwordConfirmedMobile = false;
+        }
     }
     signupsubmitCheckMobile();
 }
@@ -90,24 +109,27 @@ function checkConfirmMobile(value) {
 
     const passwordConfirmMessageMobile = document.getElementById('password-confirm-message-mobile');
     if (passwordMobile === value) {
-        passwordConfirmInputMobile.style.border = "1px solid #32CD32";
+        passwordConfirmInputMobile.style.borderBottom = "1px solid #32CD32";
 
         passwordConfirmMessageMobile.style = 'display:none';
 
         if (passwordValidatedMobile)
             passwordConfirmedMobile = true;
     } else {
-        passwordConfirmInputMobile.style.border = "1px solid red";
+        passwordConfirmInputMobile.style.borderBottom = "1px solid red";
 
         passwordConfirmMessageMobile.style = 'display:block';
 
         passwordConfirmedMobile = false;
     }
+    confirmPasswordMobile = value;
+    v = true;
     signupsubmitCheckMobile();
 }
 
 function signupsubmitCheckMobile() {
-    if (emailValidatedMobile && passwordConfirmedMobile && passwordValidated) {
+    // console.log(usernameValidatedMobile + " " + emailValidatedMobile + " " +passwordValidatedMobile)
+    if (usernameValidatedMobile && emailValidatedMobile && passwordConfirmedMobile && passwordValidatedMobile) {
         signupSubmitButtonMobile.disabled = false;
         signupSubmitButtonMobile.removeAttribute("disabled");
     } else {
@@ -116,7 +138,7 @@ function signupsubmitCheckMobile() {
     }
 }
 
-document.addEventListener('change', event => {
+document.addEventListener('input', event => {
     if (event.target.matches('#email-input-mobile')) {
         validateEmailMobile(event.target.value);
     } else if (event.target.matches('#password-input-mobile')) {
