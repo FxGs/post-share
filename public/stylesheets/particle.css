@@ -5,28 +5,42 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  /* background-image: url("/assets/bodyback.jpg");
+  /* background-image: url("https://images.unsplash.com/photo-1519906193555-b379ccaa9714?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; */
-  background: #D3CCE3;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #D3CCE3;  
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3); 
   
 }
+/* body::-webkit-scrollbar {
+  display: none;
+} */
+
 
 .background {
   position: absolute;
-  display: block;
+  overflow: hidden;
   top: 0;
   left: 0;
   z-index: 0;
 }
+@media only screen and (max-width: 768px){
+  .background{
+    height: 200vw !important;
+  }
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1080px) {
+  .background{
+    height: 150vw !important;
+  }
+  }
 
 .container1 {
   /*border:1px solid white;*/
-  width: 900px;
-  height: 580px;
+  width: 800px;
+  height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,16 +48,26 @@ body {
   display: inline-flex;
   z-index: 100;
 }
-
+.containerheader{
+  width: 300px;
+  height: 50px;
+  position: absolute;
+  position: fixed;
+	display: grid;
+  text-align: center;
+  z-index: 100;
+}
 .container2 {
 	/*border:1px solid white;*/
 	width: 100%;
 	height: 100%;
+  overflow-y: scroll;
 	position: fixed;
 	display: grid;
 	place-items: center;
 	z-index: 100;
-  }
+}
+
 
 img {
   border-radius: 50%;
@@ -74,7 +98,9 @@ img {
 
 .frontbox{
   
-
+  /* background:#f4f4f488; */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur();
   box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 8px;
   height: 100%;
   width: 50%;
@@ -280,32 +306,65 @@ img {
 }
 
 
+
 /* For mobile */
 #signup2{
   display: none;
 }
-.hidebox{
-  /* animation: animate 4s linear 1; */
-  display: none;
+
+#login2 input{
+  border: none;
+  border-bottom: 1px solid black ;
+  background: transparent;
+  box-shadow: none;
 }
-@keyframes animate{
-  0%{
-    display: block;
-  }
-  100%{
-    display: none;
+#login2 input::placeholder{
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#signup2 input{
+  border: none;
+  border-bottom: 1px solid black ;
+  background: transparent;
+  box-shadow: none;
+}
+#signup2 input::placeholder{
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.inputbox input{
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid black ;
+  background: transparent;
+  box-shadow: none;
+}
+.inputbox input::placeholder{
+  color: rgba(0, 0, 0, 0.5);
+}
+.inputbox input:focus{
+  border: none;
+  border-bottom: 1px solid black ;
+  background: transparent;
+  box-shadow: none;
+}
+@keyframes autofill {
+  0%,100% {
+      color: #666;
+      background: transparent;
   }
 }
 
-.showbox{
-  /* animation: animate 4s linear 1; */
-  display: block;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  /* -webkit-text-fill-color: #fff !important; */
 }
-@keyframes animate{
-  0%{
-    display: none;
+span {
+  display:none;
   }
-  100%{
-    display: block;
+ input:focus + span {
+  display:block;
   }
-}

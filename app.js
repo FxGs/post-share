@@ -16,6 +16,7 @@ const flash = require("connect-flash");
 
 require('dotenv').config();
 
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOURI, {
   useNewUrlParser: true,
   useFindAndModify: false,

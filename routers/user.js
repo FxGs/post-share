@@ -65,7 +65,6 @@ router.get(
     const posts = await Post.find({
       author: user_profile.id,
     }).populate("author");
-
     res.render("users/profile", {
       user_profile,
       posts,
@@ -165,38 +164,6 @@ router.get(
     res.render("users/editprofile", {
       user,
     });
-  })
-);
-
-router.put(
-  "/profile/:username",
-  requireAuth,
-  checkUser,
-  upload.single("profile-picture"),
-  CatchAsync(async (req, res) => {
-    const { username } = req.params;
-    const profile = req.body;
-    if (username === res.locals.user.username) {
-      const user = await User.findOne({
-        username,
-      });
-      user.profile.name = profile.name;
-      user.profile.bio = profile.bio;
-      if (req.file) {
-        await cloudinary.uploader.destroy(user.profile.avatar.filename);
-        user.profile.avatar.url = req.file.path.replace(
-          "/upload",
-          "/upload/c_fill,h_256,w_256,g_faces,r_max"
-        );
-        user.profile.avatar.filename = req.file.filename;
-      }
-      await user.save();
-      return res.redirect("/user/profile");
-    } else {
-      return res.status(402).json({
-        message: "Not authorized",
-      });
-    }
   })
 );
 

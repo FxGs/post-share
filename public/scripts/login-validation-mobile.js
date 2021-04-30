@@ -9,16 +9,15 @@ var passwordValidatedLoginmobile = false;
 
 function validateEmailLoginmobile(value) {
     const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    console.log("in"+value);
     const loginEmailMessagemobile = document.getElementById('email-message-mobile');
     if (regexString.test(String(value).toLowerCase())) {
-        emailInputLoginmobile.style.border = "1px solid #32CD32";
+        emailInputLoginmobile.style.borderBottom = "2px solid #32CD32";
 
         loginEmailMessagemobile.style = 'display:none';
         emailValidatedLoginmobile = true;
         
     } else {
-        emailInputLoginmobile.style.border = "1px solid red";
+        emailInputLoginmobile.style.borderBottom = "1px solid red";
         
         loginEmailMessagemobile.style = 'display:block';
         emailValidatedLoginmobile = false;
@@ -27,20 +26,19 @@ function validateEmailLoginmobile(value) {
 }
 
 function validatePasswordLoginmobile(value) {
-    console.log("out");
     const regexString = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    const loginPasswordMessagemobile = document.getElementById('password-message-mobile');
+    // const loginPasswordMessagemobile = document.getElementById('password-message-mobile');
     if (regexString.test(String(value))) {
-        passwordInputLoginmobile.style.border = "1px solid #32CD32";
+        passwordInputLoginmobile.style.borderBottom = "1px solid #32CD32";
 
-        loginPasswordMessagemobile.style = 'display:none;';
+        // loginPasswordMessagemobile.style = 'display:none;';
 
         passwordValidatedLoginmobile = true;
 
     } else {
-        passwordInputLoginmobile.style.border = "1px solid red";
+        passwordInputLoginmobile.style.borderBottom = "1px solid red";
 
-        loginPasswordMessagemobile.style = 'display:block';
+        // loginPasswordMessagemobile.style = 'display:block';
         passwordValidatedLoginmobile = false;
     }
     loginSubmitCheckmobile();
@@ -56,7 +54,7 @@ function loginSubmitCheckmobile(){
     }
 }
 
-document.addEventListener('change', event => {
+document.addEventListener('input', event => {
     if (event.target.matches('#password-input-login-mobile')){
         validatePasswordLoginmobile(event.target.value);
     } else if (event.target.matches('#email-input-login-mobile')){

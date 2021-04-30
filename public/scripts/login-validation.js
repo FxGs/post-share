@@ -9,13 +9,13 @@ function validateEmailLogin(value) {
     const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const loginEmailMessage = document.getElementById('email-message');
     if (regexString.test(String(value).toLowerCase())) {
-        emailInputLogin.style.border = "1px solid #32CD32";
+        emailInputLogin.style.borderBottom = "1px solid #32CD32";
 
         loginEmailMessage.style = 'display:none';
         emailValidatedLogin = true;
         
     } else {
-        emailInputLogin.style.border = "1px solid red";
+        emailInputLogin.style.borderBottom = "1px solid red";
         
         loginEmailMessage.style = 'display:block';
         emailValidatedLogin = false;
@@ -25,18 +25,18 @@ function validateEmailLogin(value) {
 
 function validatePasswordLogin(value) {
     const regexString = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-    const loginPasswordMessage = document.getElementById('password-message');
+    // const loginPasswordMessage = document.getElementById('password-message');
     if (regexString.test(String(value))) {
-        passwordInputLogin.style.border = "1px solid #32CD32";
+        passwordInputLogin.style.borderBottom = "1px solid #32CD32";
 
-        loginPasswordMessage.style = 'display:none;';
+        // loginPasswordMessage.style = 'display:none;';
 
         passwordValidatedLogin = true;
 
     } else {
-        passwordInputLogin.style.border = "1px solid red";
+        passwordInputLogin.style.borderBottom = "1px solid red";
 
-        loginPasswordMessage.style = 'display:block';
+        // loginPasswordMessage.style = 'display:block';
         passwordValidatedLogin = false;
     }
     loginSubmitCheck();
@@ -52,7 +52,7 @@ function loginSubmitCheck(){
     }
 }
 
-document.addEventListener('change', event => {
+document.addEventListener('input', event => {
     if (event.target.matches('#password-input-login')){
         validatePasswordLogin(event.target.value);
     } else if (event.target.matches('#email-input-login')){
