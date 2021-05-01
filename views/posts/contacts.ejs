@@ -179,7 +179,7 @@
 
       $("#subject").on("input", function (e) {
         // alert(subvalidated + ", " + mssgvalidated);
-        if ($("#subject").val() !== "") {
+        if ($("#subject").val() !== "" && $("#subject").val().length > 3) {
           subvalidated = true;
         } else {
           subvalidated = false;
@@ -189,7 +189,7 @@
 
       $("#text").on("input", function (e) {
         // alert(subvalidated + ", " + mssgvalidated);
-        if ($("#text").val() !== "") {
+        if ($("#text").val() !== "" && $("#text").val().length > 10) {
           mssgvalidated = true;
         } else {
           mssgvalidated = false;

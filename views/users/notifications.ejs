@@ -3,6 +3,7 @@
 <div
   class="container is-max-desktop is-justify-content-center column is-half-desktop is-three-quarters-tablet is-full-mobile"
 >
+
   <%for(var i = user.notifications.length-1; i >= 0; i--){%>
   <div
     class="message <%if(user.notifications[i].read === false){%>is-danger<%}else{%>is-info<%}%>"

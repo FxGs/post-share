@@ -12,7 +12,7 @@ const CommentSchema = new Schema({
   createdat: {
     type: Date,
     default: Date.now(),
-  }
+  },
 });
 
 CommentSchema.virtual("time").get(function () {
@@ -26,7 +26,9 @@ CommentSchema.virtual("time").get(function () {
   const secs = parseInt(diff / 1000);
 
   var s = "";
-  if (diff > 24 * 60 * 60 * 1000) {
+  if (diff > 5 * 24 * 60 * 60 * 1000) {
+    s = this.createdat.toDateString();
+  } else if (diff > 24 * 60 * 60 * 1000) {
     if (days > 1) {
       s = days + " days ago";
     } else {
