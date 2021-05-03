@@ -41,7 +41,8 @@
   </head>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
     <div class="pageloader is-light"><span class="title">Loading...</span></div>
-    <%-include('../partials/newmodal')%> <%-include('../partials/fnavbar')%>
+    <%-include('../partials/newmodal')%>
+    <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
     <section>
       <main class="container" style="margin-top: 3rem">
         <div
@@ -162,7 +163,9 @@
                   <button id="Edit-Btn" type="submit" class="button is-link">
                     save changes
                   </button>
-                  <a class="button is-outlined" href="/posts/<%=post.id%>">cancel</a>
+                  <a class="button is-outlined" href="/posts/<%=post.id%>"
+                    >cancel</a
+                  >
                 </div>
               </div>
             </form>

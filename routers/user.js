@@ -1,3 +1,4 @@
+const express = require("express");
 const { Router } = require("express");
 const authController = require("../controllers/authController");
 const User = require("../models/user");
@@ -5,6 +6,7 @@ const Post = require("../models/post");
 const CatchAsync = require("../utils/CatchAsync");
 const { requireAuth, checkUser } = require("../middleware/auth");
 const router = Router();
+const Fuse = require("fuse.js");
 
 //multer for multiple image
 const multer = require("multer");
@@ -65,10 +67,32 @@ router.get(
     const posts = await Post.find({
       author: user_profile.id,
     }).populate("author");
+
     res.render("users/profile", {
       user_profile,
       posts,
     });
+  })
+);
+
+router.get(
+  "/search",
+  requireAuth,
+  checkUser,
+  CatchAsync(async (req, res) => {
+    const pattern = req.query.profile;
+    // console.log(pattern);
+
+    const users = await User.find({});
+    const options = {
+      keys: ["username", "profile.name"],
+    };
+
+    const fuse = new Fuse(users, options);
+
+    const slist = fuse.search("=" + pattern);
+    // console.log("=" + pattern);
+    res.json(slist);
   })
 );
 

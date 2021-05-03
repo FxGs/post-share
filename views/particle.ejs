@@ -14,6 +14,7 @@
 </head>
 
 <body>
+  <%- include("./partials/flash") %>
   <div class="container2 is-hidden-desktop mb-3">
     <div class="box" style="margin-bottom: 0;">
       <h1 style="font-size:40px; color: black;text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
@@ -188,10 +189,6 @@
       <div class="backbox">
         <div class="loginMsg">
           <div class="textcontent">
-            <!-- <p class="title"
-              style="text-shadow: 1px 0.5px 3px #808080; font-weight: bold;font-family: sans-serif ; color: rgb(27, 27, 27)">
-              Post-Share
-            </p> -->
             <h1 style="font-size: 20px; color: black;text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">𝓟𝓸𝓼𝓽-𝓢𝓱𝓪𝓻𝓮</h1>
             <p class="title"
               style="text-shadow: 1px 0.5px 3px #808080; font-weight: bold;font-family: sans-serif ; color: rgb(27, 27, 27)">
@@ -202,10 +199,6 @@
         </div>
         <div class="signupMsg visibility">
           <div class="textcontent">
-            <!-- <p class="title"
-              style="text-shadow: 1px 0.5px 3px #808080; font-weight: bold;font-family: sans-serif ; color: rgb(27, 27, 27)">
-              Post-Share
-            </p> -->
             <h1 style="font-size: 20px; color: black;text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">𝓟𝓸𝓼𝓽-𝓢𝓱𝓪𝓻𝓮</h1>
             <p class="title"
               style="text-shadow: 1px 0.5px 3px #808080; font-weight: bold; font-family: sans-serif ;color: rgb(27, 27, 27)">
@@ -224,7 +217,7 @@
           <div class="inputbox">
             <div class="box" id="DesktopLogin" style="background-color: transparent  ;box-shadow: none;">
               <span class="icon" style="font-size: 5em;"><i class="fas fa-user-circle"></i></span>
-              <form action="/user/login" method="POST" style="margin-top: 5em;">
+              <form action="#" style="margin-top: 5em;" id="login-d-form">
                 <div class="field">
                   <!-- <label class="label" style="font-family:Courier New; float:left ">Email</label> -->
                   <div class="control has-icons-left">
@@ -237,6 +230,7 @@
                   </div>
 
                   <p class="help is-danger" id="email-message" style="display: none;">Please enter a valid email.</p>
+                  <p class="help is-danger" id="emailwrong" style="display: none;">incorrect email or password.</p>
                 </div>
                 <div class="field">
                   <!-- <label class="label" style="font-family:Courier New; float:left ">Password</label> -->
@@ -248,6 +242,7 @@
                       <i class="fas fa-lock"></i>
                     </span>
                   </div>
+                  <p class="help is-danger" id="passwrong" style="display: none;">incorrect email or password.</p>
                   <!-- <span class="help is-danger" id="password-message" style="display: none;">Password cannot be empty.</span> -->
                 </div>
                 <div class="field">
