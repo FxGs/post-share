@@ -43,7 +43,7 @@
     <div class="pageloader is-light">
       <span class="title">Loading...</span>
     </div>
-    <%-include('../partials/newmodal')%>
+    <%-include('../partials/newmodal')%> <%-include('../partials/searchmodal')%>
     <div class="hero is-medium" style="z-index: 30">
       <div class="hero-head"><%-include('../partials/fnavbar')%></div>
 
@@ -179,7 +179,7 @@
 
       $("#subject").on("input", function (e) {
         // alert(subvalidated + ", " + mssgvalidated);
-        if ($("#subject").val() !== "") {
+        if ($("#subject").val() !== "" && $("#subject").val().length > 3) {
           subvalidated = true;
         } else {
           subvalidated = false;
@@ -189,7 +189,7 @@
 
       $("#text").on("input", function (e) {
         // alert(subvalidated + ", " + mssgvalidated);
-        if ($("#text").val() !== "") {
+        if ($("#text").val() !== "" && $("#text").val().length > 10) {
           mssgvalidated = true;
         } else {
           mssgvalidated = false;

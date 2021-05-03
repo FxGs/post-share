@@ -1,0 +1,30 @@
+<div class="modal" style="padding-top: 10vh" id="search-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card" style="height: 362px">
+    <header
+      class="modal-card-head"
+      style="border-radius: 0; background: #fff; padding: 10px"
+    >
+      <p class="control has-icons-left has-icons-right" style="width: 100%">
+        <input
+          class="input"
+          type="text"
+          placeholder="Search..."
+          id="search"
+          autocomplete="off"
+        />
+        <span class="icon is-left">
+          <i class="fas fa-search" aria-hidden="true"></i>
+        </span>
+        <span class="icon is-right" id="clearsearch" style="cursor: pointer; pointer-events: auto;">
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </span>
+      </p>
+    </header>
+    <section class="modal-card-body" style="overflow-y: scroll">
+      <nav class="panel" style="border: none; box-shadow: none">
+        <div id="sresults"></div>
+      </nav>
+    </section>
+  </div>
+</div>

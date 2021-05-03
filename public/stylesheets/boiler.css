@@ -42,7 +42,31 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+#search-modal .modal-card-body{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
+#sresults .card-header{
+  background: transparent;
+}
+#sresults .card-header-title{
+  padding: 0;
+}
+
+#sresults .title{
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 16px;
+}
+
+#sresults .subtitle{
+  font-family: "Open Sans", sans-serif !important;
+  font-size: 14px;
+}
+
+#sresults .panel-block:hover{
+  background-color: transparent;
+}
 
 div {
   -webkit-touch-callout: none;
