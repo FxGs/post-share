@@ -9,6 +9,7 @@ var usernameValidatedMobile = false;
 var emailValidatedMobile = false;
 var passwordValidatedMobile = false;
 var passwordMobile;
+var confirmPasswordMobile;
 var passwordConfirmedMobile = false;
 var v = false;
 
@@ -101,6 +102,9 @@ function validatePasswordMobile(value) {
     
             passwordConfirmedMobile = false;
         }
+        if(confirmPasswordMobile === ""){
+            passwordConfirmInputMobile.style.borderBottom = "1px solid red";
+        }
     }
     signupsubmitCheckMobile();
 }
@@ -123,6 +127,10 @@ function checkConfirmMobile(value) {
         passwordConfirmedMobile = false;
     }
     confirmPasswordMobile = value;
+    if(confirmPasswordMobile === ""){
+        passwordConfirmInputMobile.style.borderBottom = "1px solid red";
+        passwordConfirmedMobile = false;
+    }
     v = true;
     signupsubmitCheckMobile();
 }
