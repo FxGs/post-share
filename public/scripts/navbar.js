@@ -35,7 +35,7 @@ var searchEvents = function () {
       url: newurl,
       type: "GET",
       dataType: "json",
-      timeout: 5000,
+      timeout: 4000,
     });
     req.done(function (data, textStatus, jqXHR) {
       // console.log(data);
