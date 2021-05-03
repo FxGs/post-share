@@ -5,6 +5,7 @@ const Post = require("../models/post");
 const CatchAsync = require("../utils/CatchAsync");
 const { requireAuth, checkUser } = require("../middleware/auth");
 const router = Router();
+const Fuse = require('fuse.js')
 
 //multer for multiple image
 const multer = require("multer");
@@ -72,6 +73,26 @@ router.get(
   })
 );
 
+router.get(
+  "/search",
+  requireAuth,
+  checkUser,
+  CatchAsync(async (req, res) => {
+    const pattern = req.query.profile;
+    // console.log(pattern);
+
+    const users = await User.find({});
+    const options = {
+      keys: ["username"],
+    };
+
+    const fuse = new Fuse(users, options);
+
+    const slist = await fuse.search(pattern);
+    // console.log(slist);
+    res.json(slist);
+  })
+);
 router.get(
   "/notifications",
   requireAuth,
