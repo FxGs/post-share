@@ -16,9 +16,10 @@ module.exports.isAuthor = async (req, res, next) => {
 };
 
 module.exports.validatePost = (req, res, next) => {
-  const { error } = PostSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
+  // const { error } = PostSchema.validate(req.body.post);
+  // console.log(error);
+  if (!req.body.post) {
+    const msg = "post required";
     throw new ExpressError(msg, 400);
   } else {
     next();

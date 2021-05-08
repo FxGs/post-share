@@ -27,3 +27,5 @@ window.addEventListener("click", function (event) {
     smodal.style.display = "none";
   }
 });
+
+

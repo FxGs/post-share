@@ -1,6 +1,6 @@
 <div class="modal" style="padding-top: 10vh" id="new-modal">
   <div class="columns is-mobile is-centered">
-    <div class="column is-three-quarters-mobile is-three-quarters-tablet">
+    <div class="column is-full-mobile is-three-quarters-tablet">
       <div class="modal-background"></div>
       <div
         class="modal-card"
@@ -11,7 +11,14 @@
         "
       >
         <section class="modal-card-body">
-          <form id="post-form" action="/posts" method="POST" enctype="multipart/form-data">
+          <div
+            class="message has-text-centered"
+            id="upload-success"
+            style="display: none"
+          >
+            <p>This will take a few seconds...</p>
+          </div>
+          <form id="post-form" action="">
             <div class="field">
               <div class="control has-icons-right">
                 <input
@@ -20,6 +27,7 @@
                   id="title"
                   name="post[title]"
                   placeholder="Title"
+                  autocomplete="off"
                 />
                 <span class="icon is-small is-right">
                   <i
@@ -49,9 +57,20 @@
               </div>
             </div>
             <div class="field">
+              <div class="control">
+                <input type="file" class="my-pond" name="image" />
+              </div>
+            </div>
+            <!-- <div class="field" style="height: max-content">
               <div id="file-js-example" class="file has-name is-fullwidth">
                 <label class="file-label">
-                  <input class="file-input" type="file" name="image" multiple />
+                  <input
+                    class="file-input"
+                    type="file"
+                    name="image"
+                    multiple
+                    id="image"
+                  />
                   <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
@@ -79,7 +98,18 @@
                   </span>
                 </label>
               </div>
-            </div>
+              <div class="container mt-5">
+                <div id="frames">
+                  <div class="content" style="width: 150px; height: max-content; background: transparent;">
+                    <img
+                      src="https://images.unsplash.com/photo-1620211198273-2a68426929f6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                      alt=""
+                      style="border-radius: 3px;"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div> -->
             <div class="field" id="new-body">
               <!-- <label for="body" class="label">Body</label> -->
               <div class="control has-icons-right">
@@ -103,15 +133,20 @@
                 </p>
               </div>
             </div>
-            <div class="field">
+            <div class="field mb-5">
               <div class="control">
                 <button
-                  class="button is-dark is-fullwidth"
+                  class="button is-dark is-fullwidth buttonload"
                   id="newpost"
                   type="submit"
                   disabled="true"
                 >
-                  Post
+                  <i
+                    class="fa fa-circle-o-notch fa-spin"
+                    id="upload-gif"
+                    style="font-size: large; display: none"
+                  ></i
+                  >Post
                 </button>
               </div>
             </div>

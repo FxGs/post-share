@@ -1,27 +1,42 @@
 <% layout('layout/boilerplate') -%>
-<div class="pageloader is-light"><span class="title">Loading...</span></div>
+<!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
 
 <div
-  class="container is-max-desktop is-justify-content-center column is-half-desktop is-three-quarters-tablet is-full-mobile"
+  class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
   style="padding: 0"
 >
   <% for(let post of posts) { %>
-  <div class="card mb-5">
+  <div class="card mb-5" style="max-width: 500px; margin: auto">
     <%if(post.image.length == 0){%>
     <div class="card-image" style="display: none"></div>
 
     <%}else if(post.image.length == 1){%>
     <div class="card-image" style="max-height: 100%">
       <figure class="image">
-        <img src="<%=post.image[0].url%>" alt="" />
+        <img
+          alt=""
+          class="lazyload blur-up"
+          src="<%=post.image[0].url%>"
+          data-src="<%=post.image[0].url%>"
+        />
       </figure>
     </div>
 
     <%}else{%>
     <div class="container is-clipped" id="carousel">
       <div id="slider" class="slider">
-        <%for(var i = 0; i < post.image.length; i++){%>
         <div class="card-image" style="max-height: 100%">
+          <figure class="image">
+            <img
+              class="lazyload blur-up"
+              src="<%=post.image[0].url%>"
+              data-src="<%=post.image[0].url%>"
+              alt=""
+            />
+          </figure>
+        </div>
+        <%for(var i = 1; i < post.image.length; i++){%>
+        <div class="card-image slick-slide" style="max-height: 100%">
           <figure class="image">
             <img src="<%=post.image[i].url%>" alt="" />
           </figure>
@@ -29,9 +44,8 @@
         <%}%>
       </div>
     </div>
-
     <%}%>
-    <div class="card-content">
+    <div class="card-content" style="background: whitesmoke">
       <div class="media">
         <div class="media-content">
           <p class="title is-4"><%=post.title%></p>
@@ -39,7 +53,11 @@
         </div>
       </div>
     </div>
-    <header class="card-header" id="show-header" style="box-shadow: none">
+    <header
+      class="card-header"
+      id="show-header"
+      style="box-shadow: none; background: lightgray"
+    >
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
           <img

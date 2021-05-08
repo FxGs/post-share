@@ -12,7 +12,14 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/3.0.0/plugins/rias/ls.rias.min.js"
+      async
+    ></script>
+    <script
+      src="//cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js)"
+      async=""
+    ></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
@@ -34,12 +41,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
     />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="/stylesheets/slick-theme.css" />
+    <link href="/stylesheets/filepond.css" rel="stylesheet" />
+    <link
+      href="/stylesheets/filepond-plugin-image-preview.css"
+      rel="stylesheet"
+    />
+    <link href="/stylesheets/filepond-plugin-image-edit.css" rel="stylesheet" />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/comment.css" />
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
@@ -58,6 +76,43 @@
       </main>
     </section>
     <%-include('../partials/footer')%>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"
+    ></script>
+    <script defer src="/scripts/filepond-plugin-image-preview.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"
+    ></script>
+
+    <script
+      defer
+      src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"
+    ></script>
+    <script defer src="/scripts/filepond.js"></script>
+    <script defer src="/scripts/filepond.jquery.js"></script>
+    <script defer src="/scripts/fileupload.js"></script>
     <script>
       if ($(".pageloader").length) {
         $(".pageloader").toggleClass("is-active");
@@ -69,19 +124,31 @@
         });
       }
     </script>
+    <script>
+      if (performance.navigation.type == 2) {
+        location.reload(true);
+      }
+    </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
     <script src="/scripts/form-validation.js"></script>
     <script src="/scripts/signup-validation.js"></script>
     <script>
       $(document).ready(function () {
+        // $(".slider").slick("unslick");
         $(".slider").slick({
           slidesToShow: 1,
           slidesToScroll: 1,
-          dots: true,
-          adaptiveheight: true,
+          dots: false,
         });
       });
+    </script>
+    <script>
+      var id = $(".link-whatsapp").attr("id");
+      console.log(id.substr(3, 24));
+      var url = "whatsapp://send?text=" + window.location.href;
+      console.log(url);
+      $("#" + id).attr("href", url);
     </script>
     <script src="/scripts/comment.js"></script>
     <script src="/scripts/like.js"></script>

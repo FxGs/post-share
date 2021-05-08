@@ -29,7 +29,7 @@ module.exports.PostSchema = Joi.object({
     title: Joi.string().max(25).required().escapeHTML(),
 
     body: Joi.string().max(100).required().escapeHTML(),
-  }).required(),
+  }),
   deleteImages: Joi.array(),
 });
 

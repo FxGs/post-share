@@ -10,7 +10,16 @@
   <script src="https://kit.fontawesome.com/59ef493f57.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+      <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/3.0.0/plugins/rias/ls.rias.min.js"
+      async
+    ></script>
+    <script
+      src="//cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js)"
+      async=""
+    ></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" />
@@ -29,7 +38,7 @@
 </section>
 
 <body class="is-flex is-flex-direction-column" style="height: 100vh;">
-  <div class="pageloader is-light"><span class="title">Loading...</span></div>
+  <!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
   
   <div class="profile-wrapper">
     <div class="avatar">
@@ -65,20 +74,26 @@
   <div class="posted-posts">
     <hr>
     <div
-      class="container is-max-desktop is-justify-content-center column is-two-fifths-desktop is-three-quarters-tablet is-full-mobile">
+      class="container is-max-desktop column is-two-fifths-desktop is-three-quarters-tablet is-full-mobile">
       <p class="title has-text-centered has-text-dark is-4">
         Posted Posts
       </p>
       <% if (posts.length>0) { %>
       <% for(let post of posts) { %>
-      <div class="card mb-5">
+      <div class="card mb-5" style="max-width: 500px; margin: auto">
         <%if(post.image.length == 0){%>
           <div class="card-image" style="display: none"></div>
 
         <%}else if(post.image.length == 1){%>
           <div class="card-image" style="max-height: 100%">
-            <figure class="image is-3by3">
-              <img src="<%=post.image[0].url%>" alt="" />
+            <figure class="image">
+              <img
+              alt=""
+              class="lazyload blur-up"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              data-expand="-110"
+              data-src="<%=post.image[0].url%>"
+              />
             </figure>
           </div>
 
@@ -87,8 +102,14 @@
             <div id="slider" class="slider">
               <%for(var i = 0; i < post.image.length; i++){%>
               <div class="card-image" style="max-height: 100%">
-                <figure class="image is-1by1">
-                  <img src="<%=post.image[i].url%>" alt="" />
+                <figure class="image">
+                                <img
+              alt=""
+              class="lazyload blur-up"
+              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+              data-expand="-110"
+              data-src="<%=post.image[0].url%>"
+              />
                 </figure>
               </div>
               <%}%>
