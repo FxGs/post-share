@@ -111,7 +111,7 @@ router.get(
       .populate("likes");
     if (!post) {
       req.flash("error", "This post is no longer available");
-      return res.redirect("/posts");
+      return res.redirect("back");
     } else {
       const cmnts = [];
       for (let postcomment of post.comments) {

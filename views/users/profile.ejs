@@ -98,24 +98,27 @@
           </div>
 
         <%}else{%>
-          <div class="container is-clipped" id="carousel">
-            <div id="slider" class="slider">
-              <%for(var i = 0; i < post.image.length; i++){%>
-              <div class="card-image" style="max-height: 100%">
-                <figure class="image">
-                                <img
-              alt=""
+    <div class="container is-clipped" id="carousel">
+      <div id="slider" class="slider">
+        <div class="card-image" style="max-height: 100%">
+          <figure class="image">
+            <img
               class="lazyload blur-up"
-              src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-              data-expand="-110"
+              src="<%=post.image[0].url%>"
               data-src="<%=post.image[0].url%>"
-              />
-                </figure>
-              </div>
-              <%}%>
-                  </div>
-                </div>
-              </a>
+              alt=""
+            />
+          </figure>
+        </div>
+        <%for(var i = 1; i < post.image.length; i++){%>
+        <div class="card-image slick-slide" style="max-height: 100%">
+          <figure class="image">
+            <img src="<%=post.image[i].url%>" alt="" />
+          </figure>
+        </div>
+        <%}%>
+      </div>
+    </div>
         
               <%}%>
               <div class="card-content">

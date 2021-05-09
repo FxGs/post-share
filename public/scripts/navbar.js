@@ -56,7 +56,7 @@ var searchEvents = function () {
         }
       } else {
         $("#sresults").append(
-          '<div class="panel-block has-text-centered" style="display: inline"><p>nothing found</p></div>'
+          '<div class="panel-block has-text-centered" style="display: flex; justify-content: center; flex-direction: column; padding: 0;"><p>kichi pailini sala ☹️</p><img src="/assets/notfound.png" alt="" style="width: 40%; height: 40%"/></div>'
         );
       }
       req = null;
