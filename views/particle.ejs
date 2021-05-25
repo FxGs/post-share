@@ -28,7 +28,7 @@
         <span class="icon" style="font-size: 3em; margin-left: 45%;"><i class="fas fa-user-circle"></i></span>
         <div class="signup2">
 
-          <form action="/user/login" method="POST" style="margin-top: 1em;">
+          <form action="#" style="margin-top: 1em;" id="login-d-form-mobile">
             <div class="field">
               <!-- <label class="label" style="font-family:Courier New; float:left ">Email</label> -->
               <div class="control has-icons-left">
@@ -40,6 +40,7 @@
                 </span>
               </div>
               <p class="help is-danger" id="email-message-mobile" style="display: none;">Please enter a valid email.</p>
+              <!-- <p class="help is-danger" id="emailwrong-mobile" style="display: none;">incorrect email or password.</p> -->
             </div>
             <div class="field">
               <!-- <label class="label" style="font-family:Courier New; float:left ">Password</label> -->
@@ -54,6 +55,7 @@
               <span class="help is-danger" id="password-message-mobile" style="display: none;">
                 <p>Password cannot be empty.</p>
               </span>
+              <p class="help is-danger" id="passwrong-mobile" style="display: none; text-align: center;">incorrect email or password.</p>
             </div>
             <div class="field">
               <div class="control">
@@ -121,6 +123,7 @@
             <p class="help is-danger" id="email-signup-message-mobile" style="display: none">
               Please enter a valid email.
             </p>
+             <p class="help is-danger" id="emailwrong" style="display: none;">incorrect email or password.</p>
           </div>
           <div class="field">
             <!-- <label class="label" style="font-family:Courier New; float:left ">Password</label> -->
