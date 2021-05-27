@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+      rel="stylesheet"
+    />
+    <link href="/stylesheets/filepond.css" rel="stylesheet" />
+    <link
+      href="/stylesheets/filepond-plugin-image-preview.css"
+      rel="stylesheet"
+    />
+    <link href="/stylesheets/filepond-plugin-image-edit.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/boiler.css" />
+    <link rel="stylesheet" href="/stylesheets/fnav.css" />
+    <title>Post-Share</title>
+  </head>
+
+  <section class="section" style="width: 100%">
+    <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
+  </section>
+  <body class="is-flex is-flex-direction-column" style="height: 100vh">
+    <!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
+    <section>
+      <main class="container">
+        <div
+          class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
+          style="padding: 0; display: none"
+          id="form-container"
+        >
+          <section>
+            <div
+              class="message has-text-centered"
+              id="upload-success"
+              style="display: none"
+            >
+              <p>This will take a few seconds...</p>
+            </div>
+            <form id="post-form" action="">
+              <div class="field">
+                <div class="control has-icons-right">
+                  <input
+                    class="input"
+                    type="text"
+                    id="title"
+                    name="post[title]"
+                    placeholder="Title"
+                    autocomplete="off"
+                  />
+                  <span class="icon is-small is-right">
+                    <i
+                      class="fas fa-check"
+                      id="titleSuccessIcon"
+                      style="display: none"
+                    ></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i
+                      class="fas fa-exclamation-triangle"
+                      id="titleErrorIcon"
+                      style="display: none"
+                    ></i>
+                  </span>
+                  <p
+                    id="title_error"
+                    class="help is-error"
+                    style="
+                      display: none;
+                      font-family: 'Courier New', Courier, monospace;
+                      font-size: medium;
+                    "
+                  >
+                    Give a nice title to your post
+                  </p>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input type="file" class="my-pond" name="image" />
+                </div>
+              </div>
+              <%-include('../partials/crop')%>
+              <div class="field" id="new-body">
+                <div class="control has-icons-right">
+                  <textarea
+                    class="textarea new-area"
+                    rows="2"
+                    id="body"
+                    name="post[body]"
+                    placeholder="caption"
+                  ></textarea>
+                  <p
+                    id="body_error"
+                    class="help is-error"
+                    style="
+                      display: none;
+                      font-family: 'Courier New', Courier, monospace;
+                      font-size: medium;
+                    "
+                  >
+                    give a caption..
+                  </p>
+                </div>
+              </div>
+              <div class="field mb-5">
+                <div class="control">
+                  <button
+                    class="button is-dark is-fullwidth buttonload"
+                    id="newpost"
+                    type="submit"
+                    disabled="true"
+                  >
+                    <i
+                      class="fas fa-circle-notch fa-spin"
+                      id="upload-gif"
+                      style="font-size: large; display: none"
+                    ></i
+                    ><span id="btn-html">Post</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </main>
+    </section>
+    <%-include('../partials/footer')%>
+    <%-include('../partials/filepondscripts')%>
+    <script>
+      if ($(".pageloader").length) {
+        $(".pageloader").toggleClass("is-active");
+        $(window).on("load", function () {
+          var pageloadtime = setTimeout(function () {
+            $(".pageloader").toggleClass("is-active");
+            clearTimeout(pageloadtime);
+          }, 1000);
+        });
+      }
+    </script>
+    <script>
+      if (performance.navigation.type == 2) {
+        location.reload(true);
+      }
+    </script>
+    <script src="/scripts/navbar.js"></script>
+    <script src="/scripts/modal.js"></script>
+    <script src="/scripts/form-validation.js"></script>
+  </body>
+</html>

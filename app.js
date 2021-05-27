@@ -81,23 +81,11 @@ app.get("/contacts", requireAuth, checkUser, (req, res) => {
   res.render("posts/contacts");
 });
 
-app.get("/creators", requireAuth, checkUser, (req, res) => {
-  res.render("aboutus");
-});
-
 app.post("/email", requireAuth, checkUser, (req, res) => {
   console.log(req.body);
   if (!req.body.text && !req.body.subject) {
     res.send("error");
   }
-});
-
-app.get("/signup", (req, res) => {
-  res.render("users/signup");
-});
-
-app.get("/login", (req, res) => {
-  res.render("users/login");
 });
 
 app.get("*", (req, res) => {

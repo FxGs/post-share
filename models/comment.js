@@ -1,22 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CommentSchema = new Schema({
-  body: String,
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+const CommentSchema = new Schema(
+  {
+    body: String,
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    parentId: Schema.Types.ObjectId,
+    childs: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
-  parentId: Schema.Types.ObjectId,
-  childs: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-  createdat: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 CommentSchema.virtual("time").get(function () {
-  const date1 = this.createdat;
+  const date1 = this.createdAt;
   const date2 = Date.now();
   const diff = date2 - date1;
 
@@ -27,7 +28,7 @@ CommentSchema.virtual("time").get(function () {
 
   var s = "";
   if (diff > 5 * 24 * 60 * 60 * 1000) {
-    s = this.createdat.toDateString();
+    s = this.createdAt.toDateString();
   } else if (diff > 24 * 60 * 60 * 1000) {
     if (days > 1) {
       s = days + " days ago";

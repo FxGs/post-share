@@ -50,6 +50,25 @@ button {
   transition: opacity 4000ms;
 } */
 
+.filepond--image-clip {
+  background: white;
+}
+
+.filepond--credits{
+  display: none !important;
+}
+
+@media screen and (min-width: 769px) {
+  #cropbox{
+    min-height: 500px !important;
+  }
+}
+
+#cropbox{
+  min-height: 200px;
+  max-height: 500px;
+}
+
 .blur-up {
   -webkit-filter: blur(6px);
   filter: blur(6px);

@@ -8,34 +8,35 @@ const ImageSchema = new Schema({
   filename: String,
 });
 
-const PostSchema = new Schema({
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  title: String,
-  image: [ImageSchema],
-  body: String,
-  postedat: {
-    type: Date,
-    default: Date.now(),
-  },
-  likes: {
-    count: {
-      type: Number,
-      default: 0,
-    },
-  },
-  comments: [
-    {
+const PostSchema = new Schema(
+  {
+    author: {
       type: Schema.Types.ObjectId,
-      ref: "Comment",
+      ref: "User",
     },
-  ],
-});
+    title: String,
+    image: [ImageSchema],
+    body: String,
+    likes: {
+      count: {
+        type: Number,
+        default: 0,
+      },
+    },
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 PostSchema.virtual("time").get(function () {
-  const date1 = this.postedat;
+  const date1 = this.createdAt;
   const date2 = Date.now();
   const diff = date2 - date1;
 
@@ -46,9 +47,8 @@ PostSchema.virtual("time").get(function () {
 
   var s = "";
   if (diff > 5 * 24 * 60 * 60 * 1000) {
-    s = this.postedat.toDateString();
-  }
-  else if (diff > 24 * 60 * 60 * 1000) {
+    s = this.createdAt.toDateString();
+  } else if (diff > 24 * 60 * 60 * 1000) {
     if (days > 1) {
       s = days + " days ago";
     } else {

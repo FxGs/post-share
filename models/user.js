@@ -4,17 +4,18 @@ const Post = require("./post");
 const bcrypt = require("bcryptjs");
 const { boolean } = require("joi");
 
-const notificationsSchema = new Schema({
-  body: String,
-  read: {
-    type: Boolean,
-    default: "false",
+const notificationsSchema = new Schema(
+  {
+    body: String,
+    read: {
+      type: Boolean,
+      default: "false",
+    },
   },
-  createdat: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const UserSchema = new Schema({
   username: {
@@ -92,7 +93,7 @@ UserSchema.statics.login = async function (email, password) {
 };
 
 notificationsSchema.virtual("time").get(function () {
-  const date1 = this.createdat;
+  const date1 = this.createdAt;
   const date2 = Date.now();
   const diff = date2 - date1;
 
@@ -103,7 +104,7 @@ notificationsSchema.virtual("time").get(function () {
 
   var s = "";
   if (diff > 5 * 24 * 60 * 60 * 1000) {
-    s = this.createdat.toDateString();
+    s = this.createdAt.toDateString();
   } else if (diff > 24 * 60 * 60 * 1000) {
     if (days > 1) {
       s = days + " days ago";

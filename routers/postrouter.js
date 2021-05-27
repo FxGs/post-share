@@ -28,7 +28,7 @@ router.get(
   checkUser,
   CatchAsync(async (req, res) => {
     const posts = await Post.find({}, null, {
-      sort: { comments: "desc" },
+      sort: { createdAt: -1 },
     }).populate("author");
     res.render("posts/show", { posts });
   })
@@ -87,8 +87,8 @@ router.post(
         }
       }
 
-      // console.log(post);
       await post.save();
+      console.log(post.createdAt);
       req.flash("success", "New Post Successfully Posted!!");
       // console.log(post);
       // res.redirect(`/posts/${post.id}`);
@@ -97,6 +97,15 @@ router.post(
       console.log(err);
       res.status(500).json({ err: "Something went wrong" });
     }
+  })
+);
+
+router.get(
+  "/new",
+  requireAuth,
+  checkUser,
+  CatchAsync(async (req, res) => {
+    res.render("posts/new");
   })
 );
 

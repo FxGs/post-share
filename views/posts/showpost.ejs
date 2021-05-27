@@ -1,6 +1,4 @@
 <% layout('layout/boilerplate') -%>
-<!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
-
 <div
   class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
   style="padding: 0"
@@ -16,16 +14,19 @@
           />
         </figure>
         <div class="div">
-          <p
-            class="title"
-            style="
-              font-size: 14px;
-              font-family: 'Open Sans', sans-serif;
-              margin-bottom: 0;
-            "
+          <a href="/user/profile/<%=post.author.username%>">
+            <p
+              class="title"
+              style="
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                margin-bottom: 0;
+              "
+            >
+              <%=post.author.username%>
+            </p></a
           >
-            <%=post.author.username%>
-          </p>
+
           <p
             class="subtitle"
             style="
@@ -163,6 +164,14 @@
               <button><i class="far fa-comment-alt"></i></button>
             </div>
           </div>
+          <div class="share-container is-flex">
+            <p>
+              <span class="share-count">0</span>
+            </p>
+            <div class="control">
+              <button><i class="fas fa-share-alt"></i></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -176,7 +185,6 @@
               name="comment[body]"
               id="comment"
               placeholder="Add a comment.."
-              autofocus
               autocomplete="off"
             />
             <button id="Btn1" type="submit" disabled="true">POST</button>
@@ -274,7 +282,7 @@
       <div class="comment-body">
         <p class="caption parent"><%=cmnts[i].body%></p>
         <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
-          <i class="fas fa-reply"></i>Reply
+          <i class="fas fa-reply"></i>
         </button>
         <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
           <form
@@ -401,7 +409,7 @@
               id="Btn-<%=cmnts[k].id%>"
               class="comment-reply"
             >
-              <i class="fas fa-reply"></i>Reply
+              <span class="icon"><i class="fas fa-reply"></i></span>
             </button>
             <div
               class="field"
@@ -440,8 +448,11 @@
   </div>
   <%}else{%>
   <div class="box has-text-centered" style="box-shadow: none; border: none">
-    <p>Ooww... No comments to show ☹️</p>
-    <img src="/assets/drawing.svg" alt="" />
+    <img
+      src="/assets/nocomments.png"
+      alt=""
+      style="width: 200px; height: 200px"
+    />
   </div>
   <%}%>
 </div>
