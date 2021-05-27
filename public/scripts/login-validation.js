@@ -87,8 +87,10 @@ $("#login-d-form").submit(function (e) {
         window.location.href = "/posts";
       } else {
         console.log(data);
+        $("#email-input-login").val("");
         $("#email-input-login").css("border-bottom", "1px solid red");
         $("#emailwrong").css("display", "block");
+        $("#password-input-login").val("");
         $("#password-input-login").css("border-bottom", "1px solid red");
         $("#passwrong").css("display", "block");
       }
