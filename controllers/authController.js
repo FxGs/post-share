@@ -64,27 +64,27 @@ const login_get = (req, res) => {
 };
 
 const signup_post = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { username, email, password } = req.body;
-  // try {
-  //   const user = await User.create({
-  //     username,
-  //     email,
-  //     password,
-  //   });
-  //   const token = createToken(user._id, process.env.JWT_SECRET);
-  //   res.cookie("jwt", token, {
-  //     httpOnly: true,
-  //     maxAge: maxAge * 1000,
-  //   });
-  //   res.redirect("/posts");
-  //   // res.status(201).json({ user: user._id });
-  // } catch (err) {
-  //   const errors = handleErrors(err);
-  //   res.status(400).json({
-  //     errors,
-  //   });
-  // }
+  try {
+    const user = await User.create({
+      username,
+      email,
+      password,
+    });
+    const token = createToken(user._id, process.env.JWT_SECRET);
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      maxAge: maxAge * 1000,
+    });
+    res.redirect("/posts");
+    // res.status(201).json({ user: user._id });
+  } catch (err) {
+    const errors = handleErrors(err);
+    res.status(400).json({
+      errors,
+    });
+  }
 };
 
 const login_post = async (req, res) => {

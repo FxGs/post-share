@@ -19,7 +19,7 @@ const multer = require("multer");
 //cloudinary storage requirement
 const { storage, cloudinary } = require("../cloudinary");
 
-//specifying the destination of images uploaded
+// //specifying the destination of images uploaded
 const upload = multer({ storage });
 
 router.get(
@@ -28,7 +28,7 @@ router.get(
   checkUser,
   CatchAsync(async (req, res) => {
     const posts = await Post.find({}, null, {
-      sort: { comments: "desc" },
+      sort: { createdAt: -1 },
     }).populate("author");
     res.render("posts/show", { posts });
   })
@@ -38,36 +38,74 @@ router.post(
   "/",
   requireAuth,
   checkUser,
-  upload.array("image"),
   validatePost,
   CatchAsync(async (req, res) => {
-    const post = new Post(req.body.post);
-    post.author = res.locals.user.id;
-    post.image = req.files.map((f) => ({
-      url: f.path,
-      filename: f.filename,
-    }));
-    if (post.image.length > 1) {
-      for (var i = 0; i < post.image.length; i++) {
-        var newurl = post.image[i].url.replace(
-          "/upload",
-          "/upload/c_fill,w_500,h_500"
-        );
-        post.image[i].url = newurl;
+    try {
+      // console.log(req.body);
+      const post = new Post(req.body.post);
+      post.author = res.locals.user.id;
+      var u;
+      if (req.body.image) {
+        const type = typeof req.body.image;
+        if (type === "string") {
+          // console.log(type + ":one");
+          var fileStr = JSON.parse(req.body.image);
+          var url = "data:" + fileStr.type + ";base64," + fileStr.data;
+          var uploadResponse = await cloudinary.uploader.upload(url, {
+            folder: "Post-Share",
+            allowedFormats: ["jpeg", "png", "jpg"],
+          });
+          // console.log(uploadResponse);
+          const iurl = uploadResponse.secure_url;
+          const filename = uploadResponse.public_id;
+          // console.log(iurl, filename);
+          post.image.push({
+            url: iurl,
+            filename: filename,
+          });
+          u = url;
+        } else {
+          // console.log(type + ":multi");
+          const ilength = req.body.image.length;
+          // console.log(ilength);
+          for (var i = 0; i < ilength; i++) {
+            var fileStr = JSON.parse(req.body.image[i]);
+            var url = "data:" + fileStr.type + ";base64," + fileStr.data;
+            var uploadResponse = await cloudinary.uploader.upload(url, {
+              folder: "Post-Share",
+              allowedFormats: ["jpeg", "png", "jpg"],
+            });
+            // console.log(uploadResponse);
+            const iurl = uploadResponse.secure_url;
+            const filename = uploadResponse.public_id;
+            // console.log(iurl, filename);
+            post.image.push({
+              url: iurl,
+              filename: filename,
+            });
+          }
+        }
       }
-    } else if (post.image.length == 1) {
-      var newurl = post.image[0].url.replace(
-        "/upload",
-        "/upload/c_fill,w_500,h_500"
-      );
-      post.image[0].url = newurl;
+
+      await post.save();
+      // console.log(post.createdAt);
+      req.flash("success", "New Post Successfully Posted!!");
+      // console.log(post);
+      // res.redirect(`/posts/${post.id}`);
+      res.json(post.id);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ err: "Something went wrong" });
     }
-    // await post.save();
-    // await post.populate("author");
-    await post.save();
-    req.flash("success", "New Post Successfully Posted!!");
-    // console.log(post);
-    res.redirect(`/posts/${post.id}`);
+  })
+);
+
+router.get(
+  "/new",
+  requireAuth,
+  checkUser,
+  CatchAsync(async (req, res) => {
+    res.render("posts/new");
   })
 );
 
@@ -80,26 +118,29 @@ router.get(
       .populate("comments")
       .populate("author")
       .populate("likes");
-    const cmnts = [];
-    for (let postcomment of post.comments) {
-      if (postcomment.childs.length > 0) {
-        // console.log(postcomment);
-        const cmnt1 = await Comment.findById(postcomment.id)
-          .populate("childs")
-          .populate("author");
-        cmnts.push(cmnt1);
-      } else {
-        const cmnt2 = await Comment.findById(postcomment.id).populate("author");
-        cmnts.push(cmnt2);
-      }
-    }
-    // await post.populate("author");
     if (!post) {
-      req.flash("error", "Not Found!!");
-      return res.redirect("/posts");
+      req.flash("error", "This post is no longer available");
+      return res.redirect("back");
+    } else {
+      const cmnts = [];
+      for (let postcomment of post.comments) {
+        if (postcomment.childs.length > 0) {
+          // console.log(postcomment);
+          const cmnt1 = await Comment.findById(postcomment.id)
+            .populate("childs")
+            .populate("author");
+          cmnts.push(cmnt1);
+        } else {
+          const cmnt2 = await Comment.findById(postcomment.id).populate(
+            "author"
+          );
+          cmnts.push(cmnt2);
+        }
+      }
+      // await post.populate("author");
+      res.render("posts/showpost", { post, cmnts });
+      // console.log(post.author.username);
     }
-    res.render("posts/showpost", { post, cmnts });
-    // console.log(post.author.username);
   })
 );
 
@@ -169,6 +210,7 @@ router.delete(
   isAuthor,
   CatchAsync(async (req, res) => {
     const post = await Post.findById(req.params.id);
+    // console.log(post.image.length);
     if (post.image.length > 0) {
       for (var i = 0; i < post.image.length; i++) {
         await cloudinary.uploader.destroy(post.image[i].filename);

@@ -1,11 +1,9 @@
 <% layout('layout/boilerplate') -%>
-<div class="pageloader is-light"><span class="title">Loading...</span></div>
-
 <div
-  class="container is-max-desktop is-justify-content-center column is-half-desktop is-three-quarters-tablet is-full-mobile"
+  class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
   style="padding: 0"
 >
-  <div class="card mb-5">
+  <div class="card mb-5" style="max-width: 500px; margin: auto">
     <header class="card-header">
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
@@ -16,16 +14,19 @@
           />
         </figure>
         <div class="div">
-          <p
-            class="title"
-            style="
-              font-size: 14px;
-              font-family: 'Open Sans', sans-serif;
-              margin-bottom: 0;
-            "
+          <a href="/user/profile/<%=post.author.username%>">
+            <p
+              class="title"
+              style="
+                font-size: 14px;
+                font-family: 'Open Sans', sans-serif;
+                margin-bottom: 0;
+              "
+            >
+              <%=post.author.username%>
+            </p></a
           >
-            <%=post.author.username%>
-          </p>
+
           <p
             class="subtitle"
             style="
@@ -92,15 +93,30 @@
     <%}else if(post.image.length == 1){%>
     <div class="card-image" style="max-height: 100%">
       <figure class="image">
-        <img src="<%=post.image[0].url%>" alt="" />
+        <img
+          alt=""
+          class="lazyload blur-up"
+          src="<%=post.image[0].url%>"
+          data-src="<%=post.image[0].url%>"
+        />
       </figure>
     </div>
     <%}else{%>
     <div class="container is-clipped" id="carousel">
       <div id="slider" class="slider">
-        <%for(var i = 0; i < post.image.length; i++){%>
         <div class="card-image" style="max-height: 100%">
-          <figure class="image is-square">
+          <figure class="image">
+            <img
+              class="lazyload blur-up"
+              src="<%=post.image[0].url%>"
+              data-src="<%=post.image[0].url%>"
+              alt=""
+            />
+          </figure>
+        </div>
+        <%for(var i = 1; i < post.image.length; i++){%>
+        <div class="card-image slick-slide" style="max-height: 100%">
+          <figure class="image">
             <img src="<%=post.image[i].url%>" alt="" />
           </figure>
         </div>
@@ -110,7 +126,15 @@
     <%}%>
     <div class="card-content" style="padding: 0.5rem">
       <div class="media">
-        <div class="media-left" id="showpost-icons"></div>
+        <div class="media-left" id="showpost-icons">
+          <!-- <a
+            href=""
+            data-action="share/whatsapp/share"
+            class="link-whatsapp"
+            id="wp-<%=post.id%>"
+            >Share via WhatsApp</a
+          > -->
+        </div>
         <div class="media-content"></div>
         <div class="media-right is-flex" id="likes-container">
           <div class="likes-container is-flex">
@@ -140,6 +164,14 @@
               <button><i class="far fa-comment-alt"></i></button>
             </div>
           </div>
+          <div class="share-container is-flex">
+            <p>
+              <span class="share-count">0</span>
+            </p>
+            <div class="control">
+              <button><i class="fas fa-share-alt"></i></button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -153,7 +185,7 @@
               name="comment[body]"
               id="comment"
               placeholder="Add a comment.."
-              autofocus
+              autocomplete="off"
             />
             <button id="Btn1" type="submit" disabled="true">POST</button>
           </div>
@@ -264,6 +296,7 @@
                 name="comment[body]"
                 id="comment-<%=cmnts[i].id%>"
                 placeholder="Add a comment.."
+                autocomplete="off"
               />
               <button
                 class="button is-light"
@@ -376,7 +409,7 @@
               id="Btn-<%=cmnts[k].id%>"
               class="comment-reply"
             >
-              <i class="fas fa-reply"></i>
+              <span class="icon"><i class="fas fa-reply"></i></span>
             </button>
             <div
               class="field"
@@ -394,6 +427,7 @@
                     name="comment[body]"
                     id="comment-<%=cmnts[k].id%>"
                     placeholder="Add a comment.."
+                    autocomplete="off"
                   />
                   <button type="submit" id="post-<%=cmnts[k].id%>" disabled>
                     POST
@@ -412,47 +446,13 @@
     </div>
     <%}%> <%}%>
   </div>
+  <%}else{%>
+  <div class="box has-text-centered" style="box-shadow: none; border: none">
+    <img
+      src="/assets/nocomments.png"
+      alt=""
+      style="width: 200px; height: 200px"
+    />
+  </div>
   <%}%>
 </div>
-
-<script>
-  function dateparse(date) {
-    const date1 = date;
-    const date2 = Date.now();
-    const diff = date2 - date1;
-
-    const days = parseInt(diff / (24 * 60 * 60 * 1000));
-    const hrs = parseInt(diff / (60 * 60 * 1000));
-    const mins = parseInt(diff / (60 * 1000));
-    const secs = parseInt(diff / 1000);
-
-    var s = "";
-    if (diff > 24 * 60 * 60 * 1000) {
-      if (days > 1) {
-        s = days + " days ago";
-      } else {
-        s = days + " day ago";
-      }
-    } else if (diff > 60 * 60 * 1000) {
-      if (hrs > 1) {
-        s = hrs + " hours ago";
-      } else {
-        s = hrs + " hour ago";
-      }
-    } else if (diff > 60 * 1000) {
-      if (mins > 1) {
-        s = mins + " minutes ago";
-      } else {
-        s = mins + " minute ago";
-      }
-    } else {
-      if (secs > 1) {
-        s = secs + " seconds ago";
-      } else {
-        s = secs + " second ago";
-      }
-    }
-    return s;
-  }
-  console.log(dateparse(new Date("2021-04-19T14:56:55.505Z")));
-</script>

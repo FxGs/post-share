@@ -37,7 +37,7 @@ app.set("views", path.join("__dirname", "../views"));
 app.engine("ejs", ejsMate);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: '10mb',extended: true }));
 app.use(methodOverride("_method"));
 
 app.use(express.json());
@@ -81,23 +81,11 @@ app.get("/contacts", requireAuth, checkUser, (req, res) => {
   res.render("posts/contacts");
 });
 
-app.get("/creators", requireAuth, checkUser, (req, res) => {
-  res.render("aboutus");
-});
-
 app.post("/email", requireAuth, checkUser, (req, res) => {
   console.log(req.body);
   if (!req.body.text && !req.body.subject) {
     res.send("error");
   }
-});
-
-app.get("/signup", (req, res) => {
-  res.render("users/signup");
-});
-
-app.get("/login", (req, res) => {
-  res.render("users/login");
 });
 
 app.get("*", (req, res) => {

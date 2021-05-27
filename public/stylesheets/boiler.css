@@ -31,7 +31,6 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
-
 button {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -42,29 +41,68 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-#search-modal .modal-card-body{
+/* .lazyload,
+.lazyloading {
+  opacity: 0;
+}
+.lazyloaded {
+  opacity: 1;
+  transition: opacity 4000ms;
+} */
+
+.filepond--image-clip {
+  background: white;
+}
+
+.filepond--credits{
+  display: none !important;
+}
+
+@media screen and (min-width: 769px) {
+  #cropbox{
+    min-height: 500px !important;
+  }
+}
+
+#cropbox{
+  min-height: 200px;
+  max-height: 500px;
+}
+
+.blur-up {
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+  transition: filter 2000ms, -webkit-filter 2000ms;
+}
+
+.blur-up.lazyloaded {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+}
+
+#search-modal .modal-card-body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
-#sresults .card-header{
+#sresults .card-header {
   background: transparent;
 }
-#sresults .card-header-title{
+#sresults .card-header-title {
   padding: 0;
 }
 
-#sresults .title{
+#sresults .title {
   font-family: "Open Sans", sans-serif !important;
   font-size: 16px;
 }
 
-#sresults .subtitle{
+#sresults .subtitle {
   font-family: "Open Sans", sans-serif !important;
   font-size: 14px;
 }
 
-#sresults .panel-block:hover{
+#sresults .panel-block:hover {
   background-color: transparent;
 }
 

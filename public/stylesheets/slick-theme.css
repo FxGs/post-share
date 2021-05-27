@@ -1,28 +1,29 @@
 
+
 .slick-prev::before,
 .slick-next::before {
-    color: rgba(225, 242, 230, 0.5);
-    font-size: 2.5rem;
+  color: rgba(225, 242, 230, 0.8);
+  font-size: 2.5rem;
 }
 
 .slick-prev,
 .slick-next {
-    width: 2.5rem;
-    height: 2.5rem;
-    z-index: 2;
-    bottom: 50%;
-    top: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 2;
+  bottom: 50%;
+  top: 50%;
 }
 
 .slick-list {
-    width: 100%;
-    margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .slick-prev {
-    left: 0;
+  left: 0;
 }
 
 .slick-next {
-    right: 0;
+  right: 0;
 }
