@@ -48,7 +48,7 @@ router.post(
       if (req.body.image) {
         const type = typeof req.body.image;
         if (type === "string") {
-          console.log(type + ":one");
+          // console.log(type + ":one");
           var fileStr = JSON.parse(req.body.image);
           var url = "data:" + fileStr.type + ";base64," + fileStr.data;
           var uploadResponse = await cloudinary.uploader.upload(url, {
@@ -65,9 +65,9 @@ router.post(
           });
           u = url;
         } else {
-          console.log(type + ":multi");
+          // console.log(type + ":multi");
           const ilength = req.body.image.length;
-          console.log(ilength);
+          // console.log(ilength);
           for (var i = 0; i < ilength; i++) {
             var fileStr = JSON.parse(req.body.image[i]);
             var url = "data:" + fileStr.type + ";base64," + fileStr.data;
@@ -88,7 +88,7 @@ router.post(
       }
 
       await post.save();
-      console.log(post.createdAt);
+      // console.log(post.createdAt);
       req.flash("success", "New Post Successfully Posted!!");
       // console.log(post);
       // res.redirect(`/posts/${post.id}`);
