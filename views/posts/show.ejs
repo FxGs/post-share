@@ -6,7 +6,7 @@
   style="padding: 0"
 >
   <% for(let post of posts) { %>
-  <div class="card mb-5" style="max-width: 500px; margin: auto">
+  <div class="card mb-5" style="max-width: 500px; margin: auto; border: 1px solid lightgray;">
     <%if(post.image.length == 0){%>
     <div class="card-image" style="display: none"></div>
 
@@ -45,10 +45,12 @@
       </div>
     </div>
     <%}%>
-    <div class="card-content" style="background: whitesmoke">
+    <div class="card-content" style="background: whitesmoke; border-top: 1px solid #ededed;">
       <div class="media">
         <div class="media-content">
-          <p class="title is-4"><%=post.title%></p>
+          <a href="/posts/<%=post.id%>"
+            ><p class="title is-4"><%=post.title%></p></a
+          >
           <p class="subtitle is-6"><%=post.body%></p>
         </div>
       </div>
@@ -56,7 +58,7 @@
     <header
       class="card-header"
       id="show-header"
-      style="box-shadow: none; background: whitesmoke"
+      style="box-shadow: none; background: whitesmoke; border-top: 1px solid lightgray;"
     >
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
@@ -67,7 +69,7 @@
           />
         </figure>
         <div class="div">
-          <a href="/user/profile/<%=post.author.username%>">
+          <a class="author-link" href="/user/profile/<%=post.author.username%>">
             <p
               class="title"
               style="
@@ -94,10 +96,10 @@
       </div>
       <div class="card-header-icon" id="show-icons">
         <p>
-          <span class="<%=post.id%>"><%=post.likes.count%></span>
+          <span class="<%=post.id%> mx-1"><%=post.likes.count%></span>
         </p>
         <div class="control">
-          <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+          <form class="like-form" action="" id="/posts/<%=post.id%>/">
             <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
             i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
             <button>
@@ -111,15 +113,28 @@
           </form>
         </div>
         <p>
-          <span class="comments-count"><%=post.comments.length%></span>
+          <span class="comments-count mx-1"><%=post.comments.length%></span>
         </p>
         <div class="control">
           <a href="/posts/<%=post.id%>"
             ><button><i class="far fa-comment-alt"></i></button
           ></a>
         </div>
+        <div class="control">
+          <button class="clipboard" id="share-<%=post.id%>">
+            <i class="fas fa-link"></i>
+          </button>
+        </div>
+        <!-- <p><span>Copy Link</span></p> -->
       </div>
     </header>
+    <div
+      class="notification is-success"
+      id="copymsg-<%=post.id%>"
+      style="display: none"
+    >
+      Link Copied
+    </div>
   </div>
   <% }%>
 </div>

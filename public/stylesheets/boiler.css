@@ -41,30 +41,21 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* .lazyload,
-.lazyloading {
-  opacity: 0;
-}
-.lazyloaded {
-  opacity: 1;
-  transition: opacity 4000ms;
-} */
-
 .filepond--image-clip {
   background: white;
 }
 
-.filepond--credits{
+.filepond--credits {
   display: none !important;
 }
 
 @media screen and (min-width: 769px) {
-  #cropbox{
+  #cropbox {
     min-height: 500px !important;
   }
 }
 
-#cropbox{
+#cropbox {
   min-height: 200px;
   max-height: 500px;
 }
@@ -78,6 +69,10 @@ button {
 .blur-up.lazyloaded {
   -webkit-filter: blur(0);
   filter: blur(0);
+}
+
+.author-link:hover {
+  text-decoration: underline;
 }
 
 #search-modal .modal-card-body {
@@ -210,13 +205,13 @@ button {
 
 #dropdown-menu4 {
   background-color: hsl(0, 0%, 21%);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   box-shadow: #000000;
 }
 
 #dropdown-menu4 .dropdown-content {
   background-color: hsl(0, 0%, 21%);
-  border-radius: 12px;
+  /* border-radius: 12px; */
   box-shadow: #000000;
 }
 
@@ -250,27 +245,13 @@ button {
   transition: all 3s;
 }
 
-.card-footer .control button {
-  background-color: transparent;
-  border: none;
-  color: black;
-  outline: none;
-}
-
-.card-footer .control button:hover,
-button:focus,
-button:active {
-  border: none;
-  background-color: transparent;
-  color: black;
-  outline: none;
-}
-
 #likes-container .control button {
-  background-color: transparent;
+  background-color: inherit;
   border-radius: 50%;
   align-items: center;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   color: #363636;
   white-space: nowrap;
@@ -278,26 +259,27 @@ button:active {
 }
 
 #likes-container .control button:hover {
+  background-color: #fff;
   border-color: #e0e0e0;
   box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
 }
 
-#likes-container .control i {
+/* #likes-container .control i {
   font-size: x-large;
-}
+} */
 
 #show-header {
   background-color: #fff;
 }
 
 #show-icons button {
-  background-color: #fff;
+  background-color: inherit;
   padding: 0;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   align-items: center;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   cursor: pointer;
   color: #363636;
   white-space: nowrap;
@@ -305,6 +287,7 @@ button:active {
 }
 
 #show-icons button:hover {
+  background-color: #fff;
   border-color: #e0e0e0;
   box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
 }
@@ -315,10 +298,12 @@ button:active {
 }
 
 .comment-reply {
-  background-color: transparent;
+  background-color: inherit;
   border-radius: 50%;
   align-items: center;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   color: #363636;
   white-space: nowrap;
@@ -326,6 +311,7 @@ button:active {
 }
 
 .comment-reply:hover {
+  background-color: #fff;
   border-color: #e0e0e0;
   box-shadow: -1px 3px 10px 0 rgb(0 0 0 / 6%);
 }

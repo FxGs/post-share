@@ -223,70 +223,85 @@ router.delete(
 );
 
 router.post(
-  "/:id/likes",
+  "/:id/like",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
+    // console.log("liked");
     const post = await Post.findById(req.params.id);
-    // console.log(post.likes.count);
-    // var f = 0;
-    // for (var i = 0; i < post.likes.likedBy.length; i++) {
-    //   if (post.likes.likedBy[i].equals(res.locals.user.id)) {
-    //     post.likes.likedBy.splice(i);
-    //     post.likes.count = post.likes.likedBy.length;
-    //     await post.save();
-    //     // res.locals.user.likedposts.push(post);
-    //     // await res.locals.user.save();
-    //     // console.log(res.locals.user.likedposts);
-    //     res.json({ message: "disliked successfully" });
-    //     console.log("found" + post.likes.count);
-    //     f = 1;
-    //     break;
-    //   }
-    // }
-    // if (f === 0) {
-    //   post.likes.likedBy.push(res.locals.user.id);
-    //   post.likes.count = post.likes.likedBy.length;
-    //   await post.save();
-    //   // res.locals.user.likedposts.push(post);
-    //   // await res.locals.user.save();
-    //   // console.log(res.locals.user.likedposts);
-    //   res.json({ message: "liked successfully" });
-    //   console.log("not found" + post.likes.count);
-    // }
-
-    //logic 1
     const user = res.locals.user;
-
-    var f = 0;
-    // check for users liked list for postid
-    //if found pull that id from posts and decrease the count
-    //then delete the id from user's likedposts array
-    for (var i = 0; i < user.likedposts.length; i++) {
-      if (user.likedposts[i].equals(post.id)) {
-        user.likedposts.splice(i);
-        await user.save();
-        post.likes.count = post.likes.count - 1;
-        const newpost = await post.save();
-        console.log(newpost.likes.count);
-        res.json({ message: "disliked successfully" });
-        console.log("found" + post.likes.count);
-        f = 1;
-        break;
-      }
-    }
-    // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
-    if (f === 0) {
+    if (!user.likedposts.includes(post.id)) {
+      // console.log("not contain");
       user.likedposts.push(post.id);
       await user.save();
       post.likes.count = post.likes.count + 1;
-      const newpost = await post.save();
-      console.log(newpost.likes.count);
-      res.json({ message: "liked successfully" });
-      console.log("not found" + post.likes.count);
     }
+    const newpost = await post.save();
+    res.json(newpost.likes.count);
   })
 );
+
+router.post(
+  "/:id/dislike",
+  requireAuth,
+  checkUser,
+  CatchAsync(async (req, res) => {
+    // console.log("disliked");
+    const post = await Post.findById(req.params.id);
+    const user = res.locals.user;
+
+    const index = user.likedposts.indexOf(post.id);
+    if (index > -1) {
+      user.likedposts.splice(index, 1);
+      await user.save();
+      post.likes.count = post.likes.count - 1;
+    }
+    const newpost = await post.save();
+    res.json(newpost.likes.count);
+  })
+);
+
+// router.post(
+//   "/:id/likes",
+//   requireAuth,
+//   checkUser,
+//   CatchAsync(async (req, res) => {
+//     const post = await Post.findById(req.params.id);
+//     // console.log(post.id);
+//     // res.json(post.id);
+//     //logic 1
+//     const user = res.locals.user;
+
+//     var f = 0;
+//     // check for users liked list for postid
+//     //if found pull that id from posts and decrease the count
+//     //then delete the id from user's likedposts array
+//     for (var i = 0; i < user.likedposts.length; i++) {
+//       if (user.likedposts[i].equals(post.id)) {
+//         console.log("matched");
+//         user.likedposts.splice(i);
+//         await user.save();
+//         post.likes.count = post.likes.count - 1;
+//         const newpost = await post.save();
+//         // console.log(newpost.likes.count);
+//         res.json(newpost.likes.count);
+//         // console.log("found" + post.likes.count);
+//         f = 1;
+//         break;
+//       }
+//     }
+//     // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
+//     if (f === 0) {
+//       user.likedposts.push(post.id);
+//       await user.save();
+//       post.likes.count = post.likes.count + 1;
+//       const newpost = await post.save();
+//       // console.log(newpost.likes.count);
+//       res.json(newpost.likes.count);
+//       // console.log("not found" + post.likes.count);
+//     }
+//   })
+// );
 
 router.post(
   "/:id/comments",

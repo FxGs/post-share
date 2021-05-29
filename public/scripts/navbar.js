@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   (document.querySelectorAll(".notification .delete") || []).forEach(
     ($delete) => {
@@ -17,8 +15,11 @@ var searchInput = $("#search");
 var debounceTimeout = null;
 
 var searchEvents = function () {
+  console.log(req);
   if (req) {
+    console.log("present");
     req.abort();
+    console.log(req);
   }
   const query = $("#search").val();
   $("#sresults").empty();
@@ -32,7 +33,7 @@ var searchEvents = function () {
       timeout: 4000,
     });
     req.done(function (data, textStatus, jqXHR) {
-      // console.log(data);
+      console.log("done");
       if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
           // console.log(data[i].item.username);
@@ -66,7 +67,7 @@ var searchEvents = function () {
 
 searchInput.on("input", function (event) {
   clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(searchEvents, 500);
+  debounceTimeout = setTimeout(searchEvents, 5000);
 });
 
 $("#clearsearch").click(function () {
