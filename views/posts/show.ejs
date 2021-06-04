@@ -6,7 +6,10 @@
   style="padding: 0"
 >
   <% for(let post of posts) { %>
-  <div class="card mb-5" style="max-width: 500px; margin: auto; border: 1px solid lightgray;">
+  <div
+    class="card mb-5"
+    style="max-width: 500px; margin: auto; border: 1px solid lightgray"
+  >
     <%if(post.image.length == 0){%>
     <div class="card-image" style="display: none"></div>
 
@@ -45,7 +48,10 @@
       </div>
     </div>
     <%}%>
-    <div class="card-content" style="background: whitesmoke; border-top: 1px solid #ededed;">
+    <div
+      class="card-content"
+      style="background: whitesmoke; border-top: 1px solid #ededed"
+    >
       <div class="media">
         <div class="media-content">
           <a href="/posts/<%=post.id%>"
@@ -58,13 +64,18 @@
     <header
       class="card-header"
       id="show-header"
-      style="box-shadow: none; background: whitesmoke; border-top: 1px solid lightgray;"
+      style="
+        box-shadow: none;
+        background: whitesmoke;
+        border-top: 1px solid lightgray;
+      "
     >
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
           <img
-            class="is-rounded"
-            src="<%= post.author.profile.avatar.url %> "
+            class="is-rounded lazyload blur-up"
+            src="<%= post.author.profile.avatar.url %>"
+            data-src="<%= post.author.profile.avatar.url %>"
             alt=""
           />
         </figure>
@@ -129,9 +140,14 @@
       </div>
     </header>
     <div
-      class="notification is-success"
+      class="notification is-success is-light"
       id="copymsg-<%=post.id%>"
-      style="display: none"
+      style="
+        display: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+          rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      "
     >
       Link Copied
     </div>

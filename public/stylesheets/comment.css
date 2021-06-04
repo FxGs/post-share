@@ -4,7 +4,7 @@
   padding: 0;
   background-color: #fff;
   border: 1px solid transparent;
-  box-shadow: none;
+  /* box-shadow: none; */
 }
 
 .sr-only {
@@ -22,6 +22,7 @@
 }
 
 .comment-heading {
+  margin: 0 10px;
   display: flex;
   align-items: center;
   height: 50px;
@@ -36,7 +37,7 @@
 
 .comment-info {
   color: rgba(0, 0, 0, 0.5);
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .comment-author {
@@ -54,22 +55,22 @@
   display: block;
   position: absolute;
   top: 50px;
-  left: 0;
+  left: 20px;
   width: 10px;
   height: calc(100% - 50px);
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
   cursor: default;
 }
 .comment-border-link:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .comment-body {
   padding: 0 20px;
-  padding-left: 28px;
+  padding-left: 40px;
 }
 
 .replies {

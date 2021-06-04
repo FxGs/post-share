@@ -1,8 +1,9 @@
 <div class="navigation has-background-white">
   <div class="logo">
     <a href="/posts">
-      <span class="icon"><i class="fas fa-home"></i></span>
-      <span class="navnames ml-0">Posts</span>
+      <!-- <span class="icon"><i class="fas fa-home"></i></span> -->
+      <img src="/assets/logo.png" alt="" width="40" height="20" />
+      <!-- <span class="navnames ml-0">Posts</span> -->
     </a>
   </div>
 
@@ -13,10 +14,10 @@
       </span>
       <span class="navnames">Search</span>
     </a>
-    <a href="/contacts" class="navigation-link">
+    <!-- <a href="/contacts" class="navigation-link">
       <span class="icon"><i class="fas fa-envelope"></i></span>
       <span class="navnames">Contact Us</span>
-    </a>
+    </a> -->
     <a href="/posts/new" class="navigation-link">
       <span class="icon">
         <i class="fas fa-plus"></i>
@@ -24,10 +25,6 @@
       <span class="navnames">Post</span>
     </a>
     <% if(user) { %>
-    <a href="/user/profile" class="navigation-link">
-      <span class="icon"><i class="fas fa-user-circle"></i></span>
-      <span class="navnames"><%=user.username%></span>
-    </a>
 
     <a href="/user/notifications" class="navigation-link">
       <span class="icon" style="font-size: large">
@@ -42,11 +39,55 @@
       </span>
       <span class="navnames">Notifications</span>
     </a>
+    <div class="navigation-link ml-3">
+      <div class="dropdown is-right" id="user-dropdownmenu">
+        <div
+          class="dropdown-trigger"
+          id="user-dropdownbtn"
+          style="cursor: pointer"
+        >
+          <figure class="image is-32x32">
+            <img
+              class="is-rounded"
+              src="<%=user.profile.avatar.url%>"
+              alt="Placeholder image"
+            />
+          </figure>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu57" role="menu">
+          <div class="dropdown-content">
+            <a href="/user/profile" class="dropdown-item">
+              <p>
+                <span class="icon mr-2"><i class="fas fa-user-circle"></i></span
+                ><span style="color: #363636; font-size: 1rem"
+                  ><%=user.username%></span
+                >
+              </p>
+            </a>
+            <a href="/user/logout" id="signout" class="dropdown-item">
+              <p>
+                <span class="icon mr-2"
+                  ><i class="fas fa-sign-out-alt"></i
+                ></span>
+                <span style="color: #363636; font-size: 1rem">Log Out</span>
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <a href="/user/logout" id="signout" class="navigation-link">
+    <!-- <a href="/user/profile" class="navigation-link">
+      <span class="icon"><i class="fas fa-user-circle"></i></span>
+      <span class="icon">
+
+      <span class="navnames"><%=user.username%></span>
+    </a> -->
+
+    <!-- <a href="/user/logout" id="signout" class="navigation-link">
       <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
       <span class="navnames">Log Out</span>
-    </a>
+    </a> -->
     <%}%>
   </div>
 </div>

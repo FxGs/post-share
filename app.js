@@ -13,8 +13,12 @@ const { requireAuth, checkUser } = require("./middleware/auth");
 const ExpressError = require("./utils/ExpressError");
 const session = require("express-session");
 const flash = require("connect-flash");
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-require('dotenv').config();
+require("dotenv").config();
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOURI, {
@@ -37,7 +41,7 @@ app.set("views", path.join("__dirname", "../views"));
 app.engine("ejs", ejsMate);
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ limit: '10mb',extended: true }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(methodOverride("_method"));
 
 app.use(express.json());
@@ -64,11 +68,9 @@ app.use((req, res, next) => {
 });
 
 app.get("/", checkUser, (req, res) => {
-  if(res.locals.user)
-    return res.redirect('/posts');
+  if (res.locals.user) return res.redirect("/posts");
   res.render("particle");
 });
-
 
 app.get("/particle", (req, res) => {
   res.render("particle");
@@ -98,6 +100,17 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error1", { err });
 });
 
-app.listen(port, () => {
+io.on("connection", (socket) => {
+  console.log("a user connected " + socket.id);
+  socket.on("likes count", (msg) => {
+    // console.log("count: " + msg);
+    io.emit('likes count', msg);
+  });
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
+
+server.listen(port, () => {
   console.log(`Connected on port ${port}`);
 });
