@@ -26,6 +26,13 @@
     align-items: flex-start;
     color:#363636;
 }
+.text1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 18; /* number of lines to show */
+    -webkit-box-orient: vertical;
+ }
 @media screen and (max-width:768px) {
     .profile-wrapper {
         display: grid;
