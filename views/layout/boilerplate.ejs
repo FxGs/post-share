@@ -12,6 +12,7 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/3.0.0/plugins/rias/ls.rias.min.js"
       async
@@ -28,10 +29,6 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
       rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
     />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
@@ -58,7 +55,6 @@
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
-    <!-- <div class="pageloader is-dark"><span class="title">Loading...</span></div> -->
     <section>
       <main class="container">
         <%- include("../partials/flash") %><%- body -%>
@@ -71,15 +67,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"
     ></script>
     <script>
-      if ($(".pageloader").length) {
-        $(".pageloader").toggleClass("is-active");
-        $(window).on("load", function () {
-          var pageloadtime = setTimeout(function () {
-            $(".pageloader").toggleClass("is-active");
-            clearTimeout(pageloadtime);
-          }, 1000);
-        });
-      }
+
     </script>
     <script>
       if (performance.navigation.type == 2) {
@@ -88,7 +76,6 @@
     </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
-    <script src="/scripts/form-validation.js"></script>
     <script>
       $(document).ready(function () {
         $(".slider").slick({
@@ -98,13 +85,7 @@
         });
       });
     </script>
-    <!-- <script>
-      var id = $(".link-whatsapp").attr("id");
-      console.log(id.substr(3, 24));
-      var url = "whatsapp://send?text=" + window.location.href;
-      console.log(url);
-      $("#" + id).attr("href", url);
-    </script> -->
+    <script src="/scripts/share.js"></script>
     <script src="/scripts/comment.js"></script>
     <script src="/scripts/like.js"></script>
   </body>

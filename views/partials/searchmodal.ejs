@@ -9,7 +9,7 @@
         <input
           class="input"
           type="text"
-          placeholder="Search..."
+          placeholder="Search Users..."
           id="search"
           autocomplete="off"
         />
@@ -28,7 +28,22 @@
     <section class="modal-card-body" style="overflow-y: scroll">
       <nav class="panel" style="border: none; box-shadow: none">
         <div id="sresults">
-
+          <div
+            class="panel-block has-text-centered"
+            id="search-gif"
+            style="
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              display: none;
+            "
+          >
+            <i
+              class="fas fa-spinner fa-spin"
+              style="font-size: x-large; margin: auto"
+            ></i>
+            <span>Searching...</span>
+          </div>
         </div>
       </nav>
     </section>

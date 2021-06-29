@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   (document.querySelectorAll(".notification .delete") || []).forEach(
     ($delete) => {
@@ -12,6 +10,19 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
+$(document).click(function () {
+  $(".dropdown").removeClass("is-active");
+});
+
+$("#user-dropdownbtn").on("click", function (e) {
+  e.stopPropagation();
+  if ($("#user-dropdownmenu").hasClass("is-active")) {
+    $("#user-dropdownmenu").removeClass("is-active");
+  } else {
+    $("#user-dropdownmenu").addClass("is-active");
+  }
+});
+
 var req;
 var searchInput = $("#search");
 var debounceTimeout = null;
@@ -20,6 +31,7 @@ var searchEvents = function () {
   if (req) {
     req.abort();
   }
+  $("#search-gif").show();
   const query = $("#search").val();
   $("#sresults").empty();
   if (query !== "") {
@@ -29,10 +41,10 @@ var searchEvents = function () {
       url: newurl,
       type: "GET",
       dataType: "json",
-      timeout: 4000,
     });
     req.done(function (data, textStatus, jqXHR) {
-      // console.log(data);
+      console.log("done");
+      $("#search-gif").hide();
       if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
           // console.log(data[i].item.username);

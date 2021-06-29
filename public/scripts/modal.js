@@ -11,3 +11,14 @@ window.addEventListener("click", function (event) {
     smodal.style.display = "none";
   }
 });
+
+$(".dropdown-btn").on("click", function (e) {
+  e.stopPropagation();
+  const id = $(this).attr("id").substr(9);
+  if ($("#menu-" + id).hasClass("is-active")) {
+    $("#menu-" + id).removeClass("is-active");
+  } else {
+    $("#menu-" + id).addClass("is-active");
+  }
+  // alert(id);
+});

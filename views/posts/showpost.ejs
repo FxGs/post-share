@@ -3,18 +3,25 @@
   class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
   style="padding: 0"
 >
-  <div class="card mb-5" style="max-width: 500px; margin: auto">
-    <header class="card-header">
+  <div
+    class="card mb-5"
+    style="max-width: 500px; margin: auto; border: 1px solid lightgray"
+  >
+    <header
+      class="card-header"
+      style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+    >
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
           <img
-            class="is-rounded"
+            class="is-rounded lazyload blur-up"
             src="<%=post.author.profile.avatar.url%>"
+            data-src="<%=post.author.profile.avatar.url%>"
             alt=""
           />
         </figure>
         <div class="div">
-          <a href="/user/profile/<%=post.author.username%>">
+          <a class="author-link" href="/user/profile/<%=post.author.username%>">
             <p
               class="title"
               style="
@@ -40,16 +47,17 @@
         </div>
       </div>
       <%if((post.author.id) === (user.id)){%>
-      <div class="card-header-icon">
-        <div class="dropdown is-hoverable is-right">
+      <div class="card-header-icon" style="cursor: default">
+        <div class="dropdown is-right" id="menu-<%=post.id%>">
           <div class="dropdown-trigger">
             <button
               class="dropdown-btn"
               aria-haspopup="true"
               aria-controls="dropdown-menu4"
               style="border: none"
+              id="dropdown-<%=post.id%>"
             >
-              <span class="icon is-small">
+              <span class="icon is-small" style="cursor: pointer">
                 <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
               </span>
             </button>
@@ -61,14 +69,14 @@
                   <span class="icon">
                     <i class="fas fa-pen-square"></i>
                   </span>
-                  <span class="is-hidden-mobile">Edit</span>
+                  <span>Edit</span>
                 </button>
               </a>
               <a href="#" class="dropdown-item">
                 <form action="/posts/<%=post.id%>?_method=DELETE" method="POST">
                   <button class="button" style="border: none">
                     <span class="icon"><i class="fas fa-trash-alt"></i></span>
-                    <span class="is-hidden-mobile">Delete</span>
+                    <span>Delete</span>
                   </button>
                 </form>
               </a>
@@ -78,7 +86,10 @@
       </div>
       <%}%>
     </header>
-    <div class="card-content">
+    <div
+      class="card-content"
+      style="border-bottom: 0.2px solid #ededed; background-color: whitesmoke"
+    >
       <div class="media">
         <div class="media-content">
           <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
@@ -124,25 +135,22 @@
       </div>
     </div>
     <%}%>
-    <div class="card-content" style="padding: 0.5rem">
+    <div
+      class="card-content"
+      style="
+        padding: 0.5rem;
+        border-top: 0.2px solid #ededed;
+        background-color: whitesmoke;
+      "
+    >
       <div class="media">
-        <div class="media-left" id="showpost-icons">
-          <!-- <a
-            href=""
-            data-action="share/whatsapp/share"
-            class="link-whatsapp"
-            id="wp-<%=post.id%>"
-            >Share via WhatsApp</a
-          > -->
-        </div>
-        <div class="media-content"></div>
-        <div class="media-right is-flex" id="likes-container">
+        <div class="media-left is-flex" id="likes-container">
           <div class="likes-container is-flex">
             <p>
               <span class="<%=post.id%>"><%=post.likes.count%></span>
             </p>
             <div class="control likes mx-1">
-              <form class="like-form" action="" id="/posts/<%=post.id%>/likes">
+              <form class="like-form" action="" id="/posts/<%=post.id%>/">
                 <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
                 i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
                 <button>
@@ -165,17 +173,31 @@
             </div>
           </div>
           <div class="share-container is-flex">
-            <p>
-              <span class="share-count">0</span>
-            </p>
             <div class="control">
-              <button><i class="fas fa-share-alt"></i></button>
+              <button class="clipboard" id="share-<%=post.id%>">
+                <i class="fas fa-link"></i>
+              </button>
             </div>
+            <p><span>Copy Link</span></p>
           </div>
         </div>
+        <div class="media-content"></div>
+        <div class="media-right" id="showpost-icons"></div>
+      </div>
+      <div
+        class="notification is-success is-light"
+        id="copymsg-<%=post.id%>"
+        style="
+          display: none;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+            rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        "
+      >
+        Link Copied
       </div>
     </div>
-    <footer class="card-footer">
+    <footer class="card-footer" style="background-color: whitesmoke">
       <div class="field pl-3 pb-3 pr-3" style="width: 100%">
         <form id="form-1" action="/posts/<%=post.id%>/comments" method="POST">
           <div class="control mt-2" style="display: flex">
@@ -187,14 +209,21 @@
               placeholder="Add a comment.."
               autocomplete="off"
             />
-            <button id="Btn1" type="submit" disabled="true">POST</button>
+            <button
+              class="button is-info"
+              id="Btn1"
+              type="submit"
+              disabled="true"
+            >
+              POST
+            </button>
           </div>
         </form>
       </div>
     </footer>
   </div>
   <%if(cmnts.length > 0){%>
-  <div class="card mb-5" id="comment-card">
+  <div class="card mb-5" id="comment-card" style="border: 1px solid lightgray">
     <%for(var i = 0; i < cmnts.length; i++){%> <%if(cmnts[i].parentId ==
     null){%>
     <div class="comment parent ml-1" id="<%=cmnts[i].id%>">
@@ -248,14 +277,16 @@
         </div>
         <%if((cmnts[i].author.id) === (user.id)){%>
         <div class="comment-heading-icon">
-          <div class="dropdown is-hoverable is-right">
+          <div class="dropdown is-right" id="menu-<%=cmnts[i].id%>">
             <div class="dropdown-trigger">
               <button
+                class="dropdown-btn"
                 aria-haspopup="true"
                 aria-controls="dropdown-menu4"
                 style="border: none"
+                id="dropdown-<%=cmnts[i].id%>"
               >
-                <span class="icon is-small">
+                <span class="icon is-small" style="cursor: pointer">
                   <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                 </span>
               </button>
@@ -283,6 +314,7 @@
         <p class="caption parent"><%=cmnts[i].body%></p>
         <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
           <i class="fas fa-reply"></i>
+          <span>Reply</span>
         </button>
         <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
           <form
@@ -299,7 +331,7 @@
                 autocomplete="off"
               />
               <button
-                class="button is-light"
+                class="button is-info"
                 type="submit"
                 id="post-<%=cmnts[i].id%>"
                 disabled
@@ -409,7 +441,7 @@
               id="Btn-<%=cmnts[k].id%>"
               class="comment-reply"
             >
-              <span class="icon"><i class="fas fa-reply"></i></span>
+              <span class="icon"><i class="fas fa-reply"></i></span>Reply
             </button>
             <div
               class="field"
@@ -429,7 +461,12 @@
                     placeholder="Add a comment.."
                     autocomplete="off"
                   />
-                  <button type="submit" id="post-<%=cmnts[k].id%>" disabled>
+                  <button
+                    class="button is-info"
+                    type="submit"
+                    id="post-<%=cmnts[k].id%>"
+                    disabled
+                  >
                     POST
                   </button>
                 </div>
