@@ -5,10 +5,13 @@ FilePond.registerPlugin(
   FilePondPluginFileValidateSize,
   FilePondPluginImageTransform,
   FilePondPluginImageExifOrientation,
-  FilePondPluginImageEdit
+  FilePondPluginImageEdit,
+  FilePondPluginImageResize,
+  FilePondPluginImageCrop
 );
 
 var cropper;
+var edited = false;
 
 const editor = {
   // Called by FilePond to edit the image
@@ -18,7 +21,7 @@ const editor = {
     $("#crop-modal").addClass("is-active");
     $("#cropbox").show();
     // open editor here
-    // console.log(file);
+    // console.log(instructions);
     const url = URL.createObjectURL(file);
     const img = document.getElementById("edit");
     img.src = url;
@@ -31,7 +34,6 @@ const editor = {
       viewmode: 0,
       background: false,
       dragMode: "move",
-      // modal: false,
       cropBoxResizable: false,
       cropBoxMovable: false,
       minCanvasWidth: 200,
@@ -39,7 +41,6 @@ const editor = {
       minCropBoxWidth: 500,
       minCropBoxHeight: 500,
     });
-    console.log(cropper);
   },
 
   // Callback set by FilePond
@@ -76,16 +77,28 @@ $(document).ready(function () {
     allowMultiple: true,
     maxFileSize: "2mb",
     maxTotalFileSize: "4mb",
+    imagePreviewMinHeight: 130,
     imagePreviewMaxHeight: 130,
+    imageCropAspectRatio: "1:1",
+    imageResizeTargetWidth: 500,
+    imageResizeTargetHeight: 500,
+    imageResizeMode: "cover",
     imageTransformOutputMimeType: "image/png",
     imageEditEditor: editor,
+  });
+
+  // Listen for addfile event
+  $(".my-pond").on("FilePond:addfile", function (e) {
+    console.log("new file added");
+    $("#image-option").show();
   });
 });
 
 $("#crop").on("click", function () {
-  console.log(cropper);
+  $("#image-option").hide();
   const canvasdata = cropper.getCanvasData();
   const cropdata = cropper.getData();
+  // console.log(canvasdata, cropdata);
 
   const cropAreaRatio = cropdata.height / cropdata.width;
 
@@ -114,7 +127,6 @@ $("#crop").on("click", function () {
     rectHeight / cropdata.height
   );
 
-  console.log(zoom);
   editor.onconfirm({
     data: {
       crop: {
@@ -133,6 +145,8 @@ $("#crop").on("click", function () {
       size: {
         height: 500,
         width: 500,
+        mode: "cover",
+        upscale: true,
       },
     },
   });
@@ -141,7 +155,6 @@ $("#crop").on("click", function () {
 
 $("#cancel").on("click", function () {
   editor.oncancel();
-  // cropper.reset();
 });
 
 $(document)
@@ -169,7 +182,7 @@ $("#post-form").on("submit", function (e) {
     data: formdata,
     success: function (data) {
       window.location.href = "/posts/" + data;
-      console.log(data);
+      // console.log(data);
     },
     error: function (error) {
       var err = JSON.stringify(error);

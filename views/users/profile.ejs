@@ -200,21 +200,9 @@
   </section>
   <%-include('../partials/footer')%>
   </section>
-  <script>
-    if ($(".pageloader").length) {
-      $(".pageloader").toggleClass("is-active");
-      $(window).on("load", function () {
-        var pageloadtime = setTimeout(function () {
-          $(".pageloader").toggleClass("is-active");
-          clearTimeout(pageloadtime);
-        }, 1000);
-      });
-    }
-  </script>
   <script src="/scripts/navbar.js"></script>
   <script src="/scripts/modal.js"></script>
   <script src="/scripts/form-validation.js"></script>
-  <script src="/scripts/signup-validation.js"></script>
   <script>
     $(document).ready(function () {
       $(".slider").slick({

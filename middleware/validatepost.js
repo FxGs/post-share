@@ -1,9 +1,10 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 
 const ExpressError = require("../utils/ExpressError");
 
-const { PostSchema, CommentSchema } = require("../schemas");
+const { PostSchema, CommentSchema, UserSchema } = require("../schemas");
 
 module.exports.isAuthor = async (req, res, next) => {
   const { id } = req.params;
@@ -16,9 +17,9 @@ module.exports.isAuthor = async (req, res, next) => {
 };
 
 module.exports.validatePost = (req, res, next) => {
-  // const { error } = PostSchema.validate(req.body.post);
-  // console.log(error);
-  if (!req.body.post) {
+  const { error } = PostSchema.validate(req.body.post);
+  console.log(error);
+  if (error) {
     const msg = "post required";
     throw new ExpressError(msg, 400);
   } else {
@@ -45,4 +46,16 @@ module.exports.isCommentAuthor = async (req, res, next) => {
     return res.redirect(`/posts/${id}`);
   }
   next();
+};
+
+module.exports.validateUser = (req, res, next) => {
+  // console.log(req.body);
+  const { error } = UserSchema.validate(req.body);
+  // console.log(error);
+  if (error) {
+    const msg = "user required";
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
 };

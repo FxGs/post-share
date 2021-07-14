@@ -25,16 +25,17 @@ const extension = (joi) => ({
 const Joi = BaseJoi.extend(extension);
 
 module.exports.PostSchema = Joi.object({
-  post: Joi.object({
-    title: Joi.string().max(25).required().escapeHTML(),
-
-    body: Joi.string().max(100).required().escapeHTML(),
-  }),
-  deleteImages: Joi.array(),
+  title: Joi.string().max(100).required().escapeHTML(),
+  body: Joi.string().max(10000).required().escapeHTML(),
 });
 
 module.exports.CommentSchema = Joi.object({
   comment: Joi.object({
-    body: Joi.string().max(50).required().escapeHTML(),
+    body: Joi.string().max(1000).required().escapeHTML(),
   }).required(),
+});
+
+module.exports.UserSchema = Joi.object({
+  name: Joi.string().allow("").max(100).escapeHTML(),
+  bio: Joi.string().allow("").max(10000).escapeHTML(),
 });

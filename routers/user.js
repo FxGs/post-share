@@ -4,7 +4,8 @@ const authController = require("../controllers/authController");
 const User = require("../models/user");
 const Post = require("../models/post");
 const CatchAsync = require("../utils/CatchAsync");
-const { requireAuth, checkUser } = require("../middleware/auth");
+const { requireAuth, checkUser, } = require("../middleware/auth");
+const { validateUser } = require("../middleware/validatepost");
 const router = Router();
 const Fuse = require("fuse.js");
 
@@ -142,7 +143,9 @@ router.put(
   requireAuth,
   checkUser,
   upload.single("profile-picture"),
+  validateUser,
   CatchAsync(async (req, res) => {
+    // console.log(req.body);
     const { username } = req.params;
     const profile = req.body;
     if (username === res.locals.user.username) {

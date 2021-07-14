@@ -14,7 +14,7 @@
     <div class="card-image" style="display: none"></div>
 
     <%}else if(post.image.length == 1){%>
-    <div class="card-image" style="max-height: 100%">
+    <div class="card-image" style="max-height: 100%;">
       <figure class="image">
         <img
           alt=""
@@ -28,7 +28,7 @@
     <%}else{%>
     <div class="container is-clipped" id="carousel">
       <div id="slider" class="slider">
-        <div class="card-image" style="max-height: 100%">
+        <div class="card-image" style="max-height: 100%;">
           <figure class="image">
             <img
               class="lazyload blur-up"
@@ -39,7 +39,7 @@
           </figure>
         </div>
         <%for(var i = 1; i < post.image.length; i++){%>
-        <div class="card-image slick-slide" style="max-height: 100%">
+        <div class="card-image slick-slide" style="max-height: 100%;">
           <figure class="image">
             <img src="<%=post.image[i].url%>" alt="" />
           </figure>
@@ -50,7 +50,7 @@
     <%}%>
     <div
       class="card-content"
-      style="background: whitesmoke; border-top: 1px solid #ededed"
+      style="background: white; border-top: 1px solid lightgray"
     >
       <div class="media">
         <div class="media-content">
@@ -66,8 +66,8 @@
       id="show-header"
       style="
         box-shadow: none;
-        background: whitesmoke;
-        border-top: 1px solid lightgray;
+        background: white;
+        border-top: 1px solid #ededed;
       "
     >
       <div class="card-header-title">
