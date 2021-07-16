@@ -1,4 +1,15 @@
 $(document).ready(function () {
+  $(".new-area")
+    .each(function () {
+      this.setAttribute(
+        "style",
+        "height:" + this.scrollHeight + "px;overflow-y:hidden;"
+      );
+    })
+    .on("input", function () {
+      this.style.height = "auto";
+      this.style.height = this.scrollHeight + "px";
+    });
   var bodyValidated = false;
   var titleValidated = false;
 

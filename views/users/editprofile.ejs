@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -39,96 +39,87 @@
     />
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
-    <title>Post-Share</title>
+    <link rel="stylesheet" href="/stylesheets/profcrop.css" />
+    <title>Document</title>
   </head>
-
   <section class="section" style="width: 100%">
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
-  <body
-    class="is-flex is-flex-direction-column"
-    style="height: 100vh; overflow: hidden"
-  >
+  <body class="is-flex is-flex-direction-column" style="height: 100vh">
     <section>
-      <main class="container">
+      <main class="container" id="edit-container" style="display: none">
+        <div class="notification is-success has-text-centered" id="profile-save" style="display: none;">
+          New Changes Saved
+        </div>
         <div class="columns">
           <div class="column">
             <p class="has-text-centered is-size-3 mb-5">Preview</p>
             <div class="columns box is-mobile">
               <div class="column is-narrow">
-                <figure class="image is-128x128">
-                  <img
-                    class="is-rounded"
-                    src="<%=user.profile.avatar.url%>"
-                    id="avatar-preview"
-                    style="object-fit: cover; width: 128px; height: 128px"
-                  />
-                </figure>
+                <div
+                  id="initial-preview"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                  "
+                >
+                  <img src="<%=user.profile.avatar.url%>" alt="" />
+                </div>
+                <div
+                  id="avatar-preview"
+                  style="
+                    width: 200px;
+                    height: 200px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    display: none;
+                  "
+                ></div>
               </div>
               <div class="column">
                 <div class="title">
                   <span id="name-preview"> <%=user.profile.name%> </span>
                 </div>
-                <p class="subtitle">@<%=user.username%></p>
+                <p class="subtitle"><%=user.username%></p>
                 <p id="bio-preview"><%= user.profile.bio%></p>
               </div>
             </div>
           </div>
           <hr class="rounded" />
           <div class="column">
-            <form
-              class="edit-profile-form"
-              method="POST"
-              action="/user/profile/<%=user.username%>?_method=PUT"
-              id="<%=user.username%>"
-              enctype="multipart/form-data"
-            >
+            <form class="edit-profile-form" id="<%=user.username%>">
               <div class="field">
                 <label class="label">Avatar</label>
-                <div
-                  id="file-edit"
-                  class="file is-primary is-fullwidth has-name"
-                >
-                  <label class="file-label">
-                    <input
-                      class="file-input"
-                      type="file"
-                      name="profile-picture"
-                      accept="image/png, image/jpeg"
-                      id="file-input"
-                    />
-                    <span class="file-cta">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                      </span>
-                      <span class="file-label"> Upload </span>
-                    </span>
-                    <span class="file-name"> No files chosen. </span>
-                  </label>
+                <div class="control">
+                  <input type="file" class="my-pond" name="image" />
                 </div>
               </div>
+              <%-include('../partials/crop')%>
               <div class="field">
-                <label class="label">Name</label>
                 <div class="control">
                   <input
                     class="input"
                     type="text"
-                    name="name"
+                    name="profile[name]"
                     id="name"
+                    placeholder="Name..."
                     value="<%=user.profile.name%>"
+                    maxlength="50"
                   />
                 </div>
               </div>
               <div class="field">
-                <label class="label">Bio</label>
                 <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    name="bio"
+                  <textarea
+                    class="textarea desc-area"
                     id="bio"
-                    value="<%=user.profile.bio%>"
-                  />
+                    name="profile[bio]"
+                    placeholder="description..."
+                  >
+<%=user.profile.bio%></textarea
+                  >
                 </div>
               </div>
               <button
@@ -148,44 +139,37 @@
     </section>
     <%-include('../partials/footer')%>
     <%-include('../partials/filepondscripts')%>
+    <script src="/scripts/profupload.js"></script>
     <script>
       if (performance.navigation.type == 2) {
         location.reload(true);
       }
     </script>
     <script>
-      const fileInput2 = document.querySelector("#file-edit input[type=file]");
-      fileInput2.onchange = () => {
-        if (fileInput2.files.length > 0) {
-          const fileName2 = document.querySelector("#file-edit .file-name");
-          fileName2.textContent = fileInput2.files[0].name;
-        }
-      };
-    </script>
-    <script>
       $(document).ready((e) => {
-        $("#name").change(() => {
+        $("#name").on("input", () => {
           $("#name-preview").text($("#name").val());
         });
-        $("#bio").change(() => {
+        $("#bio").on("input", () => {
           $("#bio-preview").text($("#bio").val());
         });
-        $("#file-input").change(() => {
-          const file = document.getElementById("file-input").files[0];
-          if (file) {
-            let reader = new FileReader();
-            reader.onload = function (event) {
-              $("#avatar-preview").attr("src", event.target.result);
-            };
-            reader.readAsDataURL(file);
-          }
-        });
-        e.preventDefault();
+        // e.preventDefault();
       });
     </script>
-
+    <script>
+      $(".desc-area")
+        .each(function () {
+          this.setAttribute(
+            "style",
+            "height:" + this.scrollHeight + "px;overflow-y:hidden;"
+          );
+        })
+        .on("input", function () {
+          this.style.height = "auto";
+          this.style.height = this.scrollHeight + "px";
+        });
+    </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
-    <script src="/scripts/form-validation.js"></script>
   </body>
 </html>

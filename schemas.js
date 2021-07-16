@@ -36,6 +36,6 @@ module.exports.CommentSchema = Joi.object({
 });
 
 module.exports.UserSchema = Joi.object({
-  name: Joi.string().allow("").max(100).escapeHTML(),
+  name: Joi.string().allow("").max(50).escapeHTML(),
   bio: Joi.string().allow("").max(10000).escapeHTML(),
 });

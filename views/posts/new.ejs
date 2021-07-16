@@ -47,7 +47,7 @@
   </section>
   <body
     class="is-flex is-flex-direction-column"
-    style="height: 100vh; overflow: hidden"
+    style="height: 100vh;"
   >
     <section>
       <main class="container">
@@ -130,7 +130,6 @@
                 <div class="control has-icons-right">
                   <textarea
                     class="textarea new-area"
-                    rows="2"
                     id="body"
                     name="post[body]"
                     placeholder="caption"
@@ -172,6 +171,7 @@
     </section>
     <%-include('../partials/footer')%>
     <%-include('../partials/filepondscripts')%>
+    <script src="/scripts/fileupload.js"></script>
     <script>
       if (performance.navigation.type == 2) {
         location.reload(true);

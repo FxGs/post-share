@@ -50,7 +50,7 @@ module.exports.isCommentAuthor = async (req, res, next) => {
 
 module.exports.validateUser = (req, res, next) => {
   // console.log(req.body);
-  const { error } = UserSchema.validate(req.body);
+  const { error } = UserSchema.validate(req.body.profile);
   // console.log(error);
   if (error) {
     const msg = "user required";

@@ -1,156 +1,261 @@
 <% layout('layout/boilerplate') -%>
 <!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
-
-<div
-  class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
-  style="padding: 0"
->
-  <% for(let post of posts) { %>
+<div class="columns" style="margin: 0">
   <div
-    class="card mb-5"
-    style="max-width: 500px; margin: auto; border: 1px solid lightgray"
+    class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
+    style="padding: 0; margin-left: auto; margin-right: 0"
   >
-    <%if(post.image.length == 0){%>
-    <div class="card-image" style="display: none"></div>
+    <% for(let post of posts) { %>
+    <div class="card mb-5" style="max-width: 500px; margin: auto">
+      <%if(post.image.length == 0){%>
+      <div class="card-image" style="display: none"></div>
 
-    <%}else if(post.image.length == 1){%>
-    <div class="card-image" style="max-height: 100%;">
-      <figure class="image">
-        <img
-          alt=""
-          class="lazyload blur-up"
-          src="<%=post.image[0].url%>"
-          data-src="<%=post.image[0].url%>"
-        />
-      </figure>
-    </div>
+      <%}else if(post.image.length == 1){%>
+      <div class="card-image" style="max-height: 100%; border-radius: 0">
+        <figure class="image">
+          <img
+            alt=""
+            class="lazyload blur-up"
+            src="<%=post.image[0].url%>"
+            data-src="<%=post.image[0].url%>"
+          />
+        </figure>
+      </div>
 
-    <%}else{%>
-    <div class="container is-clipped" id="carousel">
-      <div id="slider" class="slider">
-        <div class="card-image" style="max-height: 100%;">
-          <figure class="image">
+      <%}else{%>
+      <div class="container is-clipped" id="carousel">
+        <div id="slider" class="slider">
+          <div class="card-image" style="max-height: 100%; border-radius: 0">
+            <figure class="image">
+              <img
+                class="lazyload blur-up"
+                src="<%=post.image[0].url%>"
+                data-src="<%=post.image[0].url%>"
+                alt=""
+              />
+            </figure>
+          </div>
+          <%for(var i = 1; i < post.image.length; i++){%>
+          <div
+            class="card-image slick-slide"
+            style="max-height: 100%; border-radius: 0"
+          >
+            <figure class="image">
+              <img src="<%=post.image[i].url%>" alt="" />
+            </figure>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <%}%>
+      <div class="card-content" style="background: white">
+        <div class="media">
+          <div class="media-content">
+            <a href="/posts/<%=post.id%>"
+              ><p class="title is-4"><%=post.title%></p></a
+            >
+            <p class="subtitle is-6"><%=post.body%></p>
+          </div>
+        </div>
+      </div>
+      <header
+        class="card-header"
+        id="show-header"
+        style="
+          box-shadow: none;
+          background: white;
+          border-top: 1px solid #ededed;
+        "
+      >
+        <div class="card-header-title">
+          <figure class="image is-48x48 mr-2">
             <img
-              class="lazyload blur-up"
-              src="<%=post.image[0].url%>"
-              data-src="<%=post.image[0].url%>"
+              class="is-rounded lazyload blur-up"
+              src="<%= post.author.profile.avatar.url %>"
+              data-src="<%= post.author.profile.avatar.url %>"
               alt=""
             />
           </figure>
-        </div>
-        <%for(var i = 1; i < post.image.length; i++){%>
-        <div class="card-image slick-slide" style="max-height: 100%;">
-          <figure class="image">
-            <img src="<%=post.image[i].url%>" alt="" />
-          </figure>
-        </div>
-        <%}%>
-      </div>
-    </div>
-    <%}%>
-    <div
-      class="card-content"
-      style="background: white; border-top: 1px solid lightgray"
-    >
-      <div class="media">
-        <div class="media-content">
-          <a href="/posts/<%=post.id%>"
-            ><p class="title is-4"><%=post.title%></p></a
-          >
-          <p class="subtitle is-6"><%=post.body%></p>
-        </div>
-      </div>
-    </div>
-    <header
-      class="card-header"
-      id="show-header"
-      style="
-        box-shadow: none;
-        background: white;
-        border-top: 1px solid #ededed;
-      "
-    >
-      <div class="card-header-title">
-        <figure class="image is-48x48 mr-2">
-          <img
-            class="is-rounded lazyload blur-up"
-            src="<%= post.author.profile.avatar.url %>"
-            data-src="<%= post.author.profile.avatar.url %>"
-            alt=""
-          />
-        </figure>
-        <div class="div">
-          <a class="author-link" href="/user/profile/<%=post.author.username%>">
+          <div class="div">
+            <a
+              class="author-link"
+              href="/user/profile/<%=post.author.username%>"
+            >
+              <p
+                class="title"
+                style="
+                  font-size: 14px;
+                  font-family: 'Open Sans', sans-serif;
+                  margin-bottom: 0;
+                "
+              >
+                <%=post.author.username%>
+              </p></a
+            >
+
             <p
-              class="title"
+              class="subtitle"
               style="
-                font-size: 14px;
+                font-size: 12px;
                 font-family: 'Open Sans', sans-serif;
                 margin-bottom: 0;
               "
             >
-              <%=post.author.username%>
-            </p></a
-          >
-
-          <p
-            class="subtitle"
-            style="
-              font-size: 12px;
-              font-family: 'Open Sans', sans-serif;
-              margin-bottom: 0;
-            "
-          >
-            <%=post.time%>
+              <%=post.time%>
+            </p>
+          </div>
+        </div>
+        <div class="card-header-icon" id="show-icons">
+          <p>
+            <span class="<%=post.id%> mx-1"><%=post.likes.count%></span>
           </p>
-        </div>
-      </div>
-      <div class="card-header-icon" id="show-icons">
-        <p>
-          <span class="<%=post.id%> mx-1"><%=post.likes.count%></span>
-        </p>
-        <div class="control">
-          <form class="like-form" action="" id="/posts/<%=post.id%>/">
-            <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
-            i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
-            <button>
-              <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+          <div class="control">
+            <form class="like-form" action="" id="/posts/<%=post.id%>/">
+              <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+              i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
+              <button>
+                <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+              </button>
+              <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+              <button>
+                <i class="far fa-heart" id="like-<%=post.id%>"></i>
+              </button>
+              <%}%>
+            </form>
+          </div>
+          <p>
+            <span class="comments-count mx-1"><%=post.comments.length%></span>
+          </p>
+          <div class="control">
+            <a href="/posts/<%=post.id%>"
+              ><button><i class="far fa-comment-alt"></i></button
+            ></a>
+          </div>
+          <div class="control">
+            <button class="clipboard" id="share-<%=post.id%>">
+              <i class="fas fa-link"></i>
             </button>
-            <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
-            <button>
-              <i class="far fa-heart" id="like-<%=post.id%>"></i>
-            </button>
-            <%}%>
-          </form>
+          </div>
+          <!-- <p><span>Copy Link</span></p> -->
         </div>
-        <p>
-          <span class="comments-count mx-1"><%=post.comments.length%></span>
-        </p>
-        <div class="control">
-          <a href="/posts/<%=post.id%>"
-            ><button><i class="far fa-comment-alt"></i></button
-          ></a>
-        </div>
-        <div class="control">
-          <button class="clipboard" id="share-<%=post.id%>">
-            <i class="fas fa-link"></i>
-          </button>
-        </div>
-        <!-- <p><span>Copy Link</span></p> -->
+      </header>
+      <div
+        class="notification is-success is-light"
+        id="copymsg-<%=post.id%>"
+        style="
+          display: none;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+            rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        "
+      >
+        Link Copied
       </div>
-    </header>
+    </div>
+    <% }%>
+  </div>
+  <div
+    class="column is-hidden-mobile is-narrow-tablet"
+    style="margin-right: auto"
+  >
     <div
-      class="notification is-success is-light"
-      id="copymsg-<%=post.id%>"
+      class="box"
+      id="postslider"
       style="
-        display: none;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-          rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        width: 350px;
+        height: 500px;
+        overflow: hidden;
+        display: flex;
+        border-radius: 0;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 70px;
       "
     >
-      Link Copied
+      <%for(var i = 0; i < 10; i++){%>
+      <div class="card mx-1 slick-slide" style="min-width: 300px">
+        <div class="card-image">
+          <figure class="image">
+            <img src="<%=posts[0].image[0].url%>" alt="Placeholder image" />
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left"></div>
+            <div class="media-content">
+              <p class="title is-4"><%=posts[0].title%></p>
+              <p class="subtitle is-6"><%=posts[0].body%></p>
+            </div>
+          </div>
+        </div>
+        <header
+          class="card-header"
+          id="show-header"
+          style="
+            box-shadow: none;
+            background: white;
+            border-top: 1px solid #ededed;
+            margin-top: auto;
+          "
+        >
+          <div class="card-header-title">
+            <figure class="image is-32x32 mr-2">
+              <img
+                class="is-rounded"
+                src="<%= posts[0].author.profile.avatar.url %>"
+                alt=""
+              />
+            </figure>
+            <div class="div">
+              <a
+                class="author-link"
+                href="/user/profile/<%=posts[0].author.username%>"
+              >
+                <p
+                  class="title"
+                  style="
+                    font-size: 12px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-bottom: 0;
+                  "
+                >
+                  <%=posts[0].author.username%>
+                </p></a
+              >
+
+              <p
+                class="subtitle"
+                style="
+                  font-size: 10px;
+                  font-family: 'Open Sans', sans-serif;
+                  margin-bottom: 0;
+                "
+              >
+                <%=posts[0].time%>
+              </p>
+            </div>
+          </div>
+          <div class="card-header-icon" style="cursor: default;">
+            <p>
+              <span class="mx-1"><%=posts[0].likes.count%>Likes</span>
+            </p>
+          </div>
+        </header>
+      </div>
+      <%}%>
     </div>
   </div>
-  <% }%>
 </div>
+<script>
+  $(document).ready(function () {
+    $("#postslider").slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: false,
+      autoplay: true,
+      autoplaySpeed: 1500,
+      arrows: false,
+      speed: 1500,
+    });
+  });
+</script>
