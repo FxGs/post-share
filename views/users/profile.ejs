@@ -31,6 +31,8 @@
       src="//cdn.jsdelivr.net/g/lazysizes(lazysizes.min.js)"
       async=""
     ></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
@@ -58,7 +60,7 @@
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
-    <section><main class="container">
+    <section><main class="container" style="margin-bottom: 20px;">
       <div class="profile-wrapper">
         <div class="avatar">
           <figure class="image">
@@ -103,82 +105,155 @@
         </div>
       </div>
       <!-- postedPosts -->
-      <div class="posted-posts" id="posted-div">
-        <div class="container mt-4">
-          <%var shown = 0; var index = 0;%>
-          <%for(var i =0; i<Math.floor(posts.length/3); i++) { %>
-          <div class="columns">
-            <%for(var j =0; j<3; j++) {  shown++;%>
-            <div class="column is-4">
-              <%if(posts[index].image.length == 0){%>
-                <a href="/posts/<%=posts[index].id%>">
-                  <div class="card" style="border: 1px solid black; max-width: 500px;" >
-                    <div class="card-content">
-                      <div class="media">
-                        <div class="media-content">
-                          <div class="text1">
-                            <p class="title is-4"><%=posts[index].title%></p>
-                            <p class="subtitle is-6"><%=posts[index].body%></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              <%} else {%>
-              <div class="card" style="border: 1px solid black; max-width: 500px;">
-                <div class="card-image"  style="max-height: 100%">
-                  <a href="/posts/<%=posts[index].id%>">
-                    <figure class="image">
-                      <img
-                        src="<%=posts[index].image[0].url%>"
-                        alt="Placeholder image"
-                      />
-                    </figure>
+      <div class="posted-posts" id="posted-div" style="min-height: 100vh;">
+        <div class="grid1">
+          <div class="grid-sizer"></div>
+          <%for(let p of posts){%>
+          <%if(p.image.length == 0){%>
+            <div class="grid-item grid-item--width2"><div class="card"  >
+              <header
+                class="card-header"
+                style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+              >
+              <div class="card-header-title">
+                <figure class="image is-48x48 mr-2">
+                <img
+                  class="is-rounded lazyload blur-up"
+                  src="<%=p.author.profile.avatar.url%>"
+                  data-src="<%=p.author.profile.avatar.url%>"
+                  alt=""
+                />
+                </figure>
+                <div class="div">
+                  <a class="author-link" href="/user/profile/<%=p.author.username%>">
+                    <p
+                      class="title"
+                      style="
+                      font-size: 14px;
+                      font-family: 'Open Sans', sans-serif;
+                      margin-bottom: 0;
+                    "
+                    >
+                    <%=p.author.username%>
+                    </p>
                   </a>
-                </div>
-              </div><%}%>
-            </div>
-            <%index++; }%>
-          </div>
-          <% }%>
-          <%var r= posts.length-shown;%>
-          <div class="columns">
-            <%for(var j =0; j<r; j++) {%>
-            <div class="column is-4">
-              <%if(posts[index].image.length == 0){%>
-                <a href="/posts/<%=posts[index].id%>">
-                  <div class="card" style="border: 1px solid black; max-width: 500px;">
-                    <div class="card-content">
-                      <div class="media">
-                        <div class="media-content">
-                          <div class="text1">
-                            <p class="title is-4"><%=posts[index].title%></p>
-                            <p class="subtitle is-6"><%=posts[index].body%></p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>  
-                </a>
-              <%} else {%>
-              <div class="card" style="border: 1px solid black; max-width: 500px;">
-                <div class="card-image" style="max-height: 100%">
-                  <a href="/posts/<%=posts[index].id%>">
-                    <figure class="image">
-                      <img
-                        src="<%=posts[index].image[0].url%>"
-                        alt="Placeholder image"
-                      />
-                    </figure>
-                  </a> 
+
+                  <p
+                    class="subtitle"
+                    style="
+                      font-size: 12px;
+                      font-family: 'Open Sans', sans-serif;
+                      margin-top: 0;
+                    "
+                  >
+                    <%=p.time%>
+                  </p>
                 </div>
               </div>
-              <%}%>
+              </header>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <div class="text1">  
+                      <p class="title is-4"><%=p.title%></p>
+                      <p class="subtitle is-6"><%=p.body%></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                  <%=p.likes.count%> LIKES
+                  </span>
+                </p>
+                <div class="card-footer-item">
+                  <div class="share-container is-flex">
+                    <div class="control">
+                      <button class="clipboard" id="share-<%=p.id%>">
+                        <i class="fas fa-link"></i>
+                      </button>
+                    </div>
+                    <p><span></span></p>
+                  </div>
+                </div>
+              </footer>
+            </div></div>
+          <%}else{%>
+            <div class="grid-item"> <div class="card" style="">
+              <header
+                class="card-header"
+                style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+              >
+              <div class="card-header-title">
+                <figure class="image is-48x48 mr-2">
+                <img
+                  class="is-rounded lazyload blur-up"
+                  src="<%=p.author.profile.avatar.url%>"
+                  data-src="<%=p.author.profile.avatar.url%>"
+                  alt=""
+                />
+                </figure>
+              <div class="div">
+                <a class="author-link" href="/user/profile/<%=p.author.username%>">
+                  <p
+                    class="title"
+                    style="
+                    font-size: 14px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-bottom: 0;
+                  "
+                >
+                  <%=p.author.username%>
+                </p></a>
+
+                <p
+                  class="subtitle"
+                  style="
+                    font-size: 12px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-top: 0;
+                  "
+                >
+                  <%=p.time%>
+                </p>
             </div>
-            <%index++; }%>
-          </div>  
+          </div>
+          </header>
+              <div class="card-image"  style="max-height: 100%">
+                <a href="/posts/<%=p.id%>">
+                  <figure class="image">
+                    <img
+                      src="<%=p.image[0].url%>"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                </a>
+              </div>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                  <%=p.likes.count%> LIKES
+                  </span>
+                </p>
+                <div class="card-footer-item">
+                  <div class="share-container is-flex">
+                    <div class="control">
+                      <button class="clipboard" id="share-<%=p.id%>">
+                        <i class="fas fa-link"></i>
+                      </button>
+                    </div>
+                    <p><span></span></p>
+                  </div>
+                </div>
+              </footer>
+              
+            </div>
+          </div>
+          <%}%>
+          <%}%>
         </div>
+
         <%if(posts.length === 0) {%>
           <div class="columns is-centered">
             <div class="column is-half">
@@ -193,137 +268,133 @@
         <% }%>
       </div>
       <!-- LikedPosts -->
-      <div class="" id="liked-div" style="display: none">
-        <!-- <div
-          class="
-            container
-            is-max-desktop
-            column
-            is-two-fifths-desktop is-three-quarters-tablet is-full-mobile
-          "
-        >
-          <% if (Liked.length>0) { %> <% for(let post of Liked) { %>
-          <div class="card mb-5" style="max-width: 500px; margin: auto">
-            <%if(post.image.length == 0){%>
-            <div class="card-image" style="display: none"></div>
-  
-            <%}else if(post.image.length == 1){%>
-            <div class="card-image" style="max-height: 100%">
-              <figure class="image">
-                <img
-                  alt=""
-                  class="lazyload blur-up"
-                  src="<%=post.image[0].url%>"
-                  data-src="<%=post.image[0].url%>"
-                />
-              </figure>
-            </div>
-  
-            <%}else{%>
-            <div class="container is-clipped" id="carousel">
-              <div id="slider" class="slider">
-                <div class="card-image" style="max-height: 100%">
-                  <figure class="image">
-                    <img
-                      class="lazyload blur-up"
-                      src="<%=post.image[0].url%>"
-                      data-src="<%=post.image[0].url%>"
-                      alt=""
-                    />
-                  </figure>
-                </div>
-                <%for(var i = 1; i < post.image.length; i++){%>
-                <div class="card-image slick-slide" style="max-height: 100%">
-                  <figure class="image">
-                    <img src="<%=post.image[i].url%>" alt="" />
-                  </figure>
-                </div>
-                <%}%>
-              </div>
-            </div>
-            <%}%>
-            <div class="card-content" style="background: whitesmoke">
-              <div class="media">
-                <div class="media-content">
-                  <p class="title is-4"><%=post.title%></p>
-                  <p class="subtitle is-6"><%=post.body%></p>
-                </div>
-              </div>
-            </div>
-            <header
-              class="card-header"
-              id="show-header"
-              style="box-shadow: none; background: whitesmoke"
-            >
-              <div class="card-header-title">
-                <figure class="image is-48x48 mr-2">
+      <div class="" id="liked-div" style="display: none; min-height: 100vh;">
+        <div class="grid2">
+          <div class="grid-sizer2"></div>
+          <%for(let l of Liked){%>
+          <%if(l.image.length == 0){%>
+            <div class="grid-item2 grid-item2--width2"><div class="card" >
+              <header
+                class="card-header"
+                style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+              >
+                <div class="card-header-title">
+                  <figure class="image is-48x48 mr-2">
                   <img
-                    class="is-rounded"
-                    src="<%= post.author.profile.avatar.url %> "
+                    class="is-rounded lazyload blur-up"
+                    src="<%=l.author.profile.avatar.url%>"
+                    data-src="<%=l.author.profile.avatar.url%>"
                     alt=""
                   />
-                </figure>
-                <div class="div">
-                  <a href="/user/profile/<%=post.author.username%>">
-                    <p
-                      class="title"
-                      style="
+                  </figure>
+                  <div class="div">
+                    <a class="author-link" href="/user/profile/<%=l.author.username%>">
+                      <p
+                        class="title"
+                        style="
                         font-size: 14px;
                         font-family: 'Open Sans', sans-serif;
                         margin-bottom: 0;
                       "
                     >
-                      <%=post.author.username%>
-                    </p></a
-                  >
-  
-                  <p
-                    class="subtitle"
-                    style="
-                      font-size: 12px;
-                      font-family: 'Open Sans', sans-serif;
-                      margin-bottom: 0;
-                    "
-                  >
-                    <%=post.time%>
-                  </p>
+                      <%=l.author.username%>
+                      </p>
+                    </a>
+                  </div>
+                </div>
+              </header>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <div class="text1">  
+                      <p class="title is-4"><%=l.title%></p>
+                      <p class="subtitle is-6"><%=l.body%></p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="card-header-icon" id="show-icons">
-                <p>
-                  <span class="<%=post.id%>"><%=post.likes.count%></span>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                  <%=l.likes.count%> LIKES
+                  </span>
                 </p>
-                <div class="control">
-                  <form
-                    class="like-form"
-                    action=""
-                    id="/posts/<%=post.id%>/likes"
-                  >
-                    <%var liked = 0;%> <%for(var i = 0 ; i <
-                    user.likedposts.length; i++){%>
-                    <%if((user.likedposts[i]).equals(post.id)){%>
-                    <button>
-                      <i class="fas fa-heart" id="like-<%=post.id%>"></i>
-                    </button>
-                    <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
-                    <button>
-                      <i class="far fa-heart" id="like-<%=post.id%>"></i>
-                    </button>
-                    <%}%>
-                  </form>
+                <div class="card-footer-item">
+                  <div class="share-container is-flex">
+                    <div class="control">
+                      <button class="clipboard" id="share-<%=l.id%>">
+                        <i class="fas fa-link"></i>
+                      </button>
+                    </div>
+                    <p><span></span></p>
+                  </div>
                 </div>
-                <p>
-                  <span class="comments-count"><%=post.comments.length%></span>
-                </p>
-                <div class="control">
-                  <a href="/posts/<%=post.id%>"
-                    ><button><i class="far fa-comment-alt"></i></button
-                  ></a>
+              </footer>
+            </div></div>
+          <%}else{%>
+            <div class="grid-item2"> <div class="card" style="">
+              <header
+                class="card-header"
+                style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+              >
+                <div class="card-header-title">
+                  <figure class="image is-48x48 mr-2">
+                  <img
+                    class="is-rounded lazyload blur-up"
+                    src="<%=l.author.profile.avatar.url%>"
+                    data-src="<%=l.author.profile.avatar.url%>"
+                    alt=""
+                  />
+                  </figure>
+                  <div class="div">
+                    <a class="author-link" href="/user/profile/<%=l.author.username%>">
+                      <p
+                        class="title"
+                        style="
+                        font-size: 14px;
+                        font-family: 'Open Sans', sans-serif;
+                        margin-bottom: 0;
+                      "
+                    >
+                      <%=l.author.username%>
+                      </p>
+                    </a>
+                  </div>
                 </div>
+              </header>
+              <div class="card-image"  style="max-height: 100%">
+                <a href="/posts/<%=l.id%>">
+                  <figure class="image">
+                    <img
+                      src="<%=l.image[0].url%>"
+                      alt="Placeholder image"
+                    />
+                  </figure>
+                </a>
               </div>
-            </header>
-          </div>
-          <% }%> <% } else {%>
+              <footer class="card-footer">
+                <p class="card-footer-item">
+                  <span>
+                  <%=l.likes.count%> LIKES
+                  </span>
+                </p>
+                <div class="card-footer-item">
+                  <div class="share-container is-flex">
+                    <div class="control">
+                      <button class="clipboard" id="share-<%=l.id%>">
+                        <i class="fas fa-link"></i>
+                      </button>
+                    </div>
+                    <p><span></span></p>
+                  </div>
+                </div>
+              </footer>
+              
+            </div></div>
+          <%}%>
+          <%}%>
+        </div>
+        <%if(Liked.length === 0) {%>
           <div class="columns is-centered">
             <div class="column is-half">
               <div>
@@ -334,65 +405,7 @@
               <div class="has-text-centered">No posts found.</div>
             </div>
           </div>
-          <% } %>
-        </div> -->
-        <div class="container mt-4">
-          <%var shown = 0; var index = 0;%>
-          <%for(var i =0; i<Math.floor(Liked.length/3); i++) { %>
-          <div class="columns">
-            <%for(var j =0; j<3; j++) {  shown++;%>
-            <div class="column is-4">
-              <div class="card" style="border: 1px solid black; max-width: 500px;">
-                <div class="card-image" style="max-height: 100%">
-                  <a href="/posts/<%=Liked[index].id%>">
-                    <figure class="image">
-                      <img
-                        src="<%=Liked[index].image[0].url%>"
-                        alt="Placeholder image"
-                      />
-                    </figure>
-                  </a>
-                  
-                </div>
-              </div>
-            </div>
-            <%index++; }%>
-          </div>
-          <% }%>
-          <%var r= Liked.length-shown;%>
-          <div class="columns">
-            <%for(var j =0; j<r; j++) {%>
-            <div class="column is-4">
-              <div class="card" style="border: 1px solid black; max-width: 500px;">
-                <div class="card-image" style="max-height: 100%">
-                  <a href="/posts/<%=Liked[index].id%>">
-                    <figure class="image"> 
-                      <img
-                        src="<%=Liked[index].image[0].url%>"
-                        alt="Placeholder image"
-                      />
-                    </figure>
-                  </a>
-                  
-                </div>
-              </div>
-            </div>
-            <%index++; }%>
-           
-          </div>
-          <%if(Liked.length === 0) {%>
-            <div class="columns is-centered">
-              <div class="column is-half">
-                <div>
-                  <img
-                    src="https://64.media.tumblr.com/3c9cc0ea3aec71364e004a17e0ec1035/tumblr_inline_p26bt1b16s1regu9d_640.png"
-                  />
-                </div>
-                <p class="has-text-centered has-text-dark is-4"> No posts found.</p>
-              </div>
-            </div>
-          <% }%>
-          
+        <% }%>
       </div>
     </main></section>
     
@@ -410,6 +423,6 @@
       });
     </script>
     <script src="/scripts/profile-toggle.js"></script>
-    <script src="/scripts/like.js"></script>
+    <script src="/scripts/share.js"></script>
   </body>
 </html>
