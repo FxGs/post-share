@@ -40,6 +40,7 @@ router.post(
   checkUser,
   validatePost,
   CatchAsync(async (req, res) => {
+    // console.log("success");
     try {
       // console.log(req.body);
       const post = new Post(req.body.post);
@@ -50,6 +51,7 @@ router.post(
         if (type === "string") {
           // console.log(type + ":one");
           var fileStr = JSON.parse(req.body.image);
+          // console.log(fileStr.metadata);
           var url = "data:" + fileStr.type + ";base64," + fileStr.data;
           var uploadResponse = await cloudinary.uploader.upload(url, {
             folder: "Post-Share",
@@ -170,34 +172,6 @@ router.put(
     const post = await Post.findByIdAndUpdate(req.params.id, {
       ...req.body.post,
     });
-    const imgs = req.files.map((f) => ({
-      url: f.path,
-      filename: f.filename,
-    }));
-    if (imgs.length > 1) {
-      for (var i = 0; i < imgs.length; i++) {
-        var newurl = imgs[i].url.replace(
-          "/upload",
-          "/upload/c_fill,w_500,h_500"
-        );
-        imgs[i].url = newurl;
-      }
-    } else if (imgs.length == 1) {
-      var newurl = imgs[0].url.replace("/upload", "/upload/c_fill,w_500,h_500");
-      imgs[0].url = newurl;
-    }
-    post.image.push(...imgs);
-    await post.save();
-    if (req.body.deleteImages) {
-      for (let filename of req.body.deleteImages) {
-        await cloudinary.uploader.destroy(filename);
-      }
-      await post.updateOne({
-        $pull: {
-          image: { filename: { $in: req.body.deleteImages } },
-        },
-      });
-    }
     req.flash("success", "You have Updated your post Successfully!!");
     res.redirect(`/posts/${post.id}`);
   })
@@ -260,48 +234,6 @@ router.post(
     res.json(newpost.likes.count);
   })
 );
-
-// router.post(
-//   "/:id/likes",
-//   requireAuth,
-//   checkUser,
-//   CatchAsync(async (req, res) => {
-//     const post = await Post.findById(req.params.id);
-//     // console.log(post.id);
-//     // res.json(post.id);
-//     //logic 1
-//     const user = res.locals.user;
-
-//     var f = 0;
-//     // check for users liked list for postid
-//     //if found pull that id from posts and decrease the count
-//     //then delete the id from user's likedposts array
-//     for (var i = 0; i < user.likedposts.length; i++) {
-//       if (user.likedposts[i].equals(post.id)) {
-//         console.log("matched");
-//         user.likedposts.splice(i);
-//         await user.save();
-//         post.likes.count = post.likes.count - 1;
-//         const newpost = await post.save();
-//         // console.log(newpost.likes.count);
-//         res.json(newpost.likes.count);
-//         // console.log("found" + post.likes.count);
-//         f = 1;
-//         break;
-//       }
-//     }
-//     // else if not found then psuh the id to user's array and also push it to posts's array and increase the count
-//     if (f === 0) {
-//       user.likedposts.push(post.id);
-//       await user.save();
-//       post.likes.count = post.likes.count + 1;
-//       const newpost = await post.save();
-//       // console.log(newpost.likes.count);
-//       res.json(newpost.likes.count);
-//       // console.log("not found" + post.likes.count);
-//     }
-//   })
-// );
 
 router.post(
   "/:id/comments",

@@ -5,6 +5,7 @@ const User = require("../models/user");
 const Post = require("../models/post");
 const CatchAsync = require("../utils/CatchAsync");
 const { requireAuth, checkUser } = require("../middleware/auth");
+const { validateUser } = require("../middleware/validatepost");
 const router = Router();
 const Fuse = require("fuse.js");
 
@@ -137,30 +138,38 @@ router.post(
   })
 );
 
-router.put(
+router.post(
   "/profile/:username",
   requireAuth,
   checkUser,
-  upload.single("profile-picture"),
+  validateUser,
   CatchAsync(async (req, res) => {
+    // console.log(req.body);
     const { username } = req.params;
-    const profile = req.body;
+    const profile = req.body.profile;
     if (username === res.locals.user.username) {
       const user = await User.findOne({
         username,
       });
       user.profile.name = profile.name;
       user.profile.bio = profile.bio;
-      if (req.file) {
+      if (req.body.image) {
         await cloudinary.uploader.destroy(user.profile.avatar.filename);
-        user.profile.avatar.url = req.file.path.replace(
-          "/upload",
-          "/upload/c_fill,h_256,w_256"
-        );
-        user.profile.avatar.filename = req.file.filename;
+        var fileStr = JSON.parse(req.body.image);
+        var url = "data:" + fileStr.type + ";base64," + fileStr.data;
+        // console.log(url);
+        var uploadResponse = await cloudinary.uploader.upload(url, {
+          folder: "Users-Share",
+          allowedFormats: ["jpeg", "png", "jpg"],
+        });
+        // console.log(uploadResponse);
+        const iurl = uploadResponse.secure_url;
+        const filename = uploadResponse.public_id;
+        user.profile.avatar.url = iurl;
+        user.profile.avatar.filename = filename;
       }
       await user.save();
-      return res.redirect("/user/profile");
+      return res.json("success");
     } else {
       return res.status(402).json({
         message: "Not authorized",
