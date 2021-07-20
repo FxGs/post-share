@@ -11,7 +11,7 @@ FilePond.registerPlugin(
 );
 
 var cropper;
-var edited = false;
+const pre = $("#avatar-preview");
 
 const editor = {
   // Called by FilePond to edit the image
@@ -20,7 +20,9 @@ const editor = {
   open: (file, instructions) => {
     $("#crop-modal").addClass("is-active");
     $("#cropbox").show();
-    // open editor here
+    $("#initial-preview").hide();
+    $("#avatar-preview").show();
+    // // open editor here
     // console.log(instructions);
     const url = URL.createObjectURL(file);
     const img = document.getElementById("edit");
@@ -36,10 +38,11 @@ const editor = {
       dragMode: "move",
       cropBoxResizable: false,
       cropBoxMovable: false,
-      minCanvasWidth: 200,
-      minCanvasHeight: 200,
-      minCropBoxWidth: 500,
-      minCropBoxHeight: 500,
+      minCanvasWidth: 100,
+      minCanvasHeight: 100,
+      minCropBoxWidth: 200,
+      minCropBoxHeight: 200,
+      preview: "#avatar-preview",
     });
   },
 
@@ -69,33 +72,25 @@ const editor = {
 
 $(document).ready(function () {
   setTimeout(function () {
-    $("#form-container").show();
+    $("#edit-container").show();
   }, 500);
 
   // Turn input element into a pond with configuration options
   $(".my-pond").filepond({
-    allowMultiple: true,
+    allowMultiple: false,
     maxFileSize: "2mb",
-    maxTotalFileSize: "4mb",
+    imageResizeMode: "cover",
     imagePreviewMinHeight: 130,
     imagePreviewMaxHeight: 130,
     imageCropAspectRatio: "1:1",
-    imageResizeTargetWidth: 500,
-    imageResizeTargetHeight: 500,
-    imageResizeMode: "cover",
+    imageResizeTargetWidth: 200,
+    imageResizeTargetHeight: 200,
     imageTransformOutputMimeType: "image/png",
     imageEditEditor: editor,
-  });
-
-  // Listen for addfile event
-  $(".my-pond").on("FilePond:addfile", function (e) {
-    console.log("new file added");
-    $("#image-option").show();
   });
 });
 
 $("#crop").on("click", function () {
-  $("#image-option").hide();
   const canvasdata = cropper.getCanvasData();
   const cropdata = cropper.getData();
   // console.log(canvasdata, cropdata);
@@ -143,8 +138,8 @@ $("#crop").on("click", function () {
         aspectRatio: cropAreaRatio,
       },
       size: {
-        height: 500,
-        width: 500,
+        height: 200,
+        width: 200,
         mode: "cover",
         upscale: true,
       },
@@ -157,35 +152,28 @@ $("#cancel").on("click", function () {
   editor.oncancel();
 });
 
-$(document)
-  .ajaxStart(function () {
-    console.log("started");
-    $("#upload-success").show();
-    $("#btn-html").empty();
-    $("#upload-gif").show();
-  })
-  .ajaxStop(function () {
-    console.log("ended");
-    $("#upload-success").hide();
-    $("#upload-gif").hide();
-    $("#btn-html").html("Post");
-  });
-
-$("#post-form").on("submit", function (e) {
-  $("#newpost").attr("disabled", "true");
+$(".edit-profile-form").on("submit", function (e) {
   console.log("submitted");
+  var id = $(this).attr("id");
   var form = $(this);
   var formdata = form.serialize();
+  // console.log(formdata);
+  var url = "/user/profile/" + id;
+  // console.log(url);
   $.ajax({
     type: "POST",
-    url: "/posts",
+    url: url,
     data: formdata,
     success: function (data) {
-      window.location.href = "/posts/" + data;
-      // console.log(data);
+      // window.location.href = "/user/profile";
+      $("#profile-save").show();
+      setTimeout(function () {
+        $("#profile-save").hide();
+      }, 1500);
     },
     error: function (error) {
       var err = JSON.stringify(error);
+      console.log(err);
       alert(JSON.parse(err));
     },
   });

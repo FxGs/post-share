@@ -40,7 +40,6 @@
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
   </head>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
-    <!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
     <section>
       <main class="container" style="margin-top: 3rem">
@@ -92,25 +91,6 @@
                 </div>
               </div>
               <div class="field">
-                <div id="file-edit" class="file has-name is-fullwidth">
-                  <label class="file-label">
-                    <input
-                      class="file-input"
-                      type="file"
-                      name="image"
-                      multiple
-                    />
-                    <span class="file-cta">
-                      <span class="file-icon">
-                        <i class="fas fa-upload"></i>
-                      </span>
-                      <span class="file-label"> Add new images... </span>
-                    </span>
-                    <span class="file-name"></span>
-                  </label>
-                </div>
-              </div>
-              <div class="field">
                 <div class="control has-icons-right">
                   <textarea
                     class="textarea is-success edit-area"
@@ -134,29 +114,6 @@
                   </p>
                 </div>
               </div>
-
-              <% post.image.forEach(function(img, i) { %>
-              <div class="field is-grouped">
-                <div class="control">
-                  <figure class="image is-96x96">
-                    <img
-                      src="<%=img.url%>"
-                      alt=""
-                      style="width: 96px; height: 96px"
-                    />
-                  </figure>
-                </div>
-                <div class="control">
-                  <input
-                    type="checkbox"
-                    id="image-<%=i%>"
-                    name="deleteImages[]"
-                    value="<%=img.filename%>"
-                  />
-                  <label for="image-<%=i%>">Delete</label>
-                </div>
-              </div>
-              <% }) %>
               <div class="field is-grouped is-grouped-right">
                 <div class="control" id="edit-btns">
                   <button id="Edit-Btn" type="submit" class="button is-link">
@@ -173,30 +130,8 @@
       </main>
     </section>
     <%-include('../partials/footer')%>
-    <script>
-      if ($(".pageloader").length) {
-        $(".pageloader").toggleClass("is-active");
-        $(window).on("load", function () {
-          var pageloadtime = setTimeout(function () {
-            $(".pageloader").toggleClass("is-active");
-            clearTimeout(pageloadtime);
-          }, 1000);
-        });
-      }
-    </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
-    <script>
-      const fileInput2 = document.querySelector("#file-edit input[type=file]");
-      fileInput2.onchange = () => {
-        if (fileInput2.files.length > 0) {
-          const fileName2 = document.querySelector("#file-edit .file-name");
-          fileName2.textContent = fileInput2.files[0].name;
-        }
-      };
-    </script>
-    <script src="/scripts/form-validation.js"></script>
-    <script src="/scripts/form-validation.js"></script>
     <script src="/scripts/edit-validation.js"></script>
   </body>
 </html>

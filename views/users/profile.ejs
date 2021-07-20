@@ -56,10 +56,12 @@
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
     <title>Post-Share - <%= user_profile.username %>'s Profile</title>
   </head>
-  <section class="section" style="width: 100%">
+  <section class="section" style="width: 100%; padding: 1.92rem 1.5rem;">
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
+    <hr style="margin-top: 0; margin-bottom: 0;"/>
+    <hr style="margin-top: 0; margin-bottom: 0;"/>    
     <section><main class="container" style="margin-bottom: 20px;">
       <div class="profile-wrapper">
         <div class="avatar">
@@ -84,19 +86,19 @@
         </div>
       </div>
       <div>
-        <hr />
+        <hr style="margin-top: 0;"/>
         <div class="tabs is-boxed is-centered">
           <ul>
             <li class="is-active" id="posted">
               <a>
-                <p class="title has-text-centered has-text-dark is-6">
+                <p class="title has-text-centered has-text-grey is-6">
                   Posted Posts
                 </p>
               </a>
             </li>
             <li id="liked">
               <a>
-                <p class="title has-text-centered has-text-dark is-6">
+                <p class="title has-text-centered has-text-grey is-6">
                   Liked Posts
                 </p>
               </a>
@@ -180,7 +182,7 @@
               </footer>
             </div></div>
           <%}else{%>
-            <div class="grid-item"> <div class="card" style="">
+            <div class="grid-item"> <div class="card">
               <header
                 class="card-header"
                 style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
@@ -332,7 +334,7 @@
               </footer>
             </div></div>
           <%}else{%>
-            <div class="grid-item2"> <div class="card" style="">
+            <div class="grid-item2"> <div class="card" >
               <header
                 class="card-header"
                 style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
