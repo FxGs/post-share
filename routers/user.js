@@ -68,10 +68,20 @@ router.get(
     const posts = await Post.find({
       author: user_profile.id,
     }).populate("author");
-
+    const Liked = [];
+    for(var i = 0; i<user_profile.likedposts.length; i++){
+      const l = await Post.findById(user_profile.likedposts[i]).populate("author");
+      // console.log(l.author.username);
+      if(l.author.username !== user_profile.username){
+        Liked.push(l);
+      } 
+    }
+    // console.log(user_profile.username);
+    // console.log(Liked);
     res.render("users/profile", {
       user_profile,
       posts,
+      Liked,
     });
   })
 );
