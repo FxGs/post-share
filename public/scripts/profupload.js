@@ -152,6 +152,10 @@ $("#cancel").on("click", function () {
   editor.oncancel();
 });
 
+$("#reset").on("click", function () {
+  cropper.reset();
+});
+
 $(".edit-profile-form").on("submit", function (e) {
   console.log("submitted");
   var id = $(this).attr("id");

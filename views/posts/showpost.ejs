@@ -3,13 +3,10 @@
   class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
   style="padding: 0"
 >
-  <div
-    class="card mb-5"
-    style="max-width: 500px; margin: auto; border: 1px solid lightgray"
-  >
+  <div class="card mb-5" style="max-width: 500px; margin: auto">
     <header
       class="card-header"
-      style="background-color: whitesmoke; border-bottom: 0.2px solid lightgray"
+      style="background-color: white; border-bottom: 0.2px solid lightgray"
     >
       <div class="card-header-title">
         <figure class="image is-48x48 mr-2">
@@ -86,10 +83,7 @@
       </div>
       <%}%>
     </header>
-    <div
-      class="card-content"
-      style="border-bottom: 0.2px solid #ededed; background-color: whitesmoke"
-    >
+    <div class="card-content" style="background-color: white">
       <div class="media">
         <div class="media-content">
           <p class="title is-4" style="font-family: 'Open Sans', sans-serif">
@@ -140,7 +134,7 @@
       style="
         padding: 0.5rem;
         border-top: 0.2px solid #ededed;
-        background-color: whitesmoke;
+        background-color: white;
       "
     >
       <div class="media">
@@ -178,26 +172,13 @@
                 <i class="fas fa-link"></i>
               </button>
             </div>
-            <p><span>Copy Link</span></p>
           </div>
         </div>
         <div class="media-content"></div>
         <div class="media-right" id="showpost-icons"></div>
       </div>
-      <div
-        class="notification is-success is-light"
-        id="copymsg-<%=post.id%>"
-        style="
-          display: none;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-            rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-        "
-      >
-        Link Copied
-      </div>
     </div>
-    <footer class="card-footer" style="background-color: whitesmoke">
+    <footer class="card-footer" style="background-color: white">
       <div class="field pl-3 pb-3 pr-3" style="width: 100%">
         <form id="form-1" action="/posts/<%=post.id%>/comments" method="POST">
           <div class="control mt-2" style="display: flex">
@@ -314,7 +295,7 @@
         <p class="caption parent"><%=cmnts[i].body%></p>
         <button type="button" id="Btn-<%=cmnts[i].id%>" class="comment-reply">
           <i class="fas fa-reply"></i>
-          <span>Reply</span>
+          <!-- <span>Reply</span> -->
         </button>
         <div class="field" id="reply-<%=cmnts[i].id%>" style="display: none">
           <form
@@ -334,7 +315,7 @@
                 class="button is-info"
                 type="submit"
                 id="post-<%=cmnts[i].id%>"
-                disabled
+                disabled="true"
               >
                 POST
               </button>
@@ -402,14 +383,16 @@
             </div>
             <%if((cmnts[k].author.id) === (user.id)){%>
             <div class="comment-heading-icon">
-              <div class="dropdown is-hoverable is-right">
+              <div class="dropdown is-right" id="menu-<%=cmnts[k].id%>">
                 <div class="dropdown-trigger">
                   <button
+                    class="dropdown-btn"
                     aria-haspopup="true"
                     aria-controls="dropdown-menu4"
                     style="border: none"
+                    id="dropdown-<%=cmnts[k].id%>"
                   >
-                    <span class="icon is-small">
+                    <span class="icon is-small" style="cursor: pointer">
                       <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                     </span>
                   </button>
@@ -441,7 +424,7 @@
               id="Btn-<%=cmnts[k].id%>"
               class="comment-reply"
             >
-              <span class="icon"><i class="fas fa-reply"></i></span>Reply
+              <i class="fas fa-reply"></i>
             </button>
             <div
               class="field"
@@ -465,7 +448,7 @@
                     class="button is-info"
                     type="submit"
                     id="post-<%=cmnts[k].id%>"
-                    disabled
+                    disabled="true"
                   >
                     POST
                   </button>
@@ -484,7 +467,10 @@
     <%}%> <%}%>
   </div>
   <%}else{%>
-  <div class="box has-text-centered" style="box-shadow: none; border: none">
+  <div
+    class="box has-text-centered mb-5"
+    style="box-shadow: none; border: none"
+  >
     <img
       src="/assets/nocomments.png"
       alt=""
@@ -493,3 +479,9 @@
   </div>
   <%}%>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $(".psloader").hide();
+  });
+</script>

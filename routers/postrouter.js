@@ -1,4 +1,5 @@
 const express = require("express");
+const ejs = require("ejs");
 var router = express.Router();
 const Post = require("../models/post");
 const Comment = require("../models/comment");
@@ -22,15 +23,52 @@ const { storage, cloudinary } = require("../cloudinary");
 // //specifying the destination of images uploaded
 const upload = multer({ storage });
 
+var lid = 0;
 router.get(
   "/",
   requireAuth,
   checkUser,
   CatchAsync(async (req, res) => {
-    const posts = await Post.find({}, null, {
-      sort: { createdAt: -1 },
-    }).populate("author");
-    res.render("posts/show", { posts });
+    // console.log(req.query.next);
+    if (req.query.next) {
+      const posts = await Post.find({ _id: { $lt: req.query.next } }, null, {
+        sort: { createdAt: -1 },
+      })
+        .limit(2)
+        .populate("author");
+      // console.log(posts);
+      if (posts.length > 0) {
+        lid = posts[posts.length - 1].id;
+        const popular = await Post.find({}, null, {
+          sort: { likes: "desc" },
+        })
+          .limit(10)
+          .populate("author");
+        const lposts = await Post.find({ _id: { $lt: req.query.next } }, null, {
+          sort: { createdAt: -1 },
+        }).limit(3);
+        // console.log(lposts.length);
+        if (lposts.length < 3) {
+          lid = 0;
+        }
+        // console.log("last= " + lid);
+        res.render("posts/show", { posts, popular, lid });
+      }
+    } else {
+      const posts = await Post.find({}, null, {
+        sort: { createdAt: -1 },
+      })
+        .limit(2)
+        .populate("author");
+      lid = posts[posts.length - 1].id;
+      const popular = await Post.find({}, null, {
+        sort: { likes: "desc" },
+      })
+        .limit(10)
+        .populate("author");
+      // console.log(lid);
+      res.render("posts/show", { posts, popular, lid });
+    }
   })
 );
 

@@ -13,6 +13,7 @@ var likeEvents = function (d) {
   const datastring = $(d).attr("id");
   // console.log(datastring);
   var likescount = parseInt($("." + datastring.substring(7, 31)).html());
+  // console.log(likescount);
   if ($("#like-" + datastring.substring(7, 31)).hasClass("far")) {
     // console.log("far");
     $("#like-" + datastring.substring(7, 31)).removeClass("far");
@@ -26,7 +27,7 @@ var likeEvents = function (d) {
       dataType: "json",
     });
     req.done(function (data, textStatus, jqXHR) {
-      console.log("liked");
+      // console.log("liked");
       $("." + datastring.substring(7, 31)).html(data.toString());
       const ele = datastring.substring(7, 31);
       var info = { pid: ele, count: data };
@@ -55,7 +56,7 @@ var likeEvents = function (d) {
       dataType: "json",
     });
     req.done(function (data, textStatus, jqXHR) {
-      console.log("disliked");
+      // console.log("disliked");
       $("." + datastring.substring(7, 31)).html(data.toString());
       const ele = datastring.substring(7, 31);
       var info = { pid: ele, count: data };
@@ -73,7 +74,8 @@ var likeEvents = function (d) {
   }
 };
 
-likeform.on("submit", function (event) {
+$(document).on("submit", ".like-form", function (event) {
+  // console.log("submitted");
   clearTimeout(debounceTimeout);
   var x = this;
   debounceTimeout = setTimeout(likeEvents, 500, x);

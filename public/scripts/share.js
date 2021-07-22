@@ -1,10 +1,10 @@
 var $temp = $("<input>");
 var $url = $(location).attr("href");
 
-$(".clipboard").on("click", function () {
+$("body").on("click", ".clipboard", function () {
+  console.log("clicked");
   const id = $(this).attr("id");
   const i = id.substr(6);
-  $("#copymsg-" + i).hide();
   $("body").append($temp);
   var hostname = $("<a>").prop("href", $url).prop("hostname");
   var protocol = $("<a>").prop("href", $url).prop("protocol");
@@ -20,8 +20,10 @@ $(".clipboard").on("click", function () {
   $temp.val(url).select();
   document.execCommand("copy");
   $temp.remove();
-  $("#copymsg-" + i).show();
+  $("#share-" + i).css("background-color", "#48c78e");
+  $("#share-" + i).css("color", "#fff");
   setTimeout(function () {
-    $("#copymsg-" + i).hide();
+    $("#share-" + i).css("background-color", "#fff");
+    $("#share-" + i).css("color", "black");
   }, 3000);
 });
