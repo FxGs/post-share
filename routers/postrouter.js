@@ -34,7 +34,7 @@ router.get(
       const posts = await Post.find({ _id: { $lt: req.query.next } }, null, {
         sort: { createdAt: -1 },
       })
-        .limit(2)
+        .limit(10)
         .populate("author");
       // console.log(posts);
       if (posts.length > 0) {
@@ -46,9 +46,9 @@ router.get(
           .populate("author");
         const lposts = await Post.find({ _id: { $lt: req.query.next } }, null, {
           sort: { createdAt: -1 },
-        }).limit(3);
+        }).limit(11);
         // console.log(lposts.length);
-        if (lposts.length < 3) {
+        if (lposts.length < 11) {
           lid = 0;
         }
         // console.log("last= " + lid);
@@ -58,7 +58,7 @@ router.get(
       const posts = await Post.find({}, null, {
         sort: { createdAt: -1 },
       })
-        .limit(2)
+        .limit(10)
         .populate("author");
       lid = posts[posts.length - 1].id;
       const popular = await Post.find({}, null, {

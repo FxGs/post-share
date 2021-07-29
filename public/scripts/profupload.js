@@ -158,6 +158,8 @@ $("#reset").on("click", function () {
 
 $(".edit-profile-form").on("submit", function (e) {
   console.log("submitted");
+  $("#edit-profile-submit-button").attr("disabled", true);
+  $("#cancel-profile-save").attr("disabled", true);
   var id = $(this).attr("id");
   var form = $(this);
   var formdata = form.serialize();
@@ -173,6 +175,8 @@ $(".edit-profile-form").on("submit", function (e) {
       $("#profile-save").show();
       setTimeout(function () {
         $("#profile-save").hide();
+        $("#edit-profile-submit-button").removeAttr("disabled");
+        $("#cancel-profile-save").removeAttr("disabled");
       }, 1500);
     },
     error: function (error) {
