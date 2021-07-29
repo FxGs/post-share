@@ -157,18 +157,17 @@ $("#cancel").on("click", function () {
   editor.oncancel();
 });
 
+$("#reset").on("click", function () {
+  cropper.reset();
+});
+
 $(document)
   .ajaxStart(function () {
     console.log("started");
-    $("#upload-success").show();
-    $("#btn-html").empty();
-    $("#upload-gif").show();
+    $("#posting").fadeIn("slow");
   })
   .ajaxStop(function () {
     console.log("ended");
-    $("#upload-success").hide();
-    $("#upload-gif").hide();
-    $("#btn-html").html("Post");
   });
 
 $("#post-form").on("submit", function (e) {

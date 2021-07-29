@@ -40,106 +40,125 @@
     <link rel="stylesheet" href="/stylesheets/boiler.css" />
     <link rel="stylesheet" href="/stylesheets/fnav.css" />
     <link rel="stylesheet" href="/stylesheets/profcrop.css" />
+    <link rel="stylesheet" href="/stylesheets/profile.css" />
     <title>Document</title>
   </head>
-  <section class="section" style="width: 100%">
+  <section class="section pattern-bg-2" style="width: 100%">
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
-    <section>
-      <main class="container" id="edit-container" style="display: none">
-        <div class="notification is-success has-text-centered" id="profile-save" style="display: none;">
+    <section class="pattern-bg-2" style="height: 100%; color: white">
+      <main
+        class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
+        id="edit-container"
+        style="display: none"
+      >
+        <div
+          class="notification is-success has-text-centered"
+          id="profile-save"
+          style="display: none"
+        >
           New Changes Saved
         </div>
-        <div class="columns">
-          <div class="column">
-            <p class="has-text-centered is-size-3 mb-5">Preview</p>
-            <div class="columns box is-mobile">
-              <div class="column is-narrow">
-                <div
-                  id="initial-preview"
-                  style="
-                    width: 200px;
-                    height: 200px;
-                    overflow: hidden;
-                    border-radius: 50%;
-                  "
-                >
-                  <img src="<%=user.profile.avatar.url%>" alt="" />
-                </div>
-                <div
-                  id="avatar-preview"
-                  style="
-                    width: 200px;
-                    height: 200px;
-                    overflow: hidden;
-                    border-radius: 50%;
-                    display: none;
-                  "
-                ></div>
-              </div>
-              <div class="column">
-                <div class="title">
-                  <span id="name-preview"> <%=user.profile.name%> </span>
-                </div>
-                <p class="subtitle"><%=user.username%></p>
-                <p id="bio-preview"><%= user.profile.bio%></p>
-              </div>
-            </div>
+        <div
+          class="box preview"
+          style="
+            background: white;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          "
+        >
+          <div
+            id="initial-preview"
+            style="
+              width: 100px;
+              height: 100px;
+              overflow: hidden;
+              border-radius: 50%;
+              margin: 20px;
+            "
+          >
+            <figure class="image">
+              <img
+                src="<%=user.profile.avatar.url%>"
+                alt=""
+                style="background: white"
+              />
+            </figure>
           </div>
-          <hr class="rounded" />
-          <div class="column">
-            <form class="edit-profile-form" id="<%=user.username%>">
-              <div class="field">
-                <label class="label">Avatar</label>
-                <div class="control">
-                  <input type="file" class="my-pond" name="image" />
-                </div>
-              </div>
-              <%-include('../partials/crop')%>
-              <div class="field">
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    name="profile[name]"
-                    id="name"
-                    placeholder="Name..."
-                    value="<%=user.profile.name%>"
-                    maxlength="50"
-                  />
-                </div>
-              </div>
-              <div class="field">
-                <div class="control">
-                  <textarea
-                    class="textarea desc-area"
-                    id="bio"
-                    name="profile[bio]"
-                    placeholder="description..."
-                  >
-<%=user.profile.bio%></textarea
-                  >
-                </div>
-              </div>
-              <button
-                class="button is-primary"
-                id="edit-profile-submit-button"
-                type="submit"
-              >
-                Save
-              </button>
-              <button type="button" class="button">
-                <a href="/user/profile" style="color: black">Cancel</a>
-              </button>
-            </form>
+          <div
+            id="avatar-preview"
+            style="
+              width: 100px;
+              height: 100px;
+              overflow: hidden;
+              border-radius: 50%;
+              display: none;
+              margin: 20px;
+            "
+          ></div>
+
+          <div
+            class="bio-container"
+            style="display: flex; flex-direction: column; padding: 20px"
+          >
+            <p class="name" id="name-preview"><%=user.profile.name%></p>
+            <p class="username"><%=user.username%></p>
+            <p class="bio" id="bio-preview"><%= user.profile.bio%></p>
           </div>
         </div>
+        <div class="box" style="background: rgba(255, 255, 255, 0.5)">
+          <form class="edit-profile-form mb-5" id="<%=user.username%>">
+            <div class="field">
+              <div class="control">
+                <input type="file" class="my-pond" name="image" />
+              </div>
+            </div>
+            <%-include('../partials/crop')%>
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  name="profile[name]"
+                  id="name"
+                  placeholder="Name..."
+                  value="<%=user.profile.name%>"
+                  maxlength="50"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <textarea
+                  class="textarea desc-area"
+                  id="bio"
+                  name="profile[bio]"
+                  placeholder="description..."
+                >
+<%=user.profile.bio%></textarea
+                >
+              </div>
+            </div>
+            <button
+              class="button is-primary"
+              id="edit-profile-submit-button"
+              type="submit"
+            >
+              Save
+            </button>
+            <button type="button" id="cancel-profile-save" class="button">
+              <a href="/user/profile" style="color: black">Cancel</a>
+            </button>
+          </form>
+        </div>
+        <!-- <hr class="rounded" /> -->
       </main>
     </section>
     <%-include('../partials/footer')%>
     <%-include('../partials/filepondscripts')%>
-    <script src="/scripts/profupload.js"></script>
+    <script defer src="/scripts/profupload.js"></script>
     <script>
       if (performance.navigation.type == 2) {
         location.reload(true);

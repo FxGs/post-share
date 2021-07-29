@@ -1,163 +1,233 @@
 <% layout('layout/boilerplate') -%>
-<!-- <div class="pageloader is-light"><span class="title">Loading...</span></div> -->
 <div class="columns" style="margin: 0">
+  <%if(lid !== 0){%>
+  <a id="page-next" href="/posts?next=<%=lid%>" style="display: none">next</a>
+  <%}%>
   <div
     class="container is-max-desktop column is-half-desktop is-three-quarters-tablet is-full-mobile"
     style="padding: 0; margin-left: auto; margin-right: 0"
   >
-    <% for(let post of posts) { %>
-    <div class="card mb-5" style="max-width: 500px; margin: auto">
-      <%if(post.image.length == 0){%>
-      <div class="card-image" style="display: none"></div>
+    <div id="post-container" style="width: 100%">
+      <% for(let post of posts) { %>
+      <div
+        class="card mb-5 card-posts"
+        id="<%=post.id%>"
+        style="max-width: 500px; margin: auto"
+      >
+        <%if(post.image.length == 0){%>
+        <div class="card-image" style="display: none"></div>
 
-      <%}else if(post.image.length == 1){%>
-      <div class="card-image" style="max-height: 100%; border-radius: 0">
-        <figure class="image">
-          <img
-            alt=""
-            class="lazyload blur-up"
-            src="<%=post.image[0].url%>"
-            data-src="<%=post.image[0].url%>"
-          />
-        </figure>
-      </div>
+        <%}else if(post.image.length == 1){%>
+        <div class="card-image" style="max-height: 100%; border-radius: 0">
+          <figure class="image">
+            <img
+              alt=""
+              class="lazyload blur-up"
+              src="<%=post.image[0].url%>"
+              data-src="<%=post.image[0].url%>"
+            />
+          </figure>
+        </div>
 
-      <%}else{%>
-      <div class="container is-clipped" id="carousel">
-        <div id="slider" class="slider">
-          <div class="card-image" style="max-height: 100%; border-radius: 0">
-            <figure class="image">
+        <%}else{%>
+        <div class="container is-clipped" id="carousel">
+          <div id="slider" class="slider">
+            <div class="card-image" style="max-height: 100%; border-radius: 0">
+              <figure class="image">
+                <img
+                  class="lazyload blur-up"
+                  src="<%=post.image[0].url%>"
+                  data-src="<%=post.image[0].url%>"
+                  alt=""
+                />
+              </figure>
+            </div>
+            <%for(var i = 1; i < post.image.length; i++){%>
+            <div
+              class="card-image slick-slide"
+              style="max-height: 100%; border-radius: 0"
+            >
+              <figure class="image">
+                <img src="<%=post.image[i].url%>" alt="" />
+              </figure>
+            </div>
+            <%}%>
+          </div>
+        </div>
+        <%}%>
+        <div class="card-content" style="background: white">
+          <div class="media">
+            <div class="media-content">
+              <a href="/posts/<%=post.id%>"
+                ><p class="title is-4"><%=post.title%></p></a
+              >
+              <p class="subtitle is-6"><%=post.body%></p>
+            </div>
+          </div>
+        </div>
+        <header
+          class="card-header"
+          id="show-header"
+          style="
+            box-shadow: none;
+            background: white;
+            border-top: 1px solid #ededed;
+          "
+        >
+          <div class="card-header-title">
+            <figure class="image is-48x48 mr-2">
               <img
-                class="lazyload blur-up"
-                src="<%=post.image[0].url%>"
-                data-src="<%=post.image[0].url%>"
+                class="is-rounded lazyload blur-up"
+                src="<%= post.author.profile.avatar.url %>"
+                data-src="<%= post.author.profile.avatar.url %>"
                 alt=""
               />
             </figure>
-          </div>
-          <%for(var i = 1; i < post.image.length; i++){%>
-          <div
-            class="card-image slick-slide"
-            style="max-height: 100%; border-radius: 0"
-          >
-            <figure class="image">
-              <img src="<%=post.image[i].url%>" alt="" />
-            </figure>
-          </div>
-          <%}%>
-        </div>
-      </div>
-      <%}%>
-      <div class="card-content" style="background: white">
-        <div class="media">
-          <div class="media-content">
-            <a href="/posts/<%=post.id%>"
-              ><p class="title is-4"><%=post.title%></p></a
-            >
-            <p class="subtitle is-6"><%=post.body%></p>
-          </div>
-        </div>
-      </div>
-      <header
-        class="card-header"
-        id="show-header"
-        style="
-          box-shadow: none;
-          background: white;
-          border-top: 1px solid #ededed;
-        "
-      >
-        <div class="card-header-title">
-          <figure class="image is-48x48 mr-2">
-            <img
-              class="is-rounded lazyload blur-up"
-              src="<%= post.author.profile.avatar.url %>"
-              data-src="<%= post.author.profile.avatar.url %>"
-              alt=""
-            />
-          </figure>
-          <div class="div">
-            <a
-              class="author-link"
-              href="/user/profile/<%=post.author.username%>"
-            >
+            <div class="div">
+              <a
+                class="author-link"
+                href="/user/profile/<%=post.author.username%>"
+              >
+                <p
+                  class="title"
+                  style="
+                    font-size: 14px;
+                    font-family: 'Open Sans', sans-serif;
+                    margin-bottom: 0;
+                  "
+                >
+                  <%=post.author.username%>
+                </p></a
+              >
+
               <p
-                class="title"
+                class="subtitle"
                 style="
-                  font-size: 14px;
+                  font-size: 12px;
                   font-family: 'Open Sans', sans-serif;
                   margin-bottom: 0;
                 "
               >
-                <%=post.author.username%>
-              </p></a
-            >
-
-            <p
-              class="subtitle"
-              style="
-                font-size: 12px;
-                font-family: 'Open Sans', sans-serif;
-                margin-bottom: 0;
-              "
-            >
-              <%=post.time%>
+                <%=post.time%>
+              </p>
+            </div>
+          </div>
+          <div class="card-header-icon" id="show-icons">
+            <p>
+              <span class="<%=post.id%> mx-1"><%=post.likes.count%></span>
             </p>
-          </div>
-        </div>
-        <div class="card-header-icon" id="show-icons">
-          <p>
-            <span class="<%=post.id%> mx-1"><%=post.likes.count%></span>
-          </p>
-          <div class="control">
-            <form class="like-form" action="" id="/posts/<%=post.id%>/">
-              <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
-              i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
-              <button>
-                <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+            <div class="control">
+              <form class="like-form" action="" id="/posts/<%=post.id%>/">
+                <%var liked = 0;%> <%for(var i = 0 ; i < user.likedposts.length;
+                i++){%> <%if((user.likedposts[i]).equals(post.id)){%>
+                <button>
+                  <i class="fas fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
+                <button>
+                  <i class="far fa-heart" id="like-<%=post.id%>"></i>
+                </button>
+                <%}%>
+              </form>
+            </div>
+            <p>
+              <span class="comments-count mx-1"><%=post.comments.length%></span>
+            </p>
+            <div class="control">
+              <a href="/posts/<%=post.id%>"
+                ><button><i class="far fa-comment-alt"></i></button
+              ></a>
+            </div>
+            <div class="control">
+              <button class="clipboard" id="share-<%=post.id%>">
+                <i class="fas fa-link"></i>
               </button>
-              <%liked = 1;%> <%break;%> <%}%><%}%> <%if(liked === 0){%>
-              <button>
-                <i class="far fa-heart" id="like-<%=post.id%>"></i>
-              </button>
-              <%}%>
-            </form>
+            </div>
           </div>
-          <p>
-            <span class="comments-count mx-1"><%=post.comments.length%></span>
-          </p>
-          <div class="control">
-            <a href="/posts/<%=post.id%>"
-              ><button><i class="far fa-comment-alt"></i></button
-            ></a>
-          </div>
-          <div class="control">
-            <button class="clipboard" id="share-<%=post.id%>">
-              <i class="fas fa-link"></i>
-            </button>
-          </div>
-          <!-- <p><span>Copy Link</span></p> -->
-        </div>
-      </header>
-      <div
-        class="notification is-success is-light"
-        id="copymsg-<%=post.id%>"
-        style="
-          display: none;
-          border: 1px solid rgba(0, 0, 0, 0.1);
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-            rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-        "
-      >
-        Link Copied
+        </header>
       </div>
+      <% }%>
     </div>
-    <% }%>
+    <div id="moreposts" style="color: white; text-align: center; display: none">
+      <?xml version="1.0" encoding="utf-8"?>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        style="
+          margin: auto;
+          background: none;
+          display: block;
+          shape-rendering: auto;
+        "
+        width="150px"
+        height="150px"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid"
+      >
+        <circle cx="41" cy="50" fill="#ffffff" r="9">
+          <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.282051282051282s"
+            keyTimes="0;0.5;1"
+            values="41;59;41"
+            begin="-0.641025641025641s"
+          ></animate>
+        </circle>
+        <circle cx="59" cy="50" fill="#ffffff" r="9">
+          <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.282051282051282s"
+            keyTimes="0;0.5;1"
+            values="41;59;41"
+            begin="0s"
+          ></animate>
+        </circle>
+        <circle cx="41" cy="50" fill="#ffffff" r="9">
+          <animate
+            attributeName="cx"
+            repeatCount="indefinite"
+            dur="1.282051282051282s"
+            keyTimes="0;0.5;1"
+            values="41;59;41"
+            begin="-0.641025641025641s"
+          ></animate>
+          <animate
+            attributeName="fill-opacity"
+            values="0;0;1;1"
+            calcMode="discrete"
+            keyTimes="0;0.499;0.5;1"
+            dur="1.282051282051282s"
+            repeatCount="indefinite"
+          ></animate>
+        </circle>
+        <!-- [ldio] generated by https://loading.io/ -->
+      </svg>
+    </div>
   </div>
   <div
     class="column is-hidden-mobile is-narrow-tablet"
-    style="margin-right: auto"
+    style="
+      margin-right: auto;
+      padding: 0;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    "
   >
+    <p
+      class="title mb-1"
+      style="
+        color: white;
+        margin: 0 auto;
+        text-align: center;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 96px;
+      "
+    >
+      Popular Feed
+    </p>
     <div
       class="box"
       id="postslider"
@@ -167,24 +237,37 @@
         overflow: hidden;
         display: flex;
         border-radius: 0;
+        background: inherit;
         position: -webkit-sticky;
         position: sticky;
-        top: 70px;
+        top: 136px;
+        padding: 0;
       "
     >
-      <%for(var i = 0; i < 10; i++){%>
-      <div class="card mx-1 slick-slide" style="min-width: 300px">
+      <%for(let p of popular){%>
+      <div
+        class="card slick-slide"
+        style="min-width: 300px; height: 500px; border-radius: 0"
+      >
+        <%if(p.image.length == 0){%>
+        <div class="card-image" style="display: none"></div>
+        <%}else{%>
         <div class="card-image">
           <figure class="image">
-            <img src="<%=posts[0].image[0].url%>" alt="Placeholder image" />
+            <img src="<%=p.image[0].url%>" alt="Placeholder image" />
           </figure>
         </div>
+        <%}%>
         <div class="card-content">
           <div class="media">
             <div class="media-left"></div>
             <div class="media-content">
-              <p class="title is-4"><%=posts[0].title%></p>
-              <p class="subtitle is-6"><%=posts[0].body%></p>
+              <a href="/posts/<%=p.id%>"
+                ><p class="title is-size-5"><%=p.title%></p></a
+              >
+              <%if(p.image.length == 0){%>
+              <p class="subtitle is-size-7"><%=p.body%></p>
+              <%}%>
             </div>
           </div>
         </div>
@@ -196,20 +279,22 @@
             background: white;
             border-top: 1px solid #ededed;
             margin-top: auto;
+            position: fixed;
+            bottom: 0;
           "
         >
-          <div class="card-header-title">
+          <div class="card-header-title" style="width: 250px">
             <figure class="image is-32x32 mr-2">
               <img
                 class="is-rounded"
-                src="<%= posts[0].author.profile.avatar.url %>"
+                src="<%= p.author.profile.avatar.url %>"
                 alt=""
               />
             </figure>
             <div class="div">
               <a
                 class="author-link"
-                href="/user/profile/<%=posts[0].author.username%>"
+                href="/user/profile/<%=p.author.username%>"
               >
                 <p
                   class="title"
@@ -219,7 +304,7 @@
                     margin-bottom: 0;
                   "
                 >
-                  <%=posts[0].author.username%>
+                  <%=p.author.username%>
                 </p></a
               >
 
@@ -231,13 +316,13 @@
                   margin-bottom: 0;
                 "
               >
-                <%=posts[0].time%>
+                <%=p.time%>
               </p>
             </div>
           </div>
-          <div class="card-header-icon" style="cursor: default;">
+          <div class="card-header-icon" style="cursor: default; width: 100px">
             <p>
-              <span class="mx-1"><%=posts[0].likes.count%>Likes</span>
+              <span class="mx-1"><%=p.likes.count%>Likes</span>
             </p>
           </div>
         </header>
@@ -246,6 +331,7 @@
     </div>
   </div>
 </div>
+
 <script>
   $(document).ready(function () {
     $("#postslider").slick({
@@ -256,6 +342,27 @@
       autoplaySpeed: 1500,
       arrows: false,
       speed: 1500,
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    var infinite = new Waypoint.Infinite({
+      element: $("#post-container"),
+      items: ".card-posts",
+      more: "#page-next",
+      loadingClass: "infinite-loading",
+      onBeforePageLoad: function () {
+        // console.log("before");
+        $("footer").hide();
+        $("#moreposts").show();
+      },
+      onAfterPageLoad: function () {
+        // console.log("after");
+        $("#moreposts").hide();
+        $("footer").show();
+      },
     });
   });
 </script>

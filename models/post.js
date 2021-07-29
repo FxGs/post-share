@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Comment = require("./comment");
 
+mongoose.set("toJSON", { virtuals: true });
+
 const User = require("./user");
 const ImageSchema = new Schema({
   url: String,
@@ -32,6 +34,14 @@ const PostSchema = new Schema(
   },
   {
     timestamps: true,
+  },
+  {
+    toObject: {
+      virtuals: true,
+    },
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
