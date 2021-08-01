@@ -34,10 +34,6 @@
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
-    />
-    <link
       href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
       rel="stylesheet"
     />
@@ -70,7 +66,7 @@
               <img
                 class="is-rounded"
                 src="<%=user_profile.profile.avatar.url%>"
-                style="background: white;"
+                style="background: white"
               />
             </figure>
           </div>
@@ -243,7 +239,12 @@
                 <div class="card-image" style="max-height: 100%">
                   <a href="/posts/<%=p.id%>">
                     <figure class="image">
-                      <img src="<%=p.image[0].url%>" alt="Placeholder image" />
+                      <img
+                        class="lazyload blur-up"
+                        src="<%=p.image[0].url%>"
+                        data-src="<%=p.image[0].url%>"
+                        alt="Placeholder image"
+                      />
                     </figure>
                   </a>
                 </div>
@@ -390,7 +391,12 @@
                 <div class="card-image" style="max-height: 100%">
                   <a href="/posts/<%=l.id%>">
                     <figure class="image">
-                      <img src="<%=l.image[0].url%>" alt="Placeholder image" />
+                      <img
+                        class="lazyload blur-up"
+                        src="<%=l.image[0].url%>"
+                        data-src="<%=l.image[0].url%>"
+                        alt="Placeholder image"
+                      />
                     </figure>
                   </a>
                 </div>
