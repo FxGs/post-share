@@ -378,3 +378,11 @@ span {
     z-index: 9999;
     
   }
+  #extro{
+    width: 100%;
+    height:100vh;
+    background-color: transparent;
+    position: fixed;
+    z-index: 9999;
+    
+  }

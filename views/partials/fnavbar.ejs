@@ -64,30 +64,32 @@
                 >
               </p>
             </a>
-            <a href="/user/logout" id="signout" class="dropdown-item">
+            <a href="#" id="signout" class="dropdown-item">
+              <!-- /user/logout -->
               <p>
                 <span class="icon mr-2"
                   ><i class="fas fa-sign-out-alt"></i
                 ></span>
-                <span style="color: #363636; font-size: 1rem">Log Out</span>
+                <span id="logOutButton" style="color: #363636; font-size: 1rem">Log Out</span>
               </p>
+              
             </a>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- <a href="/user/profile" class="navigation-link">
+    <a href="/user/profile" class="navigation-link">
       <span class="icon"><i class="fas fa-user-circle"></i></span>
       <span class="icon">
 
       <span class="navnames"><%=user.username%></span>
-    </a> -->
+    </a> 
 
-    <!-- <a href="/user/logout" id="signout" class="navigation-link">
+    <a href="/user/logout" id="signout" class="navigation-link">
       <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
       <span class="navnames">Log Out</span>
-    </a> -->
+    </a>
     <%}%>
   </div>
 </div>

@@ -42,8 +42,18 @@
       }</style></svg>
     </div>
   </div>
+  <div class="extro" id="extroLogin" style="display: none;">
+    <div style="top:50%; left:50%; z-index: 9999; position: absolute; transform: translate(-50%, -50%);">
+        Logging you in!
+    </div>
+  </div>
+  <!-- <div class="extro" id="extroSignUp" style="display: none;">
+    <div style="top:50%; left:50%; z-index: 9999; position: absolute; transform: translate(-50%, -50%);">
+        Signing Up!
+    </div>
+  </div> -->
   <%- include("./partials/flash") %>
-  <div class="container2 is-hidden-desktop mb-3">
+  <div class="container2 is-hidden-desktop mb-3" id="mobileMainBox">
 
     <div class="box is-desktop is-half-tablet" id="container2Box"
       style=" background: rgba(225, 225, 225, 0.2); backdrop-filter: blur(1.5px);">
@@ -210,7 +220,7 @@
     <div class="container mt-4" style="z-index: 100;">
 
     </div>
-    <div class="container1 is-hidden-mobile is-hidden-tablet-only">
+    <div class="container1 is-hidden-mobile is-hidden-tablet-only" id="PCmainBox">
 
 
       <div class="backbox">

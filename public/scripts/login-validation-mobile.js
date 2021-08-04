@@ -84,6 +84,8 @@ $("#login-d-form-mobile").submit(function (e) {
       success: function (data) {
         if (data.message) {
         //   console.log("success");
+          $("#mobileMainBox").css("display", "none");
+          $("#extroLogin").css("display", "block");
           window.location.href = "/posts";
         } else {
         //   console.log(data);
