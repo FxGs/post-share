@@ -33,6 +33,10 @@
     ></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"
+    ></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma-pageloader@0.3.0/dist/css/bulma-pageloader.min.css"
@@ -62,7 +66,7 @@
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
     <hr style="margin-top: 0; margin-bottom: 0" />
     <hr style="margin-top: 0; margin-bottom: 0" />
-    <section>
+    <section class="pattern-bg">
       <main class="container" style="margin-bottom: 20px">
         <div class="profile-wrapper">
           <div class="avatar">
@@ -96,16 +100,21 @@
             <ul>
               <li class="is-active" id="posted">
                 <a>
-                  <p class="title has-text-centered has-text-grey is-6">
+                  <!-- <p class="title has-text-centered has-text-grey is-6">
                     Posted Posts
-                  </p>
+                  </p> -->
+                  <span class="icon  is-medium"><i class="fas fa-plus-square fa-lg"></i></span>
                 </a>
               </li>
               <li id="liked">
                 <a>
-                  <p class="title has-text-centered has-text-grey is-6">
+                  <!-- <p class="title has-text-centered has-text-grey is-6">
                     Liked Posts
-                  </p>
+                  </p> -->
+                  <span class="icon  is-medium">
+                    <i class="fas fa-heart fa-lg"></i>
+                  </span>
+                  
                 </a>
               </li>
             </ul>
@@ -192,6 +201,7 @@
               </div>
             </div>
             <%}else{%>
+
             <div class="grid-item">
               <div class="card">
                 <header
@@ -240,6 +250,7 @@
                     </div>
                   </div>
                 </header>
+                <%if(p.image.length === 1){%>
                 <div class="card-image" style="max-height: 100%">
                   <a href="/posts/<%=p.id%>">
                     <figure class="image">
@@ -247,6 +258,38 @@
                     </figure>
                   </a>
                 </div>
+                <%}else{%>
+                  <div class="container is-clipped" >
+                    <div class="slider">
+                      <div class="card-image" style="max-height: 100%; border-radius: 0">
+                        <a href="/posts/<%=p.id%>">
+                          <figure class="image">
+                            <img
+                              class="lazyload blur-up"
+                              src="<%=p.image[0].url%>"
+                              data-src="<%=p.image[0].url%>"
+                              alt=""
+                            />
+                          </figure>
+                        </a>
+                        
+                      </div>
+                      <%for(var i = 1; i < p.image.length; i++){%>
+                      <div
+                        class="card-image slick-slide"
+                        style="max-height: 100%; border-radius: 0"
+                      >
+                      <a href="/posts/<%=p.id%>">
+                        <figure class="image">
+                          <img src="<%=p.image[i].url%>" alt="" />
+                        </figure>
+                      </a>
+                       
+                      </div>
+                      <%}%>
+                    </div>
+                  </div>
+                <%}%>
                 <footer class="card-footer">
                   <p class="card-footer-item">
                     <span> <%=p.likes.count%> LIKES </span>
@@ -387,6 +430,7 @@
                     </div>
                   </div>
                 </header>
+                <%if(l .image.length === 1){%>
                 <div class="card-image" style="max-height: 100%">
                   <a href="/posts/<%=l.id%>">
                     <figure class="image">
@@ -394,6 +438,38 @@
                     </figure>
                   </a>
                 </div>
+                <%}else{%>
+                  <div class="container is-clipped" >
+                    <div class="slider">
+                      <div class="card-image" style="max-height: 100%; border-radius: 0">
+                        <a href="/posts/<%=l.id%>">
+                          <figure class="image">
+                            <img
+                              class="lazyload blur-up"
+                              src="<%=l.image[0].url%>"
+                              data-src="<%=l.image[0].url%>"
+                              alt=""
+                            />
+                          </figure>
+                        </a>
+                        
+                      </div>
+                      <%for(var i = 1; i < l.image.length; i++){%>
+                      <div
+                        class="card-image slick-slide"
+                        style="max-height: 100%; border-radius: 0"
+                      >
+                      <a href="/posts/<%=l.id%>">
+                        <figure class="image">
+                          <img src="<%=l.image[i].url%>" alt="" />
+                        </figure>
+                      </a>
+                        
+                      </div>
+                      <%}%>
+                    </div>
+                  </div>
+                  <%}%>
                 <footer class="card-footer">
                   <p class="card-footer-item">
                     <span> <%=l.likes.count%> LIKES </span>
@@ -432,15 +508,6 @@
     <%-include('../partials/footer')%>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
-    <script>
-      $(document).ready(function () {
-        $(".slider").slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: true,
-        });
-      });
-    </script>
     <script src="/scripts/profile-toggle.js"></script>
     <script src="/scripts/share.js"></script>
   </body>

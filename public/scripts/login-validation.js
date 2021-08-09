@@ -8,7 +8,7 @@ var passwordValidatedLogin = false;
 function validateEmailLogin(value) {
   const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const loginEmailMessage = document.getElementById("email-message");
-  if (regexString.test(String(value).toLowerCase())) {
+  if (regexString.test(String(value.trim()).toLowerCase())) {
     emailInputLogin.style.borderBottom = "1px solid #32CD32";
 
     loginEmailMessage.style = "display:none";
@@ -84,6 +84,8 @@ $("#login-d-form").submit(function (e) {
     success: function (data) {
       if (data.message) {
         console.log("success");
+        $("#PCmainBox").css("display", "none");
+        $("#extroLogin").css("display", "block");
         window.location.href = "/posts";
       } else {
         console.log(data);
