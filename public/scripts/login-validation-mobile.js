@@ -11,7 +11,7 @@ function validateEmailLoginmobile(value) {
   $("#passwrong-mobile").css("display", "none");
     const regexString = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const loginEmailMessagemobile = document.getElementById('email-message-mobile');
-    if (regexString.test(String(value).toLowerCase())) {
+    if (regexString.test(String(value.trim()).toLowerCase())) {
         emailInputLoginmobile.style.borderBottom = "2px solid #32CD32";
 
         loginEmailMessagemobile.style = 'display:none';
@@ -84,6 +84,8 @@ $("#login-d-form-mobile").submit(function (e) {
       success: function (data) {
         if (data.message) {
         //   console.log("success");
+          $("#mobileMainBox").css("display", "none");
+          $("#extroLogin").css("display", "block");
           window.location.href = "/posts";
         } else {
         //   console.log(data);
