@@ -70,30 +70,27 @@
                 <span style="color: #363636; font-size: 1rem">contact PS</span>
               </p>
             </a>
-            <a href="/user/logout" id="signout" class="dropdown-item">
+            <!-- <a href="/user/logout" id="signout" class="dropdown-item">
               <p>
                 <span class="icon mr-2"
                   ><i class="fas fa-sign-out-alt"></i
                 ></span>
                 <span style="color: #363636; font-size: 1rem">Log Out</span>
               </p>
-            </a>
+            </a> -->
+            <div class="dropdown-item" id="logout-btn">
+              <p>
+                <span class="icon mr-2"
+                  ><i class="fas fa-sign-out-alt"></i
+                ></span>
+                <span style="color: #363636; font-size: 1rem">Log Out</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <a href="/user/profile" class="navigation-link">
-      <span class="icon"><i class="fas fa-user-circle"></i></span>
-      <span class="icon">
-
-      <span class="navnames"><%=user.username%></span>
-    </a> -->
-
-    <!-- <a href="/user/logout" id="signout" class="navigation-link">
-      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-      <span class="navnames">Log Out</span>
-    </a> -->
     <%}%>
   </div>
 </div>
+

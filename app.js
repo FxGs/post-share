@@ -62,6 +62,15 @@ app.use(session(sessionConfig));
 app.use(flash());
 
 app.use((req, res, next) => {
+  // console.log(req.originalUrl);
+  if (
+    !["/user/login", "/", "/favicon.ico", "/user/logout"].includes(
+      req.originalUrl
+    )
+  ) {
+    req.session.returnTo = req.originalUrl;
+    // console.log(req.session.returnTo);
+  }
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
@@ -104,7 +113,7 @@ io.on("connection", (socket) => {
   console.log("a user connected " + socket.id);
   socket.on("likes count", (msg) => {
     // console.log("count: " + msg);
-    io.emit('likes count', msg);
+    io.emit("likes count", msg);
   });
   socket.on("disconnect", () => {
     console.log("user disconnected");

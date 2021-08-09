@@ -83,8 +83,8 @@ $("#login-d-form").submit(function (e) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       if (data.message) {
-        console.log("success");
-        window.location.href = "/posts";
+        console.log("success", data.url);
+        window.location.href = data.url;
       } else {
         console.log(data);
         $("#email-input-login").val("");
