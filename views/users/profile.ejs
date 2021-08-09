@@ -57,7 +57,7 @@
     <title>Post-Share - <%= user_profile.username %>'s Profile</title>
   </head>
   <section class="section" style="width: 100%; padding: 1.92rem 1.5rem">
-    <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
+    <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%><%-include('../partials/logoutmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
     <hr style="margin-top: 0; margin-bottom: 0" />
@@ -99,7 +99,9 @@
                   <!-- <p class="title has-text-centered has-text-grey is-6">
                     Posted Posts
                   </p> -->
-                  <span class="icon  is-medium"><i class="fas fa-plus-square fa-lg"></i></span>
+                  <span class="icon is-medium"
+                    ><i class="fas fa-plus-square fa-lg"></i
+                  ></span>
                 </a>
               </li>
               <li id="liked">
@@ -107,10 +109,9 @@
                   <!-- <p class="title has-text-centered has-text-grey is-6">
                     Liked Posts
                   </p> -->
-                  <span class="icon  is-medium">
+                  <span class="icon is-medium">
                     <i class="fas fa-heart fa-lg"></i>
                   </span>
-                  
                 </a>
               </li>
             </ul>
@@ -260,36 +261,37 @@
                   </a>
                 </div>
                 <%}else{%>
-                  <div class="container is-clipped" >
-                    <div class="slider">
-                      <div class="card-image" style="max-height: 100%; border-radius: 0">
-                        <a href="/posts/<%=p.id%>">
-                          <figure class="image">
-                            <img
-                              class="lazyload blur-up"
-                              src="<%=p.image[0].url%>"
-                              data-src="<%=p.image[0].url%>"
-                              alt=""
-                            />
-                          </figure>
-                        </a>
-                        
-                      </div>
-                      <%for(var i = 1; i < p.image.length; i++){%>
-                      <div
-                        class="card-image slick-slide"
-                        style="max-height: 100%; border-radius: 0"
-                      >
+                <div class="container is-clipped">
+                  <div class="slider">
+                    <div
+                      class="card-image"
+                      style="max-height: 100%; border-radius: 0"
+                    >
+                      <a href="/posts/<%=p.id%>">
+                        <figure class="image">
+                          <img
+                            class="lazyload blur-up"
+                            src="<%=p.image[0].url%>"
+                            data-src="<%=p.image[0].url%>"
+                            alt=""
+                          />
+                        </figure>
+                      </a>
+                    </div>
+                    <%for(var i = 1; i < p.image.length; i++){%>
+                    <div
+                      class="card-image slick-slide"
+                      style="max-height: 100%; border-radius: 0"
+                    >
                       <a href="/posts/<%=p.id%>">
                         <figure class="image">
                           <img src="<%=p.image[i].url%>" alt="" />
                         </figure>
                       </a>
-                       
-                      </div>
-                      <%}%>
                     </div>
+                    <%}%>
                   </div>
+                </div>
                 <%}%>
                 <footer class="card-footer">
                   <p class="card-footer-item">
@@ -445,37 +447,38 @@
                   </a>
                 </div>
                 <%}else{%>
-                  <div class="container is-clipped" >
-                    <div class="slider">
-                      <div class="card-image" style="max-height: 100%; border-radius: 0">
-                        <a href="/posts/<%=l.id%>">
-                          <figure class="image">
-                            <img
-                              class="lazyload blur-up"
-                              src="<%=l.image[0].url%>"
-                              data-src="<%=l.image[0].url%>"
-                              alt=""
-                            />
-                          </figure>
-                        </a>
-                        
-                      </div>
-                      <%for(var i = 1; i < l.image.length; i++){%>
-                      <div
-                        class="card-image slick-slide"
-                        style="max-height: 100%; border-radius: 0"
-                      >
+                <div class="container is-clipped">
+                  <div class="slider">
+                    <div
+                      class="card-image"
+                      style="max-height: 100%; border-radius: 0"
+                    >
+                      <a href="/posts/<%=l.id%>">
+                        <figure class="image">
+                          <img
+                            class="lazyload blur-up"
+                            src="<%=l.image[0].url%>"
+                            data-src="<%=l.image[0].url%>"
+                            alt=""
+                          />
+                        </figure>
+                      </a>
+                    </div>
+                    <%for(var i = 1; i < l.image.length; i++){%>
+                    <div
+                      class="card-image slick-slide"
+                      style="max-height: 100%; border-radius: 0"
+                    >
                       <a href="/posts/<%=l.id%>">
                         <figure class="image">
                           <img src="<%=l.image[i].url%>" alt="" />
                         </figure>
                       </a>
-                        
-                      </div>
-                      <%}%>
                     </div>
+                    <%}%>
                   </div>
-                  <%}%>
+                </div>
+                <%}%>
                 <footer class="card-footer">
                   <p class="card-footer-item">
                     <span> <%=l.likes.count%> LIKES </span>
