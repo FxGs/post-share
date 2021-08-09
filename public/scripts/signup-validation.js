@@ -18,7 +18,7 @@ function validateUserName(value) {
   // const usernameSuccessIcon = document.getElementById('username-successIcon');
   // const usernameErrorIcon = document.getElementById('username-errorIcon');
   // const usernameMessage = document.getElementById('username-message');
-  if (regexString.test(String(value))) {
+  if (regexString.test(String(value.trim()))) {
     usernameInput.style.borderBottom = "1px solid #32CD32";
 
     // usernameErrorIcon.style.display = "none";
@@ -44,7 +44,7 @@ function validateEmail(value) {
   // const emailSuccessIcon = document.getElementById('email-successIcon');
   // const emailErrorIcon = document.getElementById('email-errorIcon');
   const emailMessage = document.getElementById("email-signup-message");
-  if (regexString.test(String(value).toLowerCase())) {
+  if (regexString.test(String(value.trim()).toLowerCase())) {
     emailInput.style.borderBottom = "1px solid #32CD32";
 
     // emailErrorIcon.style.display = "none";

@@ -51,29 +51,23 @@
     <title>Post-Share</title>
   </head>
 
-  <section class="section" style="width: 100%">
+  <section class="section pattern-bg" style="width: 100%">
     <%-include('../partials/fnavbar')%><%-include('../partials/searchmodal')%>
   </section>
   <body class="is-flex is-flex-direction-column" style="height: 100vh">
-    <section>
+    <section class="pattern-bg">
       <main class="container">
         <%- include("../partials/flash") %><%- body -%>
       </main>
     </section>
     <%-include('../partials/footer')%>
-
+    <script src="/scripts/noframework.waypoints.min.js"></script>
+    <script src="/scripts/jquery.waypoints.min.js"></script>
+    <script src="/scripts/infinite.min.js"></script>
     <script
       defer
       src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"
     ></script>
-    <script>
-
-    </script>
-    <script>
-      if (performance.navigation.type == 2) {
-        location.reload(true);
-      }
-    </script>
     <script src="/scripts/navbar.js"></script>
     <script src="/scripts/modal.js"></script>
     <script>

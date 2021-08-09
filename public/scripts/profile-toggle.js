@@ -1,5 +1,10 @@
 $(document).ready(function () {
     $("#liked-div").hide();
+    $(".slider").slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: true,
+    });
     var $grid = $('.grid1').isotope({
         // options
         itemSelector: '.grid-item',
@@ -20,6 +25,12 @@ $(document).ready(function () {
         $("#posted").addClass("is-active");
         $("#liked-div").hide();
         $("#posted-div").show();
+        $('.slider').slick('unslick');
+        $(".slider").slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        });
         var $grid = $('.grid1').isotope({
             // options
             itemSelector: '.grid-item',
@@ -41,6 +52,12 @@ $(document).ready(function () {
         $("#liked").addClass("is-active");
         $("#posted-div").hide();
         $("#liked-div").show();
+        $('.slider').slick('unslick');
+        $(".slider").slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: true,
+        });
         var $grid2 = $('.grid2').isotope({
             // options
             itemSelector: '.grid-item2',

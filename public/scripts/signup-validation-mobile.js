@@ -19,7 +19,7 @@ function validateUserNameMobile(value) {
     // const usernameSuccessIconMobile = document.getElementById('username-successIcon-mobile');
     // const usernameErrorIconMobile = document.getElementById('username-errorIcon-mobile');
     // const usernameMessageMobile = document.getElementById('username-message-mobile');
-    if (regexString.test(String(value))) {
+    if (regexString.test(String(value.trim()))) {
         usernameInputMobile.style.borderBottom = "1px solid #32CD32";
 
         // usernameErrorIconMobile.style.display = "none";
@@ -46,7 +46,7 @@ function validateEmailMobile(value) {
     // const emailSuccessIconMobile = document.getElementById('email-successIcon-mobile');
     // const emailErrorIconMobile = document.getElementById('email-errorIcon-mobile');
     const emailMessageMobile = document.getElementById('email-signup-message-mobile');
-    if (regexString.test(String(value).toLowerCase())) {
+    if (regexString.test(String(value.trim()).toLowerCase())) {
         emailInputMobile.style.borderBottom = "1px solid #32CD32";
 
         // emailErrorIconMobile.style.display = "none";
