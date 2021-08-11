@@ -83,10 +83,10 @@ $("#login-d-form").submit(function (e) {
     contentType: "application/json; charset=utf-8",
     success: function (data) {
       if (data.message) {
-        console.log("success");
+        console.log("success", data.url);
         $("#PCmainBox").css("display", "none");
         $("#extroLogin").css("display", "block");
-        window.location.href = "/posts";
+        window.location.href = data.url;
       } else {
         console.log(data);
         $("#email-input-login").val("");

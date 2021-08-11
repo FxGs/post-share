@@ -14,10 +14,6 @@
       </span>
       <span class="navnames">Search</span>
     </a>
-    <!-- <a href="/contacts" class="navigation-link">
-      <span class="icon"><i class="fas fa-envelope"></i></span>
-      <span class="navnames">Contact Us</span>
-    </a> -->
     <a href="/posts/new" class="navigation-link">
       <span class="icon">
         <i class="fas fa-plus"></i>
@@ -57,7 +53,7 @@
           <div class="dropdown-content">
             <a href="/user/profile" class="dropdown-item">
               <p>
-                <span class="icon mr-2"><i class="fas fa-user-circle"></i></span
+                <span class="icon is-small mr-2"><i class="fas fa-user-circle"></i></span
                 ><span style="color: #363636; font-size: 1rem"
                   ><%=user.username%></span
                 >
@@ -65,13 +61,21 @@
             </a>
             <a href="/contacts" class="dropdown-item">
               <p>
-                <span class="icon mr-2"><i class="fas fa-envelope"></i></span>
-                <span style="color: #363636; font-size: 1rem">contact PS</span>
+                <span class="icon is-small mr-2"><i class="fas fa-envelope"></i></span>
+                <span style="color: #363636; font-size: 1rem">Contact PS</span>
               </p>
             </a>
-            <a href="/user/logout" id="signout" class="dropdown-item">
+            <!-- <a href="/user/logout" id="signout" class="dropdown-item">
               <p>
                 <span class="icon mr-2"
+                  ><i class="fas fa-sign-out-alt"></i
+                ></span>
+                <span style="color: #363636; font-size: 1rem">Log Out</span>
+              </p>
+            </a> -->
+            <a class="dropdown-item" id="logout-btn">
+              <p>
+                <span class="icon is-small mr-2"
                   ><i class="fas fa-sign-out-alt"></i
                 ></span>
                 <span style="color: #363636; font-size: 1rem">Log Out</span>
@@ -81,15 +85,7 @@
         </div>
       </div>
     </div>
-    <!-- <a href="/user/profile" class="navigation-link">
-      <span class="icon"><i class="fas fa-user-circle"></i></span>
-      <span class="icon">
-      <span class="navnames"><%=user.username%></span>
-    </a> -->
-    <!-- <a href="/user/logout" id="signout" class="navigation-link">
-      <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-      <span class="navnames">Log Out</span>
-    </a> -->
     <%}%>
   </div>
 </div>
+

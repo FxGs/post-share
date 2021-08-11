@@ -58,10 +58,12 @@
         <div class="card-content" style="background: white">
           <div class="media">
             <div class="media-content">
-              <a href="/posts/<%=post.id%>"
-                ><p class="title is-4"><%=post.title%></p></a
-              >
-              <p class="subtitle is-6"><%=post.body%></p>
+              <div class="quote-post">
+                <a href="/posts/<%=post.id%>">
+                  <p class="title is-4"><%=post.title%></p></a
+                >
+                <p class="subtitle is-6"><%=post.body%></p>
+              </div>
             </div>
           </div>
         </div>

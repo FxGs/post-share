@@ -55,6 +55,14 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+.quote-post {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 14; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
 .filepond--image-clip {
   background: white;
 }

@@ -89,6 +89,8 @@ const signup_post = async (req, res) => {
 
 const login_post = async (req, res) => {
   // console.log(req.body);
+  // console.log("login" + req.session.returnTo);
+  var redirecturl = req.session.returnTo || "/posts";
   const { email, password } = req.body;
 
   // console.log("email: " + email);
@@ -99,7 +101,8 @@ const login_post = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    res.json({ message: "success" });
+    // console.log(redirecturl);
+    res.json({ message: "success", url: redirecturl });
     // res.redirect("/posts");
   } catch (err) {
     const errors = handleErrors(err);
@@ -110,6 +113,7 @@ const login_post = async (req, res) => {
 };
 
 const logout_get = (req, res) => {
+  req.session.returnTo = null;
   res.cookie("jwt", "", {
     maxAge: 1,
   });
