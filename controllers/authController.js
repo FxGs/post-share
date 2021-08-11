@@ -126,16 +126,18 @@ const send_verification_mail = async (email, url) => {
   });
   if (!user.verified) {
     let transporter = nodemailer.createTransport({
-      service: "Gmail",
+      host: process.env.SMTP_SERVER,
+      port: 587,
+      secure: false,
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
     const token = createToken(user._id, process.env.EMAIL_SECRET);
     const emailBody = `Click on this link to verify your email address - <a href=${url}/user/verify/token/${token}>Verify</a>`;
     let info = await transporter.sendMail({
-      from: `"Post-Share App" <${process.env.GMAIL_USER}>`,
+      from: `"Post-Share App" <${process.env.SMTP_USER}>`,
       to: user.email,
       subject: "Post-Share App email-verification",
       text: `${emailBody}`,
