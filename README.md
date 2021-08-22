@@ -12,7 +12,7 @@ https://post-share.herokuapp.com/ -->
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Project Status](#project-status)
-* [Contributors]
+* [Contributors](#Contributors)
 * [Contact](#contact)
 
 ## General Information
@@ -28,7 +28,7 @@ https://post-share.herokuapp.com/ -->
 - You can post one or multiple images, you can also post a blog.
 - You can like, share and comment on other people's post.
 - Our comment section has a threading system.
-- 
+- You can search for other people with their usernames.
 
 ## Screenshots
 
