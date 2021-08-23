@@ -31,15 +31,19 @@ https://post-share.herokuapp.com/ -->
 
 ## Screenshots
 - Login Page
+- 
 ![Screenshot 2021-08-22 092546](https://user-images.githubusercontent.com/81475715/130341716-3ba5f976-a7ab-46fc-b179-989bedd4a106.png)
 
 - Home Page
+- 
 ![Screenshot 2021-08-22 091932](https://user-images.githubusercontent.com/81475715/130341762-2d0bb799-71c3-441c-ae4b-c738756284d3.png)
 
 - Profile Page
+- 
 ![Screenshot 2021-08-22 092045](https://user-images.githubusercontent.com/81475715/130341779-c4853b9f-6b14-4181-9bea-4e7f13b86841.png)
 
 - Search Bar
+- 
 ![Screenshot 2021-08-22 092345](https://user-images.githubusercontent.com/81475715/130341798-1436945c-e160-4d71-9f0b-c22515985360.png)
 
 
