@@ -11,6 +11,7 @@ https://post-share.herokuapp.com/ -->
 * [Languages Used](#Languages-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
+* [Getting Started](#Getting Started)
 * [Project Status](#project-status)
 * [Contributors](#Contributors)
 
@@ -46,6 +47,18 @@ https://post-share.herokuapp.com/ -->
 
 ![Screenshot 2021-08-22 092345](https://user-images.githubusercontent.com/81475715/130341798-1436945c-e160-4d71-9f0b-c22515985360.png)
 
+## Getting Started
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
 
 ## Project Status
 Project is: no longer being worked on. The project is pretty much completed from what we thought of it.
