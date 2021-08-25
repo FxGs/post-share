@@ -11,7 +11,7 @@ https://post-share.herokuapp.com/ -->
 * [Languages Used](#Languages-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
-* [Getting Started](#Getting Started)
+* [Getting Started](#Getting-Started)
 * [Project Status](#project-status)
 * [Contributors](#Contributors)
 
@@ -48,16 +48,39 @@ https://post-share.herokuapp.com/ -->
 ![Screenshot 2021-08-22 092345](https://user-images.githubusercontent.com/81475715/130341798-1436945c-e160-4d71-9f0b-c22515985360.png)
 
 ## Getting Started
-This is an example of how you may give instructions on setting up your project locally.
+The instructions for setting up your project locally.
 To get a local copy up and running follow these simple example steps.
+### Prerequisites
 
+This is the list of things you need to use the software and how to install them.
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
+* cloudinary
+  ```sh
+  https://cloudinary.com/users/register/free
+  You need a cloudinary account. From there you will get your CLOUDINARY_API_KEY & CLOUDINARY_API_SECRET.
+  ``` 
+### Installation
 1. Clone the repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/FxGs/post-share.git
    ```
 2. Install NPM packages
    ```sh
    npm install
+   ```
+3. On file .env add the followings 
+   ```sh
+   MONGOURI=
+   JWT_SECRET=
+   EMAIL_SECRET=
+   SMTP_SERVER=
+   SMTP_USER=
+   SMTP_PASS=
+   CLOUDINARY_API_KEY=
+   CLOUDINARY_API_SECRET=
    ```
 
 ## Project Status
