@@ -49,7 +49,7 @@ https://post-share.herokuapp.com/ -->
 
 ## Getting Started
 The instructions for setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and follow these simple example steps.
 ### Prerequisites
 
 This is the list of things you need to use the software and how to install them.
